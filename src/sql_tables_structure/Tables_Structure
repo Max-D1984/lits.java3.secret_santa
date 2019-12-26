@@ -1,0 +1,7 @@
+--Company
+
+CREATE TABLE Company (
+    id int NOT NULL identity(1,1),
+    Name_Company varchar(50) NOT NULL,
+    Description_Company varchar(100),
+	primary key(id));

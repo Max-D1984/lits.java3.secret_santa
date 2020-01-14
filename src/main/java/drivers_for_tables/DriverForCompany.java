@@ -28,8 +28,7 @@ public class DriverForCompany {
 
 
     public boolean connectionToBase() {
-        boolean connection;
-        try {
+       try {
             String connectionUrl = "jdbc:jtds:sqlserver://" + urlToBase + ";databaseName=" + baseName;
             conn = DriverManager.getConnection(connectionUrl, user, password);
             dbmd = conn.getMetaData();

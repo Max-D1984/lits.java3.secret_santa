@@ -2,6 +2,7 @@ package application;
 
 import Records.*;
 import drivers_for_tables.DriverForCompany;
+import drivers_for_tables.DriverForPresent;
 import drivers_for_tables.DriverForRules;
 import drivers_for_tables.DriverForUser;
 
@@ -14,17 +15,19 @@ public class Launcher {
     static public List<CompanyRecords> comp = new LinkedList<CompanyRecords>();
     static public List<RulesRecords> rule = new LinkedList<>();
     static public List<UserRecords> usRec = new LinkedList<UserRecords>();
+    static public List<PresentRecords> pres = new LinkedList<PresentRecords>();
 
     public static void main(String[] args) {
-        // testCompany();
+        testCompany();
         testRules();
         testUser();
+        testPresent();
     }
 
 
     static void testCompany() {
         List<CompanyRecords> company;
-        DriverForCompany drvCompany = new DriverForCompany("localhost:1433", "SantaBase", "sa", "sa");
+        DriverForCompany drvCompany = new DriverForCompany("localhost:1433", "Santa", "sa", "sa");
         if (drvCompany.connectionToBase()) {
             comp = drvCompany.getDataFromTable();
             comp.stream().forEach(y -> System.out.println(y.getCompanyName()));
@@ -56,7 +59,7 @@ public class Launcher {
 
     static void testRules() {
         List<RulesRecords> rules;
-        DriverForRules drvRules = new DriverForRules("localhost:1433", "SantaBase", "sa", "sa");
+        DriverForRules drvRules = new DriverForRules("localhost:1433", "Santa", "sa", "sa");
         if (drvRules.connectionToBase()) {
             rule = drvRules.getDataFromTable();
             rule.stream().forEach(y -> System.out.println(y.getId()));
@@ -116,5 +119,34 @@ public class Launcher {
         userRecords = drvUser.getDataFromTable();
         userRecords.stream().forEach(y -> System.out.println(y.getUserName()));
 
+    }
+
+
+    static void testPresent() {
+        List<PresentRecords> present;
+        DriverForPresent drvPresent = new DriverForPresent("localhost:1433", "Santa", "sa", "sa");
+        if (drvPresent.connectionToBase()) {
+            pres = drvPresent.getDataFromTable();
+            pres.stream().forEach(y -> System.out.println(y.getName()));
+        }
+        try {
+            drvPresent.insertToTable("somePresent", "SomeUrl");
+            pres = drvPresent.getDataFromTable();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        try {
+            drvPresent.updateInTable(pres.get(1), "somePresent2", "SomeUrl2");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        try {
+            drvPresent.deleteFromTable(pres.get(1));
+        } catch (SQLException ex) {
+            System.out.println(ex);
+
+        }
+        present = drvPresent.getDataFromTable();
+        present.stream().forEach(y -> System.out.println(y.getName()));
     }
 }

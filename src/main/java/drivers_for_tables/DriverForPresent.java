@@ -1,13 +1,13 @@
 package drivers_for_tables;
 
-import Records.CompanyRecords;
+import Records.PresentRecords;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+public class DriverForPresent {
 
-public class DriverForCompany {
     private Connection conn;
     private Statement stm;
     private ResultSet resultSet;
@@ -18,17 +18,16 @@ public class DriverForCompany {
     private String user;
     private String password;
 
-
-    public DriverForCompany(String urlToBase, String baseName, String user, String password) {
+    //конструктор класу, використовується для отримання при створенні об'єкта url, baseName, user, password
+    public DriverForPresent(String urlToBase, String baseName, String user, String password) {
         this.urlToBase = urlToBase;
         this.baseName = baseName;
         this.user = user;
         this.password = password;
     }
 
-
     public boolean connectionToBase() {
-       try {
+        try {
             String connectionUrl = "jdbc:jtds:sqlserver://" + urlToBase + ";databaseName=" + baseName;
             conn = DriverManager.getConnection(connectionUrl, user, password);
             dbmd = conn.getMetaData();
@@ -38,48 +37,39 @@ public class DriverForCompany {
             System.out.println(ex);
             return false;
         }
-
     }
 
-    public List<CompanyRecords> getDataFromTable() {
-        List<CompanyRecords> company = new LinkedList<CompanyRecords>();
+    public List<PresentRecords> getDataFromTable() {
+        List<PresentRecords> present = new LinkedList<PresentRecords>();
         try {
-            resultSet = stm.executeQuery("SELECT id, name, description FROM company1");
+            resultSet = stm.executeQuery("SELECT id, Name, url FROM [Present]");
             rsmd = resultSet.getMetaData();
             if (rsmd != null) {
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
-                    String name = resultSet.getString("name");
-                    String description = resultSet.getString("description");
-                    company.add(new CompanyRecords(id, name, description));
+                    String name = resultSet.getString("Name");
+                    String url = resultSet.getString("url");
+                    present.add(new PresentRecords(id, name, url));
                 }
             }
         } catch (SQLException ex) {
             System.out.println("not right columns or table name");
         }
-        return company;
+        return present;
     }
 
-    public void insertToTable(String name, String description) throws SQLException {
-        String str = "INSERT INTO Company (Name_Company, Description_Company) VALUES ('" + name + "', '" + description + "')";
+    public void insertToTable(String name, String url) throws SQLException {
+        String str = "INSERT INTO Present (Name, url) VALUES ('" + name + "', '" + url + "')";
         stm.executeUpdate(str);
     }
 
-    public void deleteFromTable(CompanyRecords company) throws SQLException{
-        stm.executeUpdate("DELETE FROM Company WHERE id =  "+ company.getId());
-
+    public void deleteFromTable(PresentRecords present) throws SQLException {
+        stm.executeUpdate("DELETE FROM Present WHERE id =  " + present.getId());
     }
 
-    public void updateInTable(CompanyRecords company, String newName, String newDescription)  throws SQLException {
-        String str = "UPDATE Company SET Name_Company= '"+newName+"', Description_Company='"+ newDescription+"' WHERE id="+company.getId();
+    public void updateInTable(PresentRecords present, String newName, String newUrl) throws SQLException {
+        String str = "UPDATE [Present] SET Name = '" + newName + "', url ='" + newUrl + "' WHERE id=" + present.getId();
         stm.executeUpdate(str);
     }
 
 }
-
-
-
-
-
-
-

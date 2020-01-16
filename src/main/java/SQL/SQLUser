@@ -1,0 +1,30 @@
+USE [Santa]
+GO
+/****** Object:  Table [dbo].[user]    Script Date: 16.01.2020 20:33:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[role] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[user] ON 
+
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (1, N'AVK', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (7, N'TravelEasy', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (8, N'Blackpink', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (9, N'Rozetka', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (10, N'Coolbee', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (11, N'Glamour', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (12, N'Peony', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (13, N'Langate', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (14, N'Pyramida', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (15, N'someCompany', N'SomeRole')
+SET IDENTITY_INSERT [dbo].[user] OFF

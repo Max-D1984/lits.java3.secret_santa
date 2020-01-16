@@ -1,30 +1,34 @@
 package dal;
 
+import pojo.Present;
+
+import java.util.List;
+
 public class PresentDalImpl implements PresentDal {
 
 
     @Override
-    public void create() {
+    public void create(Present present) {
 
     }
 
     @Override
-    public void read() {
+    public Present read(long id) {
+    return null;
+    }
+
+    @Override
+    public void update(long id, Present pres) {
 
     }
 
     @Override
-    public void update() {
+    public void delete(long id) {
 
     }
 
     @Override
-    public void delete() {
-
-    }
-
-    @Override
-    public void readList() {
-
+    public List<Present> readList() {
+ return null;
     }
 }

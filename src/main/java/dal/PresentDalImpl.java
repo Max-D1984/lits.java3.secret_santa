@@ -1,6 +1,6 @@
 package dal;
 
-public class PresentDalLmpl implements PresentDal {
+public class PresentDalImpl implements PresentDal {
 
 
     @Override

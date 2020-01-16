@@ -1,9 +1,13 @@
 package dal;
 
+import pojo.Rule;
+
+import java.util.List;
+
 public interface RuleDal {
-    public void create ();
-    public void read ();
-    public void update ();
-    public void delete ();
-    public void readList ();
+     void create (Rule rule);
+    Rule read (int id);
+     void update (int id, Rule rule);
+     void delete (int id);
+     List<Rule> readList ();
 }

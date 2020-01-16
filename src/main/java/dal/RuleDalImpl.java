@@ -1,29 +1,32 @@
 package dal;
 
+import pojo.Rule;
+
+import java.util.List;
+
 public class RuleDalImpl implements RuleDal {
 
     @Override
-    public void create() {
+    public void create(Rule rule) {
+    }
+
+    @Override
+    public Rule read(int id) {
+    return null;
+    }
+
+    @Override
+    public void update(int id, Rule rule) {
 
     }
 
     @Override
-    public void read() {
+    public void delete(int id) {
 
     }
 
     @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void delete() {
-
-    }
-
-    @Override
-    public void readList() {
-
+    public List<Rule> readList() {
+    return null;
     }
 }

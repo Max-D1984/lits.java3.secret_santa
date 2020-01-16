@@ -1,0 +1,223 @@
+USE [master]
+GO
+/****** Object:  Database [Santa]    Script Date: 16.01.2020 20:37:30 ******/
+CREATE DATABASE [Santa]
+ CONTAINMENT = NONE
+ ON  PRIMARY
+( NAME = N'Santa', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\Santa.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON
+( NAME = N'Santa_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\Santa_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [Santa] SET COMPATIBILITY_LEVEL = 140
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Santa].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Santa] SET ANSI_NULL_DEFAULT OFF
+GO
+ALTER DATABASE [Santa] SET ANSI_NULLS OFF
+GO
+ALTER DATABASE [Santa] SET ANSI_PADDING OFF
+GO
+ALTER DATABASE [Santa] SET ANSI_WARNINGS OFF
+GO
+ALTER DATABASE [Santa] SET ARITHABORT OFF
+GO
+ALTER DATABASE [Santa] SET AUTO_CLOSE OFF
+GO
+ALTER DATABASE [Santa] SET AUTO_SHRINK OFF
+GO
+ALTER DATABASE [Santa] SET AUTO_UPDATE_STATISTICS ON
+GO
+ALTER DATABASE [Santa] SET CURSOR_CLOSE_ON_COMMIT OFF
+GO
+ALTER DATABASE [Santa] SET CURSOR_DEFAULT  GLOBAL
+GO
+ALTER DATABASE [Santa] SET CONCAT_NULL_YIELDS_NULL OFF
+GO
+ALTER DATABASE [Santa] SET NUMERIC_ROUNDABORT OFF
+GO
+ALTER DATABASE [Santa] SET QUOTED_IDENTIFIER OFF
+GO
+ALTER DATABASE [Santa] SET RECURSIVE_TRIGGERS OFF
+GO
+ALTER DATABASE [Santa] SET  DISABLE_BROKER
+GO
+ALTER DATABASE [Santa] SET AUTO_UPDATE_STATISTICS_ASYNC OFF
+GO
+ALTER DATABASE [Santa] SET DATE_CORRELATION_OPTIMIZATION OFF
+GO
+ALTER DATABASE [Santa] SET TRUSTWORTHY OFF
+GO
+ALTER DATABASE [Santa] SET ALLOW_SNAPSHOT_ISOLATION OFF
+GO
+ALTER DATABASE [Santa] SET PARAMETERIZATION SIMPLE
+GO
+ALTER DATABASE [Santa] SET READ_COMMITTED_SNAPSHOT OFF
+GO
+ALTER DATABASE [Santa] SET HONOR_BROKER_PRIORITY OFF
+GO
+ALTER DATABASE [Santa] SET RECOVERY SIMPLE
+GO
+ALTER DATABASE [Santa] SET  MULTI_USER
+GO
+ALTER DATABASE [Santa] SET PAGE_VERIFY CHECKSUM
+GO
+ALTER DATABASE [Santa] SET DB_CHAINING OFF
+GO
+ALTER DATABASE [Santa] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF )
+GO
+ALTER DATABASE [Santa] SET TARGET_RECOVERY_TIME = 60 SECONDS
+GO
+ALTER DATABASE [Santa] SET DELAYED_DURABILITY = DISABLED
+GO
+ALTER DATABASE [Santa] SET QUERY_STORE = OFF
+GO
+USE [Santa]
+GO
+/****** Object:  Table [dbo].[company1]    Script Date: 16.01.2020 20:37:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[company1](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[description] [nvarchar](1000) NOT NULL,
+ CONSTRAINT [PK_company1] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[present]    Script Date: 16.01.2020 20:37:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[present](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](150) NOT NULL,
+	[url] [nvarchar](150) NOT NULL,
+ CONSTRAINT [PK_present] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[rule]    Script Date: 16.01.2020 20:37:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[rule](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[end_date] [datetime] NOT NULL,
+	[company_id] [int] NOT NULL,
+ CONSTRAINT [PK_rule] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user]    Script Date: 16.01.2020 20:37:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+
+GO
+CREATE TABLE [dbo].[user](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[role] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_target]    Script Date: 16.01.2020 20:37:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_target](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[user_target_id] [int] NOT NULL,
+	[status] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_user_target] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_to_company]    Script Date: 16.01.2020 20:37:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_to_company](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[company_id] [int] NOT NULL,
+ CONSTRAINT [PK_user_to_company] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_to_present]    Script Date: 16.01.2020 20:37:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_to_present](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[present_id] [int] NOT NULL,
+ CONSTRAINT [PK_user_to_present] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[company1] ON
+
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (1, N'a', N'a1')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (2, N'b', N'b1')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (3, N'c', N'c1')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (4, N'd', N'd1')
+SET IDENTITY_INSERT [dbo].[company1] OFF
+SET IDENTITY_INSERT [dbo].[present] ON
+
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (1, N'Дрон', N'https://rozetka.com.ua/quadrocopters/c1124685/')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (2, N'Два ящика пива', N'https://chernovtsy.prom.ua/p867769119-yaschik-dlya-piva.html')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (3, N'Коробка цукерок', N'https://chernovtsy.prom.ua/p1066176939-podarok-rozhdestvo-konfety.html')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (4, N'Настільне дзеркало для макіяжу', N'https://zevstorg.com.ua/p982524016-zerkalo-dlya-makiyazha.html')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (5, N'Мікрофон-караоке', N'https://detap.com.ua/p1044957346-mikrofon-funktsiej-karaoke.html')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (6, N'Чохол для телефону', N'https://vipcase.com.ua/g24198228-xiaomi-redmi-note')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (7, N'Портативна музична колонка', N'https://chernovtsy.prom.ua/p810378710-kolonka-bluetooth-jbl.html')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (8, N'Настінний годинник', N'https://detap.com.ua/p783897431-chasy-meteostantsiya-proektorom.html')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (9, N'Набір викруток', N'https://detali.zp.ua/catalog/13048-nabor_otvertok_18_sht_stal/')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (10, N'Абонемент до спортзалу', N'https://nova-sport.com.ua/')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (11, N'Шкіряна сумка', N'https://leboutique.com/catalog/women/handbag')
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (12, N'Путівка на море до Єгипту', N'http://egypt.coraltravel.ua/')
+SET IDENTITY_INSERT [dbo].[present] OFF
+
+SET IDENTITY_INSERT [dbo].[user] ON
+
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (1, N'AVK', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (7, N'TravelEasy', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (8, N'Blackpink', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (9, N'Rozetka', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (10, N'Coolbee', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (11, N'Glamour', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (12, N'Peony', N'gifter')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (13, N'Langate', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (14, N'Pyramida', N'receiver')
+INSERT [dbo].[user] ([id], [name], [role]) VALUES (15, N'someCompany', N'SomeRole')
+SET IDENTITY_INSERT [dbo].[user] OFF

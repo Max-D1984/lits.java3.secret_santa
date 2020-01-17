@@ -4,6 +4,8 @@ import Records.*;
 import drivers_for_tables.DriverForCompany;
 import drivers_for_tables.DriverForPresent;
 import drivers_for_tables.DriverForUser;
+import service.PresentService;
+import service.PresentServiceImpl;
 import service.RuleService;
 import service.RuleServiceImpl;
 
@@ -14,16 +16,18 @@ import java.util.List;
 public class Launcher {
     static public List<CompanyRecords> comp = new LinkedList<CompanyRecords>();
     static public List<UserRecords> usRec = new LinkedList<UserRecords>();
-    static public List<PresentRecords> pres = new LinkedList<PresentRecords>();
+
 
     public static void main(String[] args) {
         RuleService ruleService = new RuleServiceImpl();
         ruleService.testRule();
 
+        PresentService presentService = new PresentServiceImpl();
+        presentService.testPresent();
 
         testCompany();
         testUser();
-        testPresent();
+
     }
 
 
@@ -60,7 +64,6 @@ public class Launcher {
     }
 
 
-
     static void testUser() {
 
         List<UserRecords> userRecords = new LinkedList<UserRecords>();
@@ -94,31 +97,4 @@ public class Launcher {
     }
 
 
-    static void testPresent() {
-        List<PresentRecords> present;
-        DriverForPresent drvPresent = new DriverForPresent("localhost:1433", "Santa", "sa", "sa");
-        if (drvPresent.connectionToBase()) {
-            pres = drvPresent.getDataFromTable();
-            pres.stream().forEach(y -> System.out.println(y.getName()));
-        }
-        try {
-            drvPresent.insertToTable("somePresent", "SomeUrl");
-            pres = drvPresent.getDataFromTable();
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        try {
-            drvPresent.updateInTable(pres.get(1), "somePresent2", "SomeUrl2");
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        try {
-            drvPresent.deleteFromTable(pres.get(1));
-        } catch (SQLException ex) {
-            System.out.println(ex);
-
-        }
-        present = drvPresent.getDataFromTable();
-        present.stream().forEach(y -> System.out.println(y.getName()));
-    }
 }

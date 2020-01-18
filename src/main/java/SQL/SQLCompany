@@ -1,0 +1,37 @@
+USE [Santa]
+GO
+
+/****** Object:  Table [dbo].[company1]    Script Date: 18.01.2020 12:23:55 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[company1](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[description] [nvarchar](1000) NOT NULL,
+ CONSTRAINT [PK_company1] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET IDENTITY_INSERT [dbo].[company1] ON
+
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (1, 'ПАТ ФРАНКІВСЬКА ХАРЧОСМАКОВА ФАБРИКА', 'ПАТ «Івано-Франківська Харчосмакова фабрика» базується на багаторічному досвіді роботи, використанні екологічно чистої сировини та креативному мисленні')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (2, 'АГРОАЗССЕРВІС, ГРУПА КОМПАНІЙ', 'Наша компанія пропонує послуги: - комплексне будівництво АЗС')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (3, 'DIT Systems', 'Digital Innovation Technology Systems (ISTD) Ltd. розробляє та пропонує спеціиалізоване телекоммунікаційні решення')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (4, 'CompMast', 'CompMast звільнить Вас від комп"ютерних проблем! Ремонт и налаштування ПК')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (5, 'Вектра IТ', 'Виробництво компьютерыв и серверыв під власною торговою маркою Elegances®')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (6, 'SonoScape', 'УЗД апарати Соноскейп')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (7, 'Michelle Perkol, creative agency', 'М. Perkol — креативне рекламне агентство')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (8, 'Артезианская 540, creative agency', 'доставка артезіанскої води')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (9, 'Student Adventure, creative agency', 'tudent Adventure - це одна із найбільших компаній на ринку культурно-освітніх обмінів і виїзду молоді та студентів до США, ОАЕ та Німеччини.')
+INSERT [dbo].[company1] ([id], [name], [description]) VALUES (10, '"Слобожанська промислова компанія"', 'крупний виробник сельськогосподарських тракторів 3-4 класса сериї "Слобожанець"')
+
+
+
+SET IDENTITY_INSERT [dbo].[company1] OFF

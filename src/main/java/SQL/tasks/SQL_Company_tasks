@@ -1,0 +1,5 @@
+SELECT id, name, description FROM [company1]
+SELECT id, name, description FROM people WHERE id=?
+DELETE FROM [company1] WHERE id =  ?
+UPDATE [company1] SET name= ?, description=? WHERE id=?
+INSERT INTO [company1] (name, description) VALUES (?,?)

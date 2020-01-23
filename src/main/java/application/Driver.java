@@ -7,22 +7,25 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class Driver {
 
-    public static void main(String[] args) {
+    public Statement createStatement() {
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             try (Connection conn = getConnection()){
 
                 System.out.println("Connection to Store DB succesfull!");
             }
+            return getConnection().createStatement();
         }
         catch(Exception ex){
             System.out.println("Connection failed...");
 
             System.out.println(ex);
+            return null;
         }
     }
 

@@ -15,15 +15,15 @@ public class Launcher {
 
     public static void main(String[] args) {
         RuleService ruleService = new RuleServiceImpl();
-        ruleService.testRule();
-
-        PresentService presentService = new PresentServiceImpl();
-        presentService.testPresent();
-
-        UserService userService = new UserServiceImpl();
-        userService.testUser();
-
-        testCompany();
+        ruleService.readRuleList();
+//
+//        PresentService presentService = new PresentServiceImpl();
+//        presentService.testPresent();
+//
+//        UserService userService = new UserServiceImpl();
+//        userService.testUser();
+//
+//        testCompany();
 
 
     }

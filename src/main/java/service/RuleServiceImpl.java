@@ -1,6 +1,8 @@
 package service;
 
 import Records.RulesRecords;
+import dal.RuleDal;
+import dal.RuleDalImpl;
 import drivers_for_tables.DriverForRules;
 import pojo.Rule;
 
@@ -32,6 +34,8 @@ public class RuleServiceImpl implements RuleService {
 
     @Override
     public void readRuleList() {
+        RuleDal ruleDal = new RuleDalImpl();
+        ruleDal.readList();
 
     }
 

@@ -2,18 +2,20 @@ package service;
 
 import pojo.Company;
 
+import java.util.List;
+
 
 public interface CompanyService {
 
     void createCompany(Company company);
 
-    void readCompany();
+    Company readCompany(long id);
 
-    void readCompanyList();
+    List<Company> readCompanyList();
 
-    void deleteCompany();
+    void deleteCompany(long id);
 
-    void updateCompany();
+    void updateCompany(long id, Company company);
 
     void testCompany();
 }

@@ -4,7 +4,6 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import pojo.Company;
 import pojo.Present;
-import pojo.Rule;
 import service.*;
 
 import java.util.*;
@@ -19,13 +18,21 @@ public class Launcher {
 //        readList();
        // showExactPresent();
         // showPresentList();
-   //     showUpdateCompany();
+
+
+
 
 //        readCompany();
 //        createCompany();
 //        updateCompany();
 //        deleteCompany();
 //        readCompanyList();
+
+//        showUpdateCompany();
+//        showExactCompany();
+//        showCompanyList();
+//        showCreateCompany();
+//        showDeleteCompany();
 
 //             RuleService ruleService = new RuleServiceImpl();
 //             ruleService.readList();
@@ -40,19 +47,7 @@ public class Launcher {
 //        testCompany();
       //  showExactCompany();
       //  showCompanyList();
-        showExactRule();
 
-    }
-    static void showExactRule(){
-        RuleService ruleService = new RuleServiceImpl();
-         Rule rule = ruleService.read(3);
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("company_id",rule.getCompany_id() );
-        variables.put("description",rule.getDescription());
-        variables.put("end_date",rule.getEnd_date());
-        variables.put("gift_price",rule.getGift_price());
-        IContext context = new Context(Locale.getDefault(), variables);
-        ThymeleaUtils.drawPage("showExactRule", context);
     }
 
     static void showExactCompany() {
@@ -75,16 +70,33 @@ public class Launcher {
         ThymeleaUtils.drawPage("showUpdateCompany", context);
     }
 
+    static void showDeleteCompany() {
+        CompanyService companyService = new CompanyServiceImpl();
+        Company companyFromService = companyService.readCompany(4);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("companyName", companyFromService.getCompanyName());
+        variables.put("companyDescription", companyFromService.getCompanyDescription());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showDeleteCompany", context);
+    }
+
     static void showCompanyList(){
         CompanyService companyService = new CompanyServiceImpl();
         List<Company> companyListFromService = companyService.readCompanyList();
         Map<String, Object> variables = new HashMap<>();
+        variables.put("massage", "Company for Secret Santa");
         variables.put("recordList", companyListFromService);
         IContext context = new Context(Locale.getDefault(), variables);
         ThymeleaUtils.drawPage("showCompanyList", context);
     }
 
-
+    static void showCreateCompany(){
+        CompanyService companyService = new CompanyServiceImpl();
+        List<Company> companyListFromService = companyService.readCompanyList();
+        Map<String, Object> variables = new HashMap<>();
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showCreateCompany", context);
+    }
 
     //--------- Test Presents-------
     static void readPresent() {
@@ -161,11 +173,6 @@ public class Launcher {
         CompanyService companyService = new CompanyServiceImpl();
         companyService.deleteCompany(companyService.readCompanyList().get(10));
 
-    }
-    //-----------Test Rule------
-    static void readRule(){
-        RuleService ruleService = new RuleServiceImpl();
-        System.out.println(ruleService.read(4));
     }
 
 

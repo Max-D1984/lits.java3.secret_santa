@@ -18,6 +18,7 @@ public class Launcher {
 //        readList();
        // showExactPresent();
         // showPresentList();
+        showUpdateCompany();
 
 //        readCompany();
 //        createCompany();
@@ -49,6 +50,16 @@ public class Launcher {
         variables.put("description", companyFromService.getCompanyDescription());
         IContext context = new Context(Locale.getDefault(), variables);
         ThymeleaUtils.drawPage("showExactCompany", context);
+    }
+
+    static void showUpdateCompany() {
+        CompanyService companyService = new CompanyServiceImpl();
+        Company companyFromService = companyService.readCompany(3);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("companyName", companyFromService.getCompanyName());
+        variables.put("companyDescription", companyFromService.getCompanyDescription());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showUpdateCompany", context);
     }
 
     static void showCompanyList(){

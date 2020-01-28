@@ -4,14 +4,15 @@ import Records.*;
 import drivers_for_tables.DriverForCompany;
 import drivers_for_tables.DriverForPresent;
 import drivers_for_tables.DriverForUser;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.context.IContext;
 import pojo.Company;
 import pojo.Present;
 import service.*;
 
 import java.sql.SQLException;
 import java.sql.SQLOutput;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Launcher {
     static public List<CompanyRecords> comp = new LinkedList<CompanyRecords>();
@@ -41,10 +42,33 @@ public class Launcher {
 //        userService.testUser();
 //
 //        testCompany();
-
+      //  showExactCompany();
+        showCompanyList();
 
     }
-//--------- Test Presents-------
+
+    static void showExactCompany() {
+        CompanyService companyService = new CompanyServiceImpl();
+        Company companyFromService = companyService.readCompany(3);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", companyFromService.getCompanyName());
+        variables.put("description", companyFromService.getCompanyDescription());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showExactCompany", context);
+    }
+
+    static void showCompanyList(){
+        CompanyService companyService = new CompanyServiceImpl();
+        List<Company> companyListFromService = companyService.readCompanyList();
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("recordList", companyListFromService);
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showCompanyList", context);
+    }
+
+
+
+    //--------- Test Presents-------
     static void readPresent() {
         PresentService presentService = new PresentServiceImpl();
         System.out.println(presentService.readPresent(1).toString());
@@ -72,7 +96,7 @@ public class Launcher {
         //     System.out.println(presentService.readList().get(11).toString());
     }
 
-//--------- Test Company-------
+    //--------- Test Company-------
     static void readCompany() {
         CompanyService companyService = new CompanyServiceImpl();
         System.out.println(companyService.readCompany(3).toString());
@@ -91,7 +115,7 @@ public class Launcher {
     static void updateCompany() {
         CompanyService companyService = new CompanyServiceImpl();
 
-        companyService.updateCompany(companyService.readCompanyList().get(10),new Company(0, "newCompany", "newCompanyDescription"));
+        companyService.updateCompany(companyService.readCompanyList().get(10), new Company(0, "newCompany", "newCompanyDescription"));
     }
 
     static void deleteCompany() {

@@ -5,11 +5,11 @@ import pojo.Present;
 import java.util.List;
 
 public interface PresentDal {
-    public void create (Present present);
     public Present read (long id);
-    public void update (long id, Present pres);
-    public void delete (long id);
     public List<Present> readList ();
+    public void createPresent (Present present);
+    public void update (Present present, String newName, String newUrl);
+    public void delete (Present present);
 
 
 

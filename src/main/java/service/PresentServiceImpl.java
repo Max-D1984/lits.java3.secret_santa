@@ -1,6 +1,8 @@
 package service;
 
 import Records.PresentRecords;
+import dal.PresentDal;
+import dal.PresentDalImpl;
 import drivers_for_tables.DriverForPresent;
 import pojo.Present;
 
@@ -14,27 +16,35 @@ public class PresentServiceImpl implements PresentService {
 
     @Override
     public void createPresent(Present present) {
+        PresentDal presentDal = new PresentDalImpl();
+        presentDal.createPresent(present);
+    }
+
+    @Override
+    public Present readPresent(long id) {
+        PresentDal presentDal = new PresentDalImpl();
+        return presentDal.read(id);
+
 
     }
 
     @Override
-    public void readPresent() {
+    public List<Present> readList() {
+        PresentDal presentDal = new PresentDalImpl();
+        return presentDal.readList();
+    }
+
+    @Override
+    public void deletePresent(Present present) {
+        PresentDal presentDal = new PresentDalImpl();
+        presentDal.delete (present);
 
     }
 
     @Override
-    public void readPresentList() {
-
-    }
-
-    @Override
-    public void deletePresent() {
-
-    }
-
-    @Override
-    public void updatePresent() {
-
+    public void updatePresent(Present present, String newName, String newUrl) {
+        PresentDal presentDal = new PresentDalImpl();
+        presentDal.update(present, newName, newUrl);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class Present {
 
     @Override
     public String toString() {
-        return "PresentRecords{" +
+        return "Present{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +

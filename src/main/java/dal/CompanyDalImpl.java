@@ -58,7 +58,7 @@ public class CompanyDalImpl implements CompanyDal {
 
     @Override
     public Company read(long id) {
-        Company company = new Company(0,null,null);
+        Company company = null;
         try {
             String sql = "SELECT id, name, description FROM [company1] WHERE id=?";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);

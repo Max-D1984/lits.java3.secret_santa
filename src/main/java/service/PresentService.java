@@ -2,17 +2,19 @@ package service;
 
 import pojo.Present;
 
+import java.util.List;
+
 public interface PresentService {
+
+    Present readPresent(long id);
+
+    List<Present> readList();
 
     void createPresent(Present present);
 
-    void readPresent();
+    void deletePresent(Present present);
 
-    void readPresentList();
-
-    void deletePresent();
-
-    void updatePresent();
+    void updatePresent(Present present, String newName, String newUrl);
 
     void testPresent();
 

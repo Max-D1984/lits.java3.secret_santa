@@ -1,16 +1,11 @@
 package application;
 
-import drivers_for_tables.DriverForCompany;
-import drivers_for_tables.DriverForPresent;
-import drivers_for_tables.DriverForUser;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import pojo.Company;
 import pojo.Present;
 import service.*;
 
-import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Launcher {

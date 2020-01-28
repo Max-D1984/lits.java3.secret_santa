@@ -24,6 +24,8 @@ public class Launcher {
 //        updatePresent();
 //        deletePresent();
 //        readList();
+       // showExactPresent();
+        showPresentList();
 
 //        readCompany();
 //        createCompany();
@@ -43,7 +45,7 @@ public class Launcher {
 //
 //        testCompany();
       //  showExactCompany();
-        showCompanyList();
+      //  showCompanyList();
 
     }
 
@@ -94,6 +96,27 @@ public class Launcher {
         PresentService presentService = new PresentServiceImpl();
         presentService.deletePresent(presentService.readList().get(11));
         //     System.out.println(presentService.readList().get(11).toString());
+    }
+
+
+    //---------Present.html---------
+    static void showExactPresent() {
+        PresentService presentService = new PresentServiceImpl();
+        Present presentFromService = presentService.readPresent(2);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", presentFromService.getName());
+        variables.put("url", presentFromService.getUrl());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showExactPresent", context);
+    }
+
+    static void showPresentList(){
+        PresentService presentService = new PresentServiceImpl();
+        List<Present> presentListFromService = presentService.readList();
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("recordList", presentListFromService);
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showPresentList", context);
     }
 
     //--------- Test Company-------

@@ -18,7 +18,7 @@ public class Launcher {
 //        readList();
        // showExactPresent();
         // showPresentList();
-        showUpdateCompany();
+   //     showUpdateCompany();
 
 //        readCompany();
 //        createCompany();
@@ -26,9 +26,9 @@ public class Launcher {
 //        deleteCompany();
 //        readCompanyList();
 
-
-//        RuleService ruleService = new RuleServiceImpl();
-//        ruleService.readRuleList();
+             RuleService ruleService = new RuleServiceImpl();
+             ruleService.readList();
+           //  ruleService.read(5);
 //
 //        PresentService presentService = new PresentServiceImpl();
 //        presentService.testPresent();

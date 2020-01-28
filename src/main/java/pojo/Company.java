@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Company {
 
-    private int id;
+    private long id;
     private String companyName;
     private String companyDescription;
 
@@ -15,7 +15,7 @@ public class Company {
         this.companyDescription = companyDescription;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

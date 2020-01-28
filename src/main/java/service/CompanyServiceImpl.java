@@ -9,7 +9,8 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
     @Override
     public void createCompany(Company company) {
-
+        CompanyDal companyDal = new CompanyDalImpl();
+        companyDal.create(company);
     }
 
     @Override
@@ -25,15 +26,15 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void deleteCompany(long id) {
+    public void deleteCompany(Company company) {
         CompanyDal companyDal = new CompanyDalImpl();
-        companyDal.delete(id);
+        companyDal.delete(company);
     }
 
     @Override
-    public void updateCompany(long id, Company company) {
+    public void updateCompany(Company oldCompany, Company newCompany) {
         CompanyDal companyDal = new CompanyDalImpl();
-        companyDal.update(id, company);
+        companyDal.update(oldCompany, newCompany);
     }
 
     @Override

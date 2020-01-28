@@ -13,9 +13,9 @@ public interface CompanyService {
 
     List<Company> readCompanyList();
 
-    void deleteCompany(long id);
+    void deleteCompany(Company company);
 
-    void updateCompany(long id, Company company);
+    void updateCompany(Company newCompany, Company oldCompany);
 
     void testCompany();
 }

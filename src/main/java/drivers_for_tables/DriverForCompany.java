@@ -1,6 +1,8 @@
 package drivers_for_tables;
 
-import Records.CompanyRecords;
+//import Records.CompanyRecords;
+
+import pojo.Company;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -28,7 +30,7 @@ public class DriverForCompany {
 
 
     public boolean connectionToBase() {
-       try {
+        try {
             String connectionUrl = "jdbc:jtds:sqlserver://" + urlToBase + ";databaseName=" + baseName;
             conn = DriverManager.getConnection(connectionUrl, user, password);
             dbmd = conn.getMetaData();
@@ -41,38 +43,74 @@ public class DriverForCompany {
 
     }
 
-    public List<CompanyRecords> getDataFromTable() {
-        List<CompanyRecords> company = new LinkedList<CompanyRecords>();
-        try {
-            resultSet = stm.executeQuery("SELECT id, name, description FROM company1");
+    public Company readCompany(long id) throws SQLException {
+        Company company;
+        String sql = "SELECT id, name, description FROM people WHERE id=?";
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+        preparedStatement.setLong(1, id);
+
+        resultSet = preparedStatement.executeQuery();
+        int resultId = resultSet.getInt("id");
+        String resultName = resultSet.getString("name");
+        String resultDescription = resultSet.getString("description");
+        company = new Company(resultId, resultName, resultDescription);
+        return company;
+    }
+
+    public List<Company> readCompanyList() throws SQLException {
+        List<Company> company = new LinkedList<Company>();
+            resultSet = stm.executeQuery("SELECT id, name, description FROM [company1]");
             rsmd = resultSet.getMetaData();
             if (rsmd != null) {
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     String name = resultSet.getString("name");
                     String description = resultSet.getString("description");
-                    company.add(new CompanyRecords(id, name, description));
+                    company.add(new Company(id, name, description));
                 }
             }
-        } catch (SQLException ex) {
-            System.out.println("not right columns or table name");
-        }
         return company;
     }
 
-    public void insertToTable(String name, String description) throws SQLException {
-        String str = "INSERT INTO Company (Name_Company, Description_Company) VALUES ('" + name + "', '" + description + "')";
-        stm.executeUpdate(str);
+
+    public void insertToTable(String name, String description){
+        String sql = "INSERT INTO [company1] (name, description) VALUES (?,?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, description);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Company creation failed");
+        }
+
     }
 
-    public void deleteFromTable(CompanyRecords company) throws SQLException{
-        stm.executeUpdate("DELETE FROM Company WHERE id =  "+ company.getId());
+    public void deleteFromTable(Company company){
+        String sql = "DELETE FROM [company1] WHERE id =  ?";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setLong(1, company.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Deleting company is failed");
+        }
+
+
 
     }
 
-    public void updateInTable(CompanyRecords company, String newName, String newDescription)  throws SQLException {
-        String str = "UPDATE Company SET Name_Company= '"+newName+"', Description_Company='"+ newDescription+"' WHERE id="+company.getId();
-        stm.executeUpdate(str);
+    public void updateInTable(Company company, String newName, String newDescription) throws SQLException {
+        String sql = "UPDATE [company1] SET name= ?, description=? WHERE id=?";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, newName);
+            preparedStatement.setString(2, newDescription);
+            preparedStatement.setLong(3, company.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Updating company is failed");
+        }
     }
 
 }

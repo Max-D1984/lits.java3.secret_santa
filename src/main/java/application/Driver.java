@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class Driver {
 
-    public Statement createStatement() {
+    public static Statement createStatement() {
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             try (Connection conn = getConnection()){

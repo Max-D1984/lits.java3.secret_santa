@@ -1,6 +1,5 @@
 package pojo;
 
-import Records.RulesRecords;
 
 import java.sql.Date;
 import java.util.Objects;

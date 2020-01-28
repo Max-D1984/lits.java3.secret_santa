@@ -17,7 +17,7 @@ public class Launcher {
 //        deletePresent();
 //        readList();
        // showExactPresent();
-        showPresentList();
+        // showPresentList();
 
 //        readCompany();
 //        createCompany();

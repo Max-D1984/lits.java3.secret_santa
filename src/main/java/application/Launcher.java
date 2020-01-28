@@ -1,6 +1,5 @@
 package application;
 
-import Records.*;
 import drivers_for_tables.DriverForCompany;
 import drivers_for_tables.DriverForPresent;
 import drivers_for_tables.DriverForUser;
@@ -15,8 +14,6 @@ import java.sql.SQLOutput;
 import java.util.*;
 
 public class Launcher {
-    static public List<CompanyRecords> comp = new LinkedList<CompanyRecords>();
-
     public static void main(String[] args) {
 //        readPresent();
 //        readList();

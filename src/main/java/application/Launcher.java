@@ -18,7 +18,9 @@ public class Launcher {
 //        readList();
        // showExactPresent();
         // showPresentList();
-   //     showUpdateCompany();
+
+
+
 
 //        readCompany();
 //        createCompany();
@@ -26,8 +28,14 @@ public class Launcher {
 //        deleteCompany();
 //        readCompanyList();
 
-             RuleService ruleService = new RuleServiceImpl();
-             ruleService.readList();
+//        showUpdateCompany();
+//        showExactCompany();
+//        showCompanyList();
+//        showCreateCompany();
+//        showDeleteCompany();
+
+//             RuleService ruleService = new RuleServiceImpl();
+//             ruleService.readList();
            //  ruleService.read(5);
 //
 //        PresentService presentService = new PresentServiceImpl();
@@ -62,16 +70,33 @@ public class Launcher {
         ThymeleaUtils.drawPage("showUpdateCompany", context);
     }
 
+    static void showDeleteCompany() {
+        CompanyService companyService = new CompanyServiceImpl();
+        Company companyFromService = companyService.readCompany(4);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("companyName", companyFromService.getCompanyName());
+        variables.put("companyDescription", companyFromService.getCompanyDescription());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showDeleteCompany", context);
+    }
+
     static void showCompanyList(){
         CompanyService companyService = new CompanyServiceImpl();
         List<Company> companyListFromService = companyService.readCompanyList();
         Map<String, Object> variables = new HashMap<>();
+        variables.put("massage", "Company for Secret Santa");
         variables.put("recordList", companyListFromService);
         IContext context = new Context(Locale.getDefault(), variables);
         ThymeleaUtils.drawPage("showCompanyList", context);
     }
 
-
+    static void showCreateCompany(){
+        CompanyService companyService = new CompanyServiceImpl();
+        List<Company> companyListFromService = companyService.readCompanyList();
+        Map<String, Object> variables = new HashMap<>();
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showCreateCompany", context);
+    }
 
     //--------- Test Presents-------
     static void readPresent() {

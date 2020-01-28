@@ -4,6 +4,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import pojo.Company;
 import pojo.Present;
+import pojo.Rule;
 import service.*;
 
 import java.util.*;
@@ -26,8 +27,8 @@ public class Launcher {
 //        deleteCompany();
 //        readCompanyList();
 
-             RuleService ruleService = new RuleServiceImpl();
-             ruleService.readList();
+//             RuleService ruleService = new RuleServiceImpl();
+//             ruleService.readList();
            //  ruleService.read(5);
 //
 //        PresentService presentService = new PresentServiceImpl();
@@ -39,7 +40,19 @@ public class Launcher {
 //        testCompany();
       //  showExactCompany();
       //  showCompanyList();
+        showExactRule();
 
+    }
+    static void showExactRule(){
+        RuleService ruleService = new RuleServiceImpl();
+         Rule rule = ruleService.read(3);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("company_id",rule.getCompany_id() );
+        variables.put("description",rule.getDescription());
+        variables.put("end_date",rule.getEnd_date());
+        variables.put("gift_price",rule.getGift_price());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showExactRule", context);
     }
 
     static void showExactCompany() {
@@ -148,6 +161,11 @@ public class Launcher {
         CompanyService companyService = new CompanyServiceImpl();
         companyService.deleteCompany(companyService.readCompanyList().get(10));
 
+    }
+    //-----------Test Rule------
+    static void readRule(){
+        RuleService ruleService = new RuleServiceImpl();
+        System.out.println(ruleService.read(4));
     }
 
 

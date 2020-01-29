@@ -11,37 +11,22 @@ import java.util.List;
 
 public class PresentServiceImpl implements PresentService {
 
-    @Override
-    public void createPresent(Present present) {
-        PresentDal presentDal = new PresentDalImpl();
-        presentDal.createPresent(present);
-    }
+    private PresentDal presentDal = new PresentDalImpl();
 
     @Override
-    public Present readPresent(long id) {
-        PresentDal presentDal = new PresentDalImpl();
-        return presentDal.read(id);
-
-
-    }
+    public void createPresent(Present present) { presentDal.createPresent(present); }
 
     @Override
-    public List<Present> readList() {
-        PresentDal presentDal = new PresentDalImpl();
-        return presentDal.readList();
-    }
+    public Present readPresent(long id) {return presentDal.read(id);  }
 
     @Override
-    public void deletePresent(Present present) {
-        PresentDal presentDal = new PresentDalImpl();
-        presentDal.delete (present);
-
-    }
+    public List<Present> readList() {return presentDal.readList();  }
 
     @Override
-    public void updatePresent(Present present, String newName, String newUrl) {
-        PresentDal presentDal = new PresentDalImpl();
-        presentDal.update(present, newName, newUrl);
+    public void deletePresent(Present present) {presentDal.delete (present); }
+
+    @Override
+    public void updatePresent(Present present, String newName, String newUrl) {presentDal.update(present, newName, newUrl);
     }
 
     @Override

@@ -29,21 +29,19 @@ public class RuleDalImpl implements RuleDal {
     @Override
     public Rule read(int id) {
         Rule rule = null;
-        String sql = "SELECT r.id,c.name,r.description,r.end_date,r.gift_price\n" +
-                "                    FROM [rule] r \n" +
-                "                    JOIN [company1] c ON r.company_id=c.id WHERE r.id = ?";
+        String sql = "SELECT id, company_id, description, end_date, gift_price FROM [rule] WHERE id = ?";
         try{
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 int rule_id = resultSet.getInt(1);
-                String comp_id = resultSet.getString(2);
+                int comp_id = resultSet.getInt(2);
                 String description = resultSet.getString(3);
                 Date end_date = resultSet.getDate(4);
                 int gift_price = resultSet.getInt(5);
-                System.out.printf("%d, %s, %s, %s, %d \n", rule_id, comp_id, description, end_date, gift_price);
-                rule = new Rule(rule_id,rule_id,description,end_date,gift_price);
+                System.out.printf("%d, %d, %s, %s, %d \n", rule_id, comp_id, description, end_date, gift_price);
+                rule = new Rule(rule_id,comp_id,description,end_date,gift_price);
             }
             return rule;
         } catch (SQLException | IOException ex) {
@@ -86,19 +84,17 @@ public class RuleDalImpl implements RuleDal {
     public List<Rule> readList() {
         List<Rule> rules = new LinkedList<>();
         try {
-            String sql = "SELECT r.id,c.name,r.description,r.end_date,r.gift_price\n" +
-                    "FROM [rule] r \n" +
-                    "JOIN [company1] c ON r.company_id=c.id";
+            String sql = "SELECT id, company_id, description, end_date, gift_price FROM [rule]";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
-                String comp_id = resultSet.getString(2);
+                int comp_id = resultSet.getInt(2);
                 String description = resultSet.getString(3);
                 Date end_date = resultSet.getDate(4);
                 int gift_price = resultSet.getInt(5);
-                System.out.printf("%d, %s, %s, %s, %d \n", id, comp_id, description, end_date, gift_price);
-               rules.add(new Rule(id, id, description, end_date, gift_price));
+                System.out.printf("%d, %d, %s, %s, %d \n", id, comp_id, description, end_date, gift_price);
+               rules.add(new Rule(id, comp_id, description, end_date, gift_price));
             }
         } catch (SQLException | IOException ex) {
             System.out.println("Wrong column name or table");

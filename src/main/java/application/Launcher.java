@@ -4,8 +4,10 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import pojo.Company;
 import pojo.Present;
+import pojo.Rule;
 import service.*;
 
+import java.sql.Date;
 import java.util.*;
 
 public class Launcher {
@@ -19,11 +21,7 @@ public class Launcher {
         // readList();
         // showExactPresent();
         // showPresentList();
-        //  showCreatePresent();
-        // showUpdatePresent ();
-        // showDeletePresent();
 
-// -------------- Company -----------------------
 //        readCompany();
 //        createCompany();
 //        updateCompany();
@@ -36,19 +34,17 @@ public class Launcher {
 //        showCreateCompany();
 //        showDeleteCompany();
 
-//             RuleService ruleService = new RuleServiceImpl();
-//             ruleService.readList();
-        //  ruleService.read(5);
-//
-//        PresentService presentService = new PresentServiceImpl();
-//        presentService.testPresent();
+//        readRule();
+//        readRuleList();
+//        deleteRule();
+//        createRule();
+//        updateRule();
+
+
 //
 //        UserService userService = new UserServiceImpl();
 //        userService.testUser();
 //
-//        testCompany();
-        //  showExactCompany();
-        //  showCompanyList();
 
     }
 
@@ -203,8 +199,31 @@ public class Launcher {
     static void deleteCompany() {
         CompanyService companyService = new CompanyServiceImpl();
         companyService.deleteCompany(companyService.readCompanyList().get(10));
-
+    }
+    //-----------Test Rule---------------
+    static void readRule() {
+       RuleService ruleService = new RuleServiceImpl();
+        System.out.println(ruleService.read(3).toString());
     }
 
+    static void readRuleList() {
+        RuleService ruleService = new RuleServiceImpl();
+        ruleService.readList().stream().forEach(y -> System.out.println(y.toString()));
+    }
+
+    static void createRule() {
+        RuleService ruleService = new RuleServiceImpl();
+        ruleService.create(new Rule(10, 10, "new Rule", Date.valueOf("2019-12-25"),200));
+    }
+
+    static void updateRule() {
+        RuleService ruleService = new RuleServiceImpl();
+        ruleService.update(1001, new Rule(10,10, "Old Rule", Date.valueOf("2019-12-24"),480));
+    }
+
+    static void deleteRule() {
+        RuleService ruleService = new RuleServiceImpl();
+        ruleService.delete(10);
+    }
 
 }

@@ -10,18 +10,20 @@ import java.util.*;
 
 public class Launcher {
     public static void main(String[] args) {
-//        readPresent();
-//        readList();
-//        createPresent();
-//        updatePresent();
-//        deletePresent();
-//        readList();
-       // showExactPresent();
+// ---------- Present -------------------------
+        // readPresent();
+        // readList();
+        // createPresent();
+        // updatePresent();
+        // deletePresent();
+        // readList();
+        // showExactPresent();
         // showPresentList();
+        //  showCreatePresent();
+        // showUpdatePresent ();
+        // showDeletePresent();
 
-
-
-
+// -------------- Company -----------------------
 //        readCompany();
 //        createCompany();
 //        updateCompany();
@@ -36,7 +38,7 @@ public class Launcher {
 
 //             RuleService ruleService = new RuleServiceImpl();
 //             ruleService.readList();
-           //  ruleService.read(5);
+        //  ruleService.read(5);
 //
 //        PresentService presentService = new PresentServiceImpl();
 //        presentService.testPresent();
@@ -45,11 +47,12 @@ public class Launcher {
 //        userService.testUser();
 //
 //        testCompany();
-      //  showExactCompany();
-      //  showCompanyList();
+        //  showExactCompany();
+        //  showCompanyList();
 
     }
 
+// ----------------Company.html -----------------------------
     static void showExactCompany() {
         CompanyService companyService = new CompanyServiceImpl();
         Company companyFromService = companyService.readCompany(3);
@@ -80,7 +83,7 @@ public class Launcher {
         ThymeleaUtils.drawPage("showDeleteCompany", context);
     }
 
-    static void showCompanyList(){
+    static void showCompanyList() {
         CompanyService companyService = new CompanyServiceImpl();
         List<Company> companyListFromService = companyService.readCompanyList();
         Map<String, Object> variables = new HashMap<>();
@@ -90,7 +93,7 @@ public class Launcher {
         ThymeleaUtils.drawPage("showCompanyList", context);
     }
 
-    static void showCreateCompany(){
+    static void showCreateCompany() {
         CompanyService companyService = new CompanyServiceImpl();
         List<Company> companyListFromService = companyService.readCompanyList();
         Map<String, Object> variables = new HashMap<>();
@@ -98,7 +101,7 @@ public class Launcher {
         ThymeleaUtils.drawPage("showCreateCompany", context);
     }
 
-    //--------- Test Presents-------
+//------------------------ Test Present----------------------------
     static void readPresent() {
         PresentService presentService = new PresentServiceImpl();
         System.out.println(presentService.readPresent(1).toString());
@@ -127,7 +130,7 @@ public class Launcher {
     }
 
 
-    //---------Present.html---------
+//-----------------------------Present.html----------------------------------------
     static void showExactPresent() {
         PresentService presentService = new PresentServiceImpl();
         Present presentFromService = presentService.readPresent(2);
@@ -138,7 +141,7 @@ public class Launcher {
         ThymeleaUtils.drawPage("showExactPresent", context);
     }
 
-    static void showPresentList(){
+    static void showPresentList() {
         PresentService presentService = new PresentServiceImpl();
         List<Present> presentListFromService = presentService.readList();
         Map<String, Object> variables = new HashMap<>();
@@ -147,7 +150,35 @@ public class Launcher {
         ThymeleaUtils.drawPage("showPresentList", context);
     }
 
-    //--------- Test Company-------
+    static void showCreatePresent() {
+        PresentService presentService = new PresentServiceImpl();
+        List<Present> presentListFromService = presentService.readList();
+        Map<String, Object> variables = new HashMap<>();
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showCreatePresent", context);
+    }
+
+    static void showUpdatePresent() {
+        PresentService presentService = new PresentServiceImpl();
+        Present presentFromService = presentService.readPresent(2);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", presentFromService.getName());
+        variables.put("url", presentFromService.getUrl());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showUpdatePresent", context);
+    }
+
+    static void showDeletePresent() {
+        PresentService presentService = new PresentServiceImpl();
+        Present presentFromService = presentService.readPresent(2);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", presentFromService.getName());
+        variables.put("url", presentFromService.getUrl());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showDeletePresent", context);
+    }
+
+//------------------------ Test Company--------------------------
     static void readCompany() {
         CompanyService companyService = new CompanyServiceImpl();
         System.out.println(companyService.readCompany(3).toString());

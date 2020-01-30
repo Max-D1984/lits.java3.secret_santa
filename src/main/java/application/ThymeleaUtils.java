@@ -17,7 +17,7 @@ public class ThymeleaUtils {
             e.printStackTrace();
         }
     }
-    private static TemplateEngine getTemplateEngine() {
+    public static TemplateEngine getTemplateEngine() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");

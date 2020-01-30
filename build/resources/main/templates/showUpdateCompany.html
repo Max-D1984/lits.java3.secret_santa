@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Update Company</title>
+</head>
+<body>
+<h1>Update Company</h1>
+
+<div>Company name</div>
+<p><input name="textfield" type="text" th:value="${companyName}"></p>
+
+<div>Company Description</div>
+<p><input name="textfield" type="text" th:value="${companyDescription}"></p>
+<p><input type="submit" value="Update">
+<input type="reset" value="Cancel"></p>
+</body>
+</html>

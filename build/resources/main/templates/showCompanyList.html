@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${message}">Hello, World!</title>
+</head>
+<body>
+<table>
+    <tr data-th-each="company : ${recordList}">
+        <td data-th-text="${company.companyName}">...</td>
+        <td data-th-text="${company.companyDescription}">...</td>
+    </tr>
+</table>
+<input type="reset" value="Back">
+</body>
+</html>

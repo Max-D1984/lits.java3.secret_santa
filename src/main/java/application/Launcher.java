@@ -62,7 +62,7 @@ public class Launcher {
   //    showUpdateUser();
    //  showExactUser();
    // showUserList();
-    //   showCreateUser();
+       showCreateUser();
 //        showDeleteUser();
 //
 
@@ -245,48 +245,6 @@ public class Launcher {
         RuleService ruleService = new RuleServiceImpl();
         ruleService.delete(10);
     }
-    //------------Rule.html---------------------
-    static void showExactRule(){
-        RuleService ruleService = new RuleServiceImpl();
-        Rule rule = ruleService.read(3);
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("company_id",rule.getCompany_id() );
-        variables.put("description",rule.getDescription());
-        variables.put("end_date",rule.getEnd_date());
-        variables.put("gift_price",rule.getGift_price());
-        IContext context = new Context(Locale.getDefault(), variables);
-        ThymeleaUtils.drawPage("showExactRule", context);
-    }
-
-    static void showRuleList(){
-        RuleService ruleService = new RuleServiceImpl();
-        List<Rule> ruleListFromService = ruleService.readList();
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("recordList", ruleListFromService);
-        IContext context = new Context(Locale.getDefault(), variables);
-        ThymeleaUtils.drawPage("showRuleList", context);
-    }
-    static void showCreateRule() {
-        RuleService ruleService = new RuleServiceImpl();
-        List<Rule> ruleListFromService = ruleService.readList();
-        Map<String, Object> variables = new HashMap<>();
-        IContext context = new Context(Locale.getDefault(), variables);
-        ThymeleaUtils.drawPage("showCreateRule", context);
-    }
-
-    static void showUpdateRule(){
-       RuleService ruleService = new RuleServiceImpl();
-       Rule ruleFromService = ruleService.read(4);
-       Map<String,Object> variables = new HashMap<>();
-       variables.put("company_id",ruleFromService.getCompany_id());
-       variables.put("description",ruleFromService.getDescription());
-       variables.put("end_date",ruleFromService.getEnd_date());
-       variables.put("gift_price",ruleFromService.getEnd_date());
-       IContext context = new Context(Locale.getDefault(), variables);
-       ThymeleaUtils.drawPage("showUpdateRule", context);
-    }
-
-
     static void showExactUser() {
         UserService userService = new UserServiceImpl();
         User userFromService = userService.readUser(10);

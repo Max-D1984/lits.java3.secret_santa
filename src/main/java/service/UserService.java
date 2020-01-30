@@ -2,15 +2,18 @@ package service;
 
 import pojo.User;
 
+import java.util.List;
+
 public interface UserService {
-    void updateUser();
-    void deleteUser();
+    void updateUser(User user, User newUser);
+    void deleteUser(User user);
 
-    void createRule(User user);
+    void createUser(User user);
 
-    void readUser();
+    User readUser(long id);
 
-    void readUserList();
+
+    List<User> readUserList();
     void testUser();
 
 }

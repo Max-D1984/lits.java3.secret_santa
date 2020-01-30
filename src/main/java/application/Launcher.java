@@ -5,6 +5,7 @@ import org.thymeleaf.context.IContext;
 import pojo.Company;
 import pojo.Present;
 import pojo.Rule;
+import pojo.User;
 import service.*;
 
 import java.sql.Date;
@@ -44,10 +45,28 @@ public class Launcher {
 //
 //        UserService userService = new UserServiceImpl();
 //        userService.testUser();
+
+//          readUser();
+//        readUserList();
+//        createUser();
+//
+//        readUserList();
+//
+//        updateUser();
+//        readUserList();
+//
+//       deleteUser();
+//        readUserList();
+//
+
+  //    showUpdateUser();
+   //  showExactUser();
+   // showUserList();
+    //   showCreateUser();
+//        showDeleteUser();
 //
 
     }
-
 
 // ----------------Company.html -----------------------------
     static void showExactCompany() {
@@ -268,5 +287,77 @@ public class Launcher {
     }
 
 
+    static void showExactUser() {
+        UserService userService = new UserServiceImpl();
+        User userFromService = userService.readUser(10);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", userFromService.getUserName());
+        variables.put("role", userFromService.getUserRole());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showExactCompany", context);
+    }
+
+    static void showUpdateUser() {
+        UserService userService = new UserServiceImpl();
+        User userFromService = userService.readUser(8);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("companyName", userFromService.getUserName());
+        variables.put("companyRole", userFromService.getUserRole());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showUpdateUser", context);
+    }
+
+    static void showDeleteUser() {
+        UserService userService = new UserServiceImpl();
+        User userFromService = userService.readUser(3);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("userName", userFromService.getUserName());
+        variables.put("userRole", userFromService.getUserRole());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showDeleteCompany", context);
+    }
+
+    static void showUserList() {
+        UserService userService = new UserServiceImpl();;
+        List<User> userListFromService = userService.readUserList();
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("massage", "User for Secret Santa");
+        variables.put("recordList", userListFromService);
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showUserList", context);
+    }
+
+    static void showCreateUser() {
+        UserService userService = new UserServiceImpl();
+        List<User> companyListFromService = userService.readUserList();
+        Map<String, Object> variables = new HashMap<>();
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showCreateUser", context);
+}
+    static void readUser() {
+        UserService userService = new UserServiceImpl();
+        System.out.println( userService.readUser(1));
+    }
+
+    static void readUserList() {
+        UserService userService = new UserServiceImpl();
+        userService.readUserList().stream().forEach(y -> System.out.println(y.toString()));
+    }
+
+    static void createUser() {
+        UserService userService = new UserServiceImpl();
+        userService.createUser(new User(0, "new User", "new Role"));
+    }
+
+    static void updateUser() {
+
+        UserService userService = new UserServiceImpl();
+       userService.updateUser(userService.readUserList().get(5), new User (1, "newName", "newRole"));
+           }
+
+    static void deleteUser() {
+        UserService userService = new UserServiceImpl();
+       userService.deleteUser(userService.readUserList().get(5));
+    }
 
 }

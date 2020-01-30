@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rule List</title>
+</head>
+<body>
+<table>
+    <tr data-th-each="rule : ${recordList}">
+        <td data-th-text="${rule.company_id}">...</td>
+        <td data-th-text="${rule.description}">...</td>
+        <td data-th-text="${rule.end_date}">...</td>
+        <td data-th-text="${rule.gift_price}">...</td>
+    </tr>
+</table>
+</body>
+</html>

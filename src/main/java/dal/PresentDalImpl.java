@@ -12,11 +12,15 @@ import java.util.List;
 
 public class PresentDalImpl implements PresentDal {
 
+    public static final String TABLE_PRESENT_COLUMN_NAME = "name";
+    public static final String TABLE_PRESENT_COLUMN_URL = "url";
+    public static final String TABLE_PRESENT_COLUMN_ID = "id";
     private ResultSet resultSet;
 
     @Override
     public void createPresent(Present present) {
-        String sql = "insert into [present] (name, url) values (?,?)";
+        String sql = "insert into [present] (" + TABLE_PRESENT_COLUMN_NAME + ", "
+                + TABLE_PRESENT_COLUMN_URL + ") values (?,?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, present.getName());
@@ -27,11 +31,12 @@ public class PresentDalImpl implements PresentDal {
         }
     }
 
-
     @Override
     public Present read(long id) {
         Present present = null;
-        String sql = "select id, name, url from [present] where id=?";
+        String sql = "select " + TABLE_PRESENT_COLUMN_ID + ", " +
+                "" + TABLE_PRESENT_COLUMN_NAME + ", " + TABLE_PRESENT_COLUMN_URL +
+                " from [present] where " + TABLE_PRESENT_COLUMN_ID + "=?";
 
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
@@ -39,9 +44,9 @@ public class PresentDalImpl implements PresentDal {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {
                 while (resultSet.next()) {
-                    int presentId = resultSet.getInt("id");
-                    String name = resultSet.getString("name");
-                    String url = resultSet.getString("url");
+                    int presentId = resultSet.getInt(TABLE_PRESENT_COLUMN_ID);
+                    String name = resultSet.getString(TABLE_PRESENT_COLUMN_NAME);
+                    String url = resultSet.getString(TABLE_PRESENT_COLUMN_URL);
                     present = new Present(presentId, name, url);
                 }
             }
@@ -52,10 +57,10 @@ public class PresentDalImpl implements PresentDal {
         }
     }
 
-
     @Override
-    public void update(Present present, String newName, String newUrl ) {
-        String sql = "UPDATE [present] SET name= ?, url=? WHERE id=?";
+    public void update(Present present, String newName, String newUrl) {
+        String sql = "UPDATE [present] SET " + TABLE_PRESENT_COLUMN_NAME + "= ?, "
+                + TABLE_PRESENT_COLUMN_URL + "=? WHERE " + TABLE_PRESENT_COLUMN_ID + "=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, newName);
@@ -68,33 +73,31 @@ public class PresentDalImpl implements PresentDal {
 
     }
 
-
-
     @Override
     public void delete(Present present) {
-        String sql = "delete from [present] where id =  ?";
+        String sql = "delete from [present] where " + TABLE_PRESENT_COLUMN_ID + " =  ?";
         try {
-            PreparedStatement preparedStatement =  Driver.getConnection().prepareStatement(sql);
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, present.getId());
             preparedStatement.executeUpdate();
-            } catch (SQLException | IOException e) {
-                e.printStackTrace();
-            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
         }
-
+    }
 
     @Override
     public List<Present> readList() {
         List<Present> present = new LinkedList<Present>();
-        String sql = "select id, name, url from [present]";
+        String sql = "select " + TABLE_PRESENT_COLUMN_ID + ", " + TABLE_PRESENT_COLUMN_NAME + ", "
+                + TABLE_PRESENT_COLUMN_URL + " from [present]";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {
                 while (resultSet.next()) {
-                    int presentId = resultSet.getInt("id");
-                    String name = resultSet.getString("name");
-                    String url = resultSet.getString("url");
+                    int presentId = resultSet.getInt(TABLE_PRESENT_COLUMN_ID);
+                    String name = resultSet.getString(TABLE_PRESENT_COLUMN_NAME);
+                    String url = resultSet.getString(TABLE_PRESENT_COLUMN_URL);
                     present.add(new Present(presentId, name, url));
                 }
             }

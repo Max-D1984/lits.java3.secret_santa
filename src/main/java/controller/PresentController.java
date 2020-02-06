@@ -3,7 +3,6 @@ package controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Present;
-import pojo.User;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,35 +35,35 @@ public class PresentController {
     }
 
     @RequestMapping(
-            value = "/my-wishlist",
+            value = "/present",
             method = RequestMethod.POST)
-    public ResponseEntity postMyWishList(
-            @RequestBody User user) {
+    public ResponseEntity postPresentList(
+            @RequestBody Present present) {
         return ResponseEntity.of(Optional.of(
-                new User(1,
-                        "name",
-                        "Hello")));
+                new Present(1,
+                        "SomePresentName",
+                        "http://Hello")));
     }
 
     @RequestMapping(
-            value = "/my-wishlist",
+            value = "/present",
             method = RequestMethod.PUT)
-    public ResponseEntity putMyWishList(
-            @RequestBody User user) {
+    public ResponseEntity putPresentList(
+            @RequestBody Present present) {
         return ResponseEntity.of(Optional.of(
-                new User(1,
-                        "name",
+                new Present(1,
+                        "SomePresentName",
                         "Hello")));
     }
 
     @RequestMapping(
-            value = "/my-wishlist",
+            value = "/present",
             method = RequestMethod.DELETE)
-    public ResponseEntity deleteMyWishList(
+    public ResponseEntity deletePresentList(
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
-                new User(1,
-                        "name",
-                        "Hello")));
+                new Present(1,
+                        "SomePresentName",
+                        "http://Hellooooo")));
     }
 }

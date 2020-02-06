@@ -4,10 +4,11 @@ import org.springframework.web.bind.annotation.*;
 import pojo.User;
 import service.CompanyService;
 import service.CompanyServiceImpl;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 import java.util.Optional;
-
+@EnableSwagger2
 @RestController
 @RequestMapping(value = "/company")
 

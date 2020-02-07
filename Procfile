@@ -1,1 +1,1 @@
-web: java -jar build/libs/lits.java3.secret_santa.war
+web: java -jar build/libs/lits.java3.secret_santa.jar

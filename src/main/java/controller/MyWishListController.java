@@ -2,9 +2,12 @@ package controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.User;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 import java.util.List;
 import java.util.Optional;
 
+@EnableSwagger2
 @RestController
 @RequestMapping(value = "/wishlist")
 public class MyWishListController {

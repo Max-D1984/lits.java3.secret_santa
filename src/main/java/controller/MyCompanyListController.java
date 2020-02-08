@@ -1,14 +1,15 @@
 package controller;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pojo.User;
 import service.CompanyService;
 import service.CompanyServiceImpl;
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
 import java.util.Optional;
-//@EnableSwagger2
+@EnableSwagger2
 @RestController
 @RequestMapping(value = "/company")
 

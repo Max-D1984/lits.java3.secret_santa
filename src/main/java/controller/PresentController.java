@@ -3,9 +3,11 @@ package controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Present;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 import java.util.List;
 import java.util.Optional;
-
+@EnableSwagger2
 @RestController
 @RequestMapping(value = "/present")
 

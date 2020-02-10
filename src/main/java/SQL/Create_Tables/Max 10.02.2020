@@ -1,0 +1,184 @@
+USE [secretsanta]
+GO
+/****** Object:  Table [dbo].[company]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[company](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[description] [nvarchar](1000) NOT NULL,
+ CONSTRAINT [PK_company] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[hobby]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[hobby](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](150) NOT NULL,
+ CONSTRAINT [PK_hobby] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[present]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[present](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](150) NOT NULL,
+	[url] [nvarchar](150) NOT NULL,
+ CONSTRAINT [PK_present] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[rule]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[rule](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[company_id] [int] NOT NULL,
+	[description] [nvarchar](max) NULL,
+	[end_date] [date] NULL,
+	[gift_price] [int] NULL,
+ CONSTRAINT [PK_rule] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[role] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_user] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_target]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_target](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[user_target_id] [int] NOT NULL,
+	[status] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_user_target] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_to_company]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_to_company](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[company_id] [int] NOT NULL,
+ CONSTRAINT [PK_user_to_company] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_to_hobby]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_to_hobby](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[hobby_id] [int] NOT NULL,
+ CONSTRAINT [PK_user_to_hobby] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[user_to_present]    Script Date: 10.02.2020 13:29:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[user_to_present](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NOT NULL,
+	[present_id] [int] NOT NULL,
+ CONSTRAINT [PK_user_to_present] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[rule]  WITH CHECK ADD  CONSTRAINT [FK_rule_company] FOREIGN KEY([company_id])
+REFERENCES [dbo].[company] ([id])
+GO
+ALTER TABLE [dbo].[rule] CHECK CONSTRAINT [FK_rule_company]
+GO
+ALTER TABLE [dbo].[user_target]  WITH CHECK ADD  CONSTRAINT [FK_user_target_user] FOREIGN KEY([user_id])
+REFERENCES [dbo].[user] ([id])
+GO
+ALTER TABLE [dbo].[user_target] CHECK CONSTRAINT [FK_user_target_user]
+GO
+ALTER TABLE [dbo].[user_target]  WITH CHECK ADD  CONSTRAINT [FK_user_target_user1] FOREIGN KEY([user_target_id])
+REFERENCES [dbo].[user] ([id])
+GO
+ALTER TABLE [dbo].[user_target] CHECK CONSTRAINT [FK_user_target_user1]
+GO
+ALTER TABLE [dbo].[user_to_company]  WITH CHECK ADD  CONSTRAINT [FK_user_to_company_company] FOREIGN KEY([company_id])
+REFERENCES [dbo].[company] ([id])
+GO
+ALTER TABLE [dbo].[user_to_company] CHECK CONSTRAINT [FK_user_to_company_company]
+GO
+ALTER TABLE [dbo].[user_to_company]  WITH CHECK ADD  CONSTRAINT [FK_user_to_company_user] FOREIGN KEY([user_id])
+REFERENCES [dbo].[user] ([id])
+GO
+ALTER TABLE [dbo].[user_to_company] CHECK CONSTRAINT [FK_user_to_company_user]
+GO
+ALTER TABLE [dbo].[user_to_hobby]  WITH CHECK ADD  CONSTRAINT [FK_user_to_hobby_hobby] FOREIGN KEY([hobby_id])
+REFERENCES [dbo].[hobby] ([id])
+GO
+ALTER TABLE [dbo].[user_to_hobby] CHECK CONSTRAINT [FK_user_to_hobby_hobby]
+GO
+ALTER TABLE [dbo].[user_to_hobby]  WITH CHECK ADD  CONSTRAINT [FK_user_to_hobby_user] FOREIGN KEY([user_id])
+REFERENCES [dbo].[user] ([id])
+GO
+ALTER TABLE [dbo].[user_to_hobby] CHECK CONSTRAINT [FK_user_to_hobby_user]
+GO
+ALTER TABLE [dbo].[user_to_present]  WITH CHECK ADD  CONSTRAINT [FK_user_to_present_present] FOREIGN KEY([present_id])
+REFERENCES [dbo].[present] ([id])
+GO
+ALTER TABLE [dbo].[user_to_present] CHECK CONSTRAINT [FK_user_to_present_present]
+GO
+ALTER TABLE [dbo].[user_to_present]  WITH CHECK ADD  CONSTRAINT [FK_user_to_present_user] FOREIGN KEY([user_id])
+REFERENCES [dbo].[user] ([id])
+GO
+ALTER TABLE [dbo].[user_to_present] CHECK CONSTRAINT [FK_user_to_present_user]
+GO

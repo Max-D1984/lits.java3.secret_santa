@@ -40,9 +40,9 @@ dependencies {
 
 
 }
-
+archivesBaseName = "secret-santa"
 task stage() {
-    dependsOn clean, war
+    dependsOn clean
 }
 war.mustRunAfter clean
 
@@ -52,6 +52,7 @@ task copyToLib(type: Copy) {
         include "webapp-runner*"
     }
 }
-
+stage.dependsOn(war)
+stage.dependsOn(jar)
 stage.dependsOn(copyToLib)
 defaultTasks = ["clean", "build", "installApp"]

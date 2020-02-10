@@ -3,10 +3,7 @@ package application;
 import org.slf4j.Logger;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
-import pojo.Company;
-import pojo.Present;
-import pojo.Rule;
-import pojo.User;
+import pojo.*;
 import service.*;
 
 import java.sql.Date;
@@ -72,6 +69,18 @@ public class Launcher {
     //   showCreateUser();
 //        showDeleteUser();
 //
+
+    //    readHobby();
+   //     createHobby();
+   //     updateHobby();
+   //     deleteHobby();
+   //     readHobbyList();
+
+//        showUpdateHobby();
+//        showExactHobby();
+//        showHobbyList();
+//        showCreateHobby();
+//        showDeleteHobby();
 
     }
 
@@ -326,5 +335,78 @@ public class Launcher {
         UserService userService = new UserServiceImpl();
        userService.deleteUser(userService.readUserList().get(5));
     }
+
+// ------------------testHobby-----------------
+static void readHobby() {
+    HobbyService hobbyService = new HobbyServiceImpl();
+    System.out.println(hobbyService.readHobby(1).toString());
+}
+
+    static void readHobbyList() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        hobbyService.readList().stream().forEach(y -> System.out.println(y.toString()));
+    }
+
+    static void createHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        hobbyService.createHobby(new Hobby(0, "new Present"));
+    }
+
+    static void updateHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        hobbyService.updateHobby(hobbyService.readList().get(12), "newNameSome");
+    }
+
+    static void deleteHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        hobbyService.deleteHobby(hobbyService.readList().get(11));
+        //     System.out.println(presentService.readList().get(11).toString());
+    }
+
+    //-----------------------------Present.html----------------------------------------
+    static void showExactHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        Hobby hobbyFromService = hobbyService.readHobby(2);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", hobbyFromService.getName());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showExactHobby", context);
+    }
+
+    static void showHobbyList() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        List<Hobby> hobbyListFromService = hobbyService.readList();
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("recordList", hobbyListFromService);
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showHobbyList", context);
+    }
+
+    static void showCreateHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        List<Hobby> hobbyListFromService = hobbyService.readList();
+        Map<String, Object> variables = new HashMap<>();
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showCreateHobby", context);
+    }
+
+    static void showUpdateHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        Hobby hobbyFromService = hobbyService.readHobby(2);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", hobbyFromService.getName());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showUpdateHobby", context);
+    }
+
+    static void showDeleteHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        Hobby hobbyFromService = hobbyService.readHobby(2);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("name", hobbyFromService.getName());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showDeleteHobby", context);
+    }
+
 
 }

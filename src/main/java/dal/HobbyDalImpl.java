@@ -13,6 +13,7 @@ import java.util.List;
 public class HobbyDalImpl implements HobbyDal {
     public static final String TABLE_HOBBY_COLUMN_NAME = "name";
     public static final String TABLE_HOBBY_COLUMN_ID = "id";
+    public static final String TABLE_HOBBY = "hobby";
     private ResultSet resultSet;
 
     @Override
@@ -20,7 +21,7 @@ public class HobbyDalImpl implements HobbyDal {
         Hobby hobby = null;
         String sql = "select " + TABLE_HOBBY_COLUMN_ID + ", " +
                 "" + TABLE_HOBBY_COLUMN_NAME + ", " +
-                " from [present] where " + TABLE_HOBBY_COLUMN_ID + "=?";
+                " from [" + TABLE_HOBBY + "] where " + TABLE_HOBBY_COLUMN_ID + "=?";
 
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
@@ -44,7 +45,7 @@ public class HobbyDalImpl implements HobbyDal {
     public List<Hobby> readList() {
         List<Hobby> hobby = new LinkedList<Hobby>();
         String sql = "select " + TABLE_HOBBY_COLUMN_ID + ", " + TABLE_HOBBY_COLUMN_NAME + ", "
-                + " from [present]";
+                + " from [" + TABLE_HOBBY + "]";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
@@ -64,7 +65,7 @@ public class HobbyDalImpl implements HobbyDal {
 
     @Override
     public void createHobby (Hobby hobby) {
-        String sql = "insert into [hobby] (" + TABLE_HOBBY_COLUMN_NAME + ", "
+        String sql = "insert into [" + TABLE_HOBBY + "] (" + TABLE_HOBBY_COLUMN_NAME + ", "
                 + ") values (?,?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
@@ -77,7 +78,7 @@ public class HobbyDalImpl implements HobbyDal {
 
     @Override
     public void update(Hobby hobby, String newName) {
-        String sql = "UPDATE [hobby] SET " + TABLE_HOBBY_COLUMN_NAME + "= ?, "
+        String sql = "UPDATE [" + TABLE_HOBBY + "] SET " + TABLE_HOBBY_COLUMN_NAME + "= ?, "
                 +  "=? WHERE " +  "=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
@@ -91,7 +92,7 @@ public class HobbyDalImpl implements HobbyDal {
 
     @Override
     public void delete(Hobby hobby) {
-        String sql = "delete from [hobby] where " + TABLE_HOBBY_COLUMN_ID + " =  ?";
+        String sql = "delete from [" + TABLE_HOBBY + "] where " + TABLE_HOBBY_COLUMN_ID + " =  ?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, hobby.getId());

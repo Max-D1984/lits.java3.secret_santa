@@ -1,5 +1,6 @@
 package application;
 
+import org.slf4j.Logger;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import pojo.Company;
@@ -12,6 +13,8 @@ import java.sql.Date;
 import java.util.*;
 
 public class Launcher {
+
+
     public static void main(String[] args) {
 // ---------- Present -------------------------
         // readPresent();
@@ -62,11 +65,13 @@ public class Launcher {
   //    showUpdateUser();
    //  showExactUser();
    // showUserList();
-       showCreateUser();
+    //   showCreateUser();
 //        showDeleteUser();
 //
 
     }
+
+
 
 // ----------------Company.html -----------------------------
     static void showExactCompany() {

@@ -16,7 +16,7 @@ public class CompanyDalImpl implements CompanyDal {
 
     @Override
     public void create(Company company) {
-        String sql = "INSERT INTO [company1] (name, description) VALUES (?,?)";
+        String sql = "INSERT INTO [company] (name, description) VALUES (?,?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, company.getCompanyName());
@@ -31,7 +31,7 @@ public class CompanyDalImpl implements CompanyDal {
     public Company read(long id) {
         Company company = null;
         try {
-            String sql = "SELECT id, name, description FROM [company1] WHERE id=?";
+            String sql = "SELECT id, name, description FROM [company] WHERE id=?";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -54,7 +54,7 @@ public class CompanyDalImpl implements CompanyDal {
 
     @Override
     public void update(Company oldCompany, Company newCompany) {
-        String sql = "UPDATE [company1] SET name= ?, description=? WHERE id=?";
+        String sql = "UPDATE [company] SET name= ?, description=? WHERE id=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, newCompany.getCompanyName());
@@ -69,7 +69,7 @@ public class CompanyDalImpl implements CompanyDal {
 
     @Override
     public void delete(Company company) {
-        String sql = "DELETE FROM [company1] WHERE id =  ?";
+        String sql = "DELETE FROM [company] WHERE id =  ?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, company.getId());
@@ -83,7 +83,7 @@ public class CompanyDalImpl implements CompanyDal {
     public List<Company> readList() {
         List<Company> company = new LinkedList<Company>();
         try {
-            String sql = "SELECT id, name, description FROM [company1]";
+            String sql = "SELECT id, name, description FROM [company]";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {

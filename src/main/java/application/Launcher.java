@@ -70,17 +70,17 @@ public class Launcher {
 //        showDeleteUser();
 //
 
-    //    readHobby();
-   //     createHobby();
-   //     updateHobby();
-   //     deleteHobby();
-   //     readHobbyList();
+  //   readHobby();
+    //    createHobby();
+    //    updateHobby();
+    //    deleteHobby();
+      //  readHobbyList();
 
-//        showUpdateHobby();
-//        showExactHobby();
-//        showHobbyList();
-//        showCreateHobby();
-//        showDeleteHobby();
+  //      showUpdateHobby();
+   //     showExactHobby();
+   //    showHobbyList();
+   //    showCreateHobby();
+   //     showDeleteHobby();
 
     }
 
@@ -349,17 +349,17 @@ static void readHobby() {
 
     static void createHobby() {
         HobbyService hobbyService = new HobbyServiceImpl();
-        hobbyService.createHobby(new Hobby(0, "new Present"));
+        hobbyService.createHobby(new Hobby(0, "new Hobby"));
     }
 
     static void updateHobby() {
         HobbyService hobbyService = new HobbyServiceImpl();
-        hobbyService.updateHobby(hobbyService.readList().get(12), "newNameSome");
+        hobbyService.updateHobby(hobbyService.readList().get(1), "newSomeHobby");
     }
 
     static void deleteHobby() {
         HobbyService hobbyService = new HobbyServiceImpl();
-        hobbyService.deleteHobby(hobbyService.readList().get(11));
+        hobbyService.deleteHobby(hobbyService.readList().get(1));
         //     System.out.println(presentService.readList().get(11).toString());
     }
 

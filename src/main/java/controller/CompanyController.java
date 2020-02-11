@@ -32,7 +32,7 @@ public class CompanyController {
     @RequestMapping(
             value = "/company",
             method = RequestMethod.POST)
-    public ResponseEntity postPresentList( @RequestParam String name, String description) {
+    public ResponseEntity postCompany( @RequestParam String name, String description) {
         Company newCompany = new Company(0,name, description);
         comp.createCompany(newCompany);
         return ResponseEntity.of(Optional.of(
@@ -42,7 +42,7 @@ public class CompanyController {
     @RequestMapping(
             value = "/company",
             method = RequestMethod.PUT)
-    public ResponseEntity putPresentList(@RequestParam int id, String newName, String newDescription) {
+    public ResponseEntity putCompany(@RequestParam int id, String newName, String newDescription) {
         Company newCompany = new Company(id, newName, newDescription);
         Company oldCompany = comp.readCompany(id);
        comp.updateCompany(oldCompany,newCompany);
@@ -52,7 +52,7 @@ public class CompanyController {
     @RequestMapping(
             value = "/company",
             method = RequestMethod.DELETE)
-    public ResponseEntity deletePresentList(
+    public ResponseEntity deleteCompany(
             @RequestParam Integer id) {
         Company deletedCOmpany = comp.readCompany(11);
         comp.deleteCompany(deletedCOmpany);

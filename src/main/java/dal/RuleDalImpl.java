@@ -11,7 +11,7 @@ import java.util.List;
 public class RuleDalImpl implements RuleDal {
     private static final String TABLE_NAME = "[rule]";
     private static final String TABLE_RULE_COLUMN_ID = "id";
-    private static final String TABLE_RULE_COLUMN_COMPANY_ID = "company_" + TABLE_RULE_COLUMN_ID;
+    private static final String TABLE_RULE_COLUMN_COMPANY_ID = "company_id" + TABLE_RULE_COLUMN_ID;
     private static final String TABLE_RULE_COLUMN_DESCRIPTION = "description";
     private static final String TABLE_RULE_COLUMN_END_DATE = "end_date";
     private static final String TABLE_RULE_COLUMN_GIFT_PRICE = "gift_price";

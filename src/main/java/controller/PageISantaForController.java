@@ -1,5 +1,6 @@
 package controller;
 
+import dal.UserTargetDalImpl;
 import io.swagger.annotations.SwaggerDefinition;
 import model.ISantaForListResponse;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 public class PageISantaForController {
     int loggedUserId = 1;
-
+    UserTargetDalImpl sss = new UserTargetDalImpl();
 
     @RequestMapping(
             value = "/i-santa-for",
@@ -24,11 +25,8 @@ public class PageISantaForController {
     public ResponseEntity putMyWishList(
            ) {
         return ResponseEntity.of(Optional.of(List.of(
-                new ISantaForListResponse("UserName", "Company",
-                        "Rule", "WishList", "Chosen Present", Boolean.TRUE),
-                new ISantaForListResponse("UserName2", "Company2", "Rule2",
-                "WishList2", "Chosen Present2", Boolean.FALSE
-        ))));
+                sss.getTargetForUserById(1)
+        )));
     }
 
 }

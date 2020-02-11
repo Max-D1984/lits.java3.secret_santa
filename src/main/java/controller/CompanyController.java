@@ -32,21 +32,21 @@ public class CompanyController {
     @RequestMapping(
             value = "/company",
             method = RequestMethod.POST)
-    public ResponseEntity postPresentList() {
+    public ResponseEntity postPresentList( @RequestParam String name, String description) {
+        Company newCompany = new Company(0,name, description);
+        comp.createCompany(newCompany);
         return ResponseEntity.of(Optional.of(
-                new Company(1,
-                        "SomeCompanyNamePUT",
-                        "SOmeCompanyDescription")));
+               "Created company" + newCompany));
     }
 
     @RequestMapping(
             value = "/company",
             method = RequestMethod.PUT)
-    public ResponseEntity putPresentList() {
-        return ResponseEntity.of(Optional.of(
-                new Company(1,
-                        "SomeCompanyNamePOST",
-                        "Hello")));
+    public ResponseEntity putPresentList(@RequestParam int id, String newName, String newDescription) {
+        Company newCompany = new Company(id, newName, newDescription);
+        Company oldCompany = comp.readCompany(id);
+       comp.updateCompany(oldCompany,newCompany);
+        return ResponseEntity.of(Optional.of( "Update company" + oldCompany + " to " + newCompany));
     }
 
     @RequestMapping(
@@ -54,10 +54,11 @@ public class CompanyController {
             method = RequestMethod.DELETE)
     public ResponseEntity deletePresentList(
             @RequestParam Integer id) {
+        Company deletedCOmpany = comp.readCompany(11);
+        comp.deleteCompany(deletedCOmpany);
         return ResponseEntity.of(Optional.of(
-                new Company(1,
-                        "SomePresentNameDELETE",
-                        "http://Hellooooo")));
+                "Deleted company "+ deletedCOmpany
+        ));
     }
 
 }

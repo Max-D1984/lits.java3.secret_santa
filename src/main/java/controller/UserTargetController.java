@@ -32,6 +32,8 @@ public class UserTargetController {
             value = "/my-target/list",
             method = RequestMethod.GET)
     public ResponseEntity getTargetList() {
+
+
         return ResponseEntity.of(Optional.of(userTargetService.readList()));
     }
 

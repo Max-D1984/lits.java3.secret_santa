@@ -9,11 +9,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RuleDalImpl implements RuleDal {
+    private static final String TABLE_NAME = "[rule]";
+    private static final String TABLE_RULE_COLUMN_ID = "id";
+    private static final String TABLE_RULE_COLUMN_COMPANY_ID = "company_" + TABLE_RULE_COLUMN_ID;
+    private static final String TABLE_RULE_COLUMN_DESCRIPTION = "description";
+    private static final String TABLE_RULE_COLUMN_END_DATE = "end_date";
+    private static final String TABLE_RULE_COLUMN_GIFT_PRICE = "gift_price";
     private ResultSet resultSet;
 
     @Override
     public void create(Rule rule) {
-    String sql = "INSERT INTO [rule] (company_id, description, end_date, gift_price) VALUES(?,?,?,?)";
+    String sql = "INSERT INTO " + TABLE_NAME + " (" + TABLE_RULE_COLUMN_COMPANY_ID + ", " + TABLE_RULE_COLUMN_DESCRIPTION + ", " + TABLE_RULE_COLUMN_END_DATE + ", " + TABLE_RULE_COLUMN_GIFT_PRICE + ") VALUES(?,?,?,?)";
     try{
         PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
         preparedStatement.setInt(1,rule.getCompany_id());
@@ -29,7 +35,9 @@ public class RuleDalImpl implements RuleDal {
     @Override
     public Rule read(int id) {
         Rule rule = null;
-        String sql = "SELECT id, company_id, description, end_date, gift_price FROM [rule] WHERE id = ?";
+        String sql = "SELECT " + TABLE_RULE_COLUMN_ID + ", " + TABLE_RULE_COLUMN_COMPANY_ID
+                + ", " + TABLE_RULE_COLUMN_DESCRIPTION + ", " + TABLE_RULE_COLUMN_END_DATE
+                + ", " + TABLE_RULE_COLUMN_GIFT_PRICE + " FROM " + TABLE_NAME + " WHERE " + TABLE_RULE_COLUMN_ID + " = ?";
         try{
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -52,7 +60,7 @@ public class RuleDalImpl implements RuleDal {
 
     @Override
     public void update(int id, Rule rule) {
-        String sql = "UPDATE [rule] SET company_id= ?, description=?, end_date=?, gift_price=? WHERE id=?";
+        String sql = "UPDATE " + TABLE_NAME + " SET " + TABLE_RULE_COLUMN_COMPANY_ID + "= ?, " + TABLE_RULE_COLUMN_DESCRIPTION + "=?, " + TABLE_RULE_COLUMN_END_DATE + "=?, " + TABLE_RULE_COLUMN_GIFT_PRICE + "=? WHERE " + TABLE_RULE_COLUMN_ID + "=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1,rule.getCompany_id());
@@ -69,7 +77,7 @@ public class RuleDalImpl implements RuleDal {
 
     @Override
     public void delete(int id) {
-        String sql = "DELETE FROM [rule] WHERE id =  ?";
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + TABLE_RULE_COLUMN_ID + " =  ?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -84,7 +92,7 @@ public class RuleDalImpl implements RuleDal {
     public List<Rule> readList() {
         List<Rule> rules = new LinkedList<>();
         try {
-            String sql = "SELECT id, company_id, description, end_date, gift_price FROM [rule]";
+            String sql = "SELECT " + TABLE_RULE_COLUMN_ID + ", " + TABLE_RULE_COLUMN_COMPANY_ID + ", " + TABLE_RULE_COLUMN_DESCRIPTION + ", " + TABLE_RULE_COLUMN_END_DATE + ", " + TABLE_RULE_COLUMN_GIFT_PRICE + " FROM " + TABLE_NAME;
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

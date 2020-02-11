@@ -133,7 +133,7 @@ public class UserTargetDalImpl implements UserTargetDal {
     }
 
 
-    public List<UserTarget> getTargetForUserById (int id) {
+    public List getTargetForUserById (int id) {
        List listOfTargetsId = new LinkedList();
         String sql = "select user_target_id from [user_target] where user_id = ?";
         try{

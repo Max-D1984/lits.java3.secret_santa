@@ -144,4 +144,7 @@ public class UserTargetServiceImpl implements UserTargetService {
         }
         return mapOfSecretSanta;
     }
+    public List getTargetForUserById (int id){
+        return  userTargetDal.getTargetForUserById(id);
+    }
 }

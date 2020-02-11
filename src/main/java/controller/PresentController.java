@@ -17,7 +17,7 @@ public class PresentController {
 //    private static Long userId =
     PresentService pres = new PresentServiceImpl();
     @RequestMapping(
-            value = "/present",
+            value = "/my-present",
             method = RequestMethod.GET)
     public ResponseEntity getPresent(
             @RequestParam Integer id) {
@@ -26,38 +26,30 @@ public class PresentController {
     }
 
     @RequestMapping(
-            value = "/present/list",
+            value = "/my-present/list",
             method = RequestMethod.GET)
     public ResponseEntity presentListList() {
         return ResponseEntity.of(Optional.of(List.of(
-                new Present(2,
-                        "somePresentName",
-                        "http://..."),
-                new Present (2 + 2,
-                        "somePresentName3",
-                        "http://..3"))));
+                pres.readList())));
     }
 
     @RequestMapping(
             value = "/present",
             method = RequestMethod.POST)
-    public ResponseEntity postPresentList(
-            @RequestBody Present present) {
+    public ResponseEntity postPresentList(@RequestParam String name, String url){
+        Present newPresent = new Present(1,name, url);
+        pres.createPresent(newPresent);
         return ResponseEntity.of(Optional.of(
-                new Present(1,
-                        "SomePresentName",
-                        "http://Hello")));
+                "Created present" + newPresent));
     }
+
 
     @RequestMapping(
             value = "/present",
             method = RequestMethod.PUT)
-    public ResponseEntity putPresentList(
-            @RequestBody Present present) {
-        return ResponseEntity.of(Optional.of(
-                new Present(1,
-                        "SomePresentName",
-                        "Hello")));
+    public ResponseEntity putPresentList(@RequestParam int id, String newName, String newUrl) {
+        pres.updatePresent(pres.readPresent(id), newName,newUrl);
+        return ResponseEntity.of(Optional.of( "Update present" + newName + newUrl));
     }
 
     @RequestMapping(
@@ -65,9 +57,9 @@ public class PresentController {
             method = RequestMethod.DELETE)
     public ResponseEntity deletePresentList(
             @RequestParam Integer id) {
+        Present deletedPresent = pres.readPresent(1);
+        pres.deletePresent(deletedPresent);
         return ResponseEntity.of(Optional.of(
-                new Present(1,
-                        "SomePresentName",
-                        "http://Hellooooo")));
+                "Deleted present "+ deletedPresent));
     }
 }

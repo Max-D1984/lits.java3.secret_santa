@@ -20,8 +20,8 @@ public class HobbyDalImpl implements HobbyDal {
     public Hobby read(long id) {
         Hobby hobby = null;
         String sql = "select " + TABLE_HOBBY_COLUMN_ID + ", " +
-                "" + TABLE_HOBBY_COLUMN_NAME + ", " +
-                " from [" + TABLE_HOBBY + "] where " + TABLE_HOBBY_COLUMN_ID + "=?";
+                TABLE_HOBBY_COLUMN_NAME +
+                 " from [" + TABLE_HOBBY + "] where " + TABLE_HOBBY_COLUMN_ID + "=?";
 
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
@@ -44,7 +44,7 @@ public class HobbyDalImpl implements HobbyDal {
     @Override
     public List<Hobby> readList() {
         List<Hobby> hobby = new LinkedList<Hobby>();
-        String sql = "select " + TABLE_HOBBY_COLUMN_ID + ", " + TABLE_HOBBY_COLUMN_NAME + ", "
+        String sql = "select " + TABLE_HOBBY_COLUMN_ID + ", " + TABLE_HOBBY_COLUMN_NAME
                 + " from [" + TABLE_HOBBY + "]";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
@@ -65,8 +65,8 @@ public class HobbyDalImpl implements HobbyDal {
 
     @Override
     public void createHobby (Hobby hobby) {
-        String sql = "insert into [" + TABLE_HOBBY + "] (" + TABLE_HOBBY_COLUMN_NAME + ", "
-                + ") values (?,?)";
+        String sql = "insert into [" + TABLE_HOBBY + "] (" + TABLE_HOBBY_COLUMN_NAME
+                + ") values (?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, hobby.getName());
@@ -78,12 +78,12 @@ public class HobbyDalImpl implements HobbyDal {
 
     @Override
     public void update(Hobby hobby, String newName) {
-        String sql = "UPDATE [" + TABLE_HOBBY + "] SET " + TABLE_HOBBY_COLUMN_NAME + "= ?, "
-                +  "=? WHERE " +  "=?";
+        String sql = "UPDATE [" + TABLE_HOBBY + "] SET " + TABLE_HOBBY_COLUMN_NAME + "=?"
+                +  " WHERE " + TABLE_HOBBY_COLUMN_ID + "=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, newName);
-            preparedStatement.setLong(3, hobby.getId());
+            preparedStatement.setLong(2, hobby.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();

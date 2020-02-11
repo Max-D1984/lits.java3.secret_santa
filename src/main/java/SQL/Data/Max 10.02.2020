@@ -1,5 +1,23 @@
 USE [secretsanta]
 GO
+DELETE FROM [dbo].[user_target]
+GO
+DELETE FROM [dbo].[user_to_present]
+GO
+DELETE FROM [dbo].[present]
+GO
+DELETE FROM [dbo].[user_to_hobby]
+GO
+DELETE FROM [dbo].[hobby]
+GO
+DELETE FROM [dbo].[user_to_company]
+GO
+DELETE FROM [dbo].[user]
+GO
+DELETE FROM [dbo].[rule]
+GO
+DELETE FROM [dbo].[company]
+GO
 SET IDENTITY_INSERT [dbo].[company] ON
 GO
 INSERT [dbo].[company] ([id], [name], [description]) VALUES (1, N'ПАТ ФРАНКІВСЬКА ХАРЧОСМАКОВА ФАБРИКА', N'ПАТ «Івано-Франківська Харчосмакова фабрика» базується на багаторічному досвіді роботи, використанні екологічно чистої сировини та креативному мисленні')
@@ -72,6 +90,18 @@ INSERT [dbo].[user] ([id], [name], [role]) VALUES (15, N'someCompany', N'SomeRol
 GO
 SET IDENTITY_INSERT [dbo].[user] OFF
 GO
+SET IDENTITY_INSERT [dbo].[hobby] ON
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (1, N'cars')
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (2, N'computers')
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (3, N'books')
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (4, N'sport')
+GO
+SET IDENTITY_INSERT [dbo].[hobby] OFF
+GO
 SET IDENTITY_INSERT [dbo].[present] ON
 GO
 INSERT [dbo].[present] ([id], [name], [url]) VALUES (1, N'Дрон', N'https://rozetka.com.ua/quadrocopters/c1124685/')
@@ -99,16 +129,4 @@ GO
 INSERT [dbo].[present] ([id], [name], [url]) VALUES (12, N'Путівка на море до Єгипту', N'http://egypt.coraltravel.ua/')
 GO
 SET IDENTITY_INSERT [dbo].[present] OFF
-GO
-SET IDENTITY_INSERT [dbo].[hobby] ON
-GO
-INSERT [dbo].[hobby] ([id], [name]) VALUES (1, N'cars')
-GO
-INSERT [dbo].[hobby] ([id], [name]) VALUES (2, N'computers')
-GO
-INSERT [dbo].[hobby] ([id], [name]) VALUES (3, N'books')
-GO
-INSERT [dbo].[hobby] ([id], [name]) VALUES (4, N'sport')
-GO
-SET IDENTITY_INSERT [dbo].[hobby] OFF
 GO

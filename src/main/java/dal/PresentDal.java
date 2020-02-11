@@ -1,5 +1,6 @@
 package dal;
 
+import org.slf4j.Logger;
 import pojo.Present;
 
 import java.util.List;
@@ -10,7 +11,6 @@ public interface PresentDal {
     public void createPresent (Present present);
     public void update (Present present, String newName, String newUrl);
     public void delete (Present present);
-
 
 
 }

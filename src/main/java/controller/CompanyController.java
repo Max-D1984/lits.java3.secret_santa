@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/company")
 
-public class MyCompanyListController {
+public class CompanyController {
     CompanyService comp = new CompanyServiceImpl();
     @RequestMapping(
             value = "/my-company",

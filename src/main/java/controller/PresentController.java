@@ -3,24 +3,25 @@ package controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Present;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import service.PresentService;
+import service.PresentServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
-@EnableSwagger2
+
 @RestController
 @RequestMapping(value = "/present")
 
 public class PresentController {
+//    private static Long userId =
+    PresentService pres = new PresentServiceImpl();
     @RequestMapping(
             value = "/present",
             method = RequestMethod.GET)
     public ResponseEntity getPresent(
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
-                new Present(id,
-                        "SomeNameOfPresent",
-                        "http://")));
+              pres.readPresent(id)));
     }
 
     @RequestMapping(

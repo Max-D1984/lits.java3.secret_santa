@@ -69,7 +69,7 @@ public class Launcher {
         //   showCreateUser();
 //        showDeleteUser();
 //
-
+//----------------------HOBBY-----------------
         //   readHobby();
         //   createHobby();
         //   updateHobby();
@@ -81,7 +81,18 @@ public class Launcher {
         //   showHobbyList();
         //   showCreateHobby();
         //   showDeleteHobby();
+//--------------------USER_TO_HOBBY---------------
+        //   readUserToHobby();
+        //   createUserToHobby();
+        //   updateUserToHobby();
+        //   deleteUserToHobby();
+        //   readUserToHobbyList();
 
+        //  showUpdateUserToHobby();
+        //   showExactUserToHobby();
+        //   showUserToHobbyList();
+        //   showCreateUserToHobby();
+        //   showDeleteUserToHobby();
     }
 
 
@@ -366,7 +377,7 @@ public class Launcher {
         //     System.out.println(presentService.readList().get(11).toString());
     }
 
-    //-----------------------------Present.html----------------------------------------
+    //-----------------------------Hobby.html----------------------------------------
     static void showExactHobby() {
         HobbyService hobbyService = new HobbyServiceImpl();
         Hobby hobbyFromService = hobbyService.readHobby(2);
@@ -411,5 +422,79 @@ public class Launcher {
         ThymeleaUtils.drawPage("showDeleteHobby", context);
     }
 
+// ------------------------TestUserToHobby-----------------------
+    static void readUserToHobby() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        System.out.println(userToHobbyService.readUserToHobby(1).toString());
+    }
+
+    static void readUserToHobbyList() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        userToHobbyService.readList().stream().forEach(y -> System.out.println(y.toString()));
+    }
+
+    static void createUserToHobby() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        userToHobbyService.createUserToHobby(new UserToHobby(0, 1, 1));
+    }
+
+    static void updateUserToHobby() {
+
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        userToHobbyService.updateUserToHobby(userToHobbyService.readList().get(1), 1, 1);
+    }
+
+    static void deleteUserToHobby() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        userToHobbyService.deleteUserToHobby(userToHobbyService.readList().get(1));
+        //     System.out.println(presentService.readList().get(11).toString());
+    }
+    //-----------------------------UserToHobby.html----------------------------------------
+    static void showExactUserToHobby() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        UserToHobby userToHobbyFromService = userToHobbyService.readUserToHobby(1);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("user_id", userToHobbyFromService.getUser_id());
+        variables.put("hobby_id", userToHobbyFromService.getHobby_id());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showExactUserToHobby", context);
+    }
+
+    static void showUserToHobbyList() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        List<UserToHobby> userToHobbyListFromService = userToHobbyService.readList();
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("recordList", userToHobbyListFromService);
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showUserToHobbyList", context);
+    }
+
+    static void showCreateUserToHobby() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        List<UserToHobby> UserToHobbyListFromService = userToHobbyService.readList();
+        Map<String, Object> variables = new HashMap<>();
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showCreateUserToHobby", context);
+    }
+
+    static void showUpdateUserToHobby() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        UserToHobby userToHobbyFromService = userToHobbyService.readUserToHobby(2);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("user_id", userToHobbyFromService.getUser_id());
+        variables.put("hobby_id", userToHobbyFromService.getHobby_id());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showUpdateUserToHobby", context);
+    }
+
+    static void showDeleteUserToHobby() {
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        UserToHobby userToHobbyFromService = userToHobbyService.readUserToHobby(1);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("user_id", userToHobbyFromService.getUser_id());
+        variables.put("hobby_id", userToHobbyFromService.getHobby_id());
+        IContext context = new Context(Locale.getDefault(), variables);
+        ThymeleaUtils.drawPage("showDeleteUserToHobby", context);
+    }
 
 }

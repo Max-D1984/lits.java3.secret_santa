@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${message}">Hello, World!</title>
+</head>
+<body>
+<table>
+    <tr data-th-each="user to hobby : ${recordList}">
+        <td data-th-text="${user_id}">...</td>
+        <td data-th-text="${hobby_id}">...</td>
+    </tr>
+</table>
+</body>
+</html>
+

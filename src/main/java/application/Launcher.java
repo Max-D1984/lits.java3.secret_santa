@@ -63,30 +63,29 @@ public class Launcher {
 //        readUserList();
 //
 
-  //    showUpdateUser();
-   //  showExactUser();
-   // showUserList();
-    //   showCreateUser();
+        //    showUpdateUser();
+        //  showExactUser();
+        // showUserList();
+        //   showCreateUser();
 //        showDeleteUser();
 //
 
-  //   readHobby();
-    //    createHobby();
-    //    updateHobby();
-    //    deleteHobby();
-      //  readHobbyList();
+        //   readHobby();
+        //   createHobby();
+        //   updateHobby();
+        //   deleteHobby();
+        //   readHobbyList();
 
-  //      showUpdateHobby();
-   //     showExactHobby();
-   //    showHobbyList();
-   //    showCreateHobby();
-   //     showDeleteHobby();
+        //   showUpdateHobby();
+        //   showExactHobby();
+        //   showHobbyList();
+        //   showCreateHobby();
+        //   showDeleteHobby();
 
     }
 
 
-
-// ----------------Company.html -----------------------------
+    // ----------------Company.html -----------------------------
     static void showExactCompany() {
         CompanyService companyService = new CompanyServiceImpl();
         Company companyFromService = companyService.readCompany(3);
@@ -135,7 +134,7 @@ public class Launcher {
         ThymeleaUtils.drawPage("showCreateCompany", context);
     }
 
-//------------------------ Test Present----------------------------
+    //------------------------ Test Present----------------------------
     static void readPresent() {
         PresentService presentService = new PresentServiceImpl();
         System.out.println(presentService.readPresent(1).toString());
@@ -164,7 +163,7 @@ public class Launcher {
     }
 
 
-//-----------------------------Present.html----------------------------------------
+    //-----------------------------Present.html----------------------------------------
     static void showExactPresent() {
         PresentService presentService = new PresentServiceImpl();
         Present presentFromService = presentService.readPresent(2);
@@ -212,7 +211,7 @@ public class Launcher {
         ThymeleaUtils.drawPage("showDeletePresent", context);
     }
 
-//------------------------ Test Company--------------------------
+    //------------------------ Test Company--------------------------
     static void readCompany() {
         CompanyService companyService = new CompanyServiceImpl();
         System.out.println(companyService.readCompany(3).toString());
@@ -238,9 +237,10 @@ public class Launcher {
         CompanyService companyService = new CompanyServiceImpl();
         companyService.deleteCompany(companyService.readCompanyList().get(10));
     }
+
     //-----------Test Rule---------------
     static void readRule() {
-       RuleService ruleService = new RuleServiceImpl();
+        RuleService ruleService = new RuleServiceImpl();
         System.out.println(ruleService.read(3).toString());
     }
 
@@ -251,18 +251,19 @@ public class Launcher {
 
     static void createRule() {
         RuleService ruleService = new RuleServiceImpl();
-        ruleService.create(new Rule(10, 10, "new Rule", Date.valueOf("2019-12-25"),200));
+        ruleService.create(new Rule(10, 10, "new Rule", Date.valueOf("2019-12-25"), 200));
     }
 
     static void updateRule() {
         RuleService ruleService = new RuleServiceImpl();
-        ruleService.update(1001, new Rule(10,10, "Old Rule", Date.valueOf("2019-12-24"),480));
+        ruleService.update(1001, new Rule(10, 10, "Old Rule", Date.valueOf("2019-12-24"), 480));
     }
 
     static void deleteRule() {
         RuleService ruleService = new RuleServiceImpl();
         ruleService.delete(10);
     }
+
     static void showExactUser() {
         UserService userService = new UserServiceImpl();
         User userFromService = userService.readUser(10);
@@ -294,7 +295,8 @@ public class Launcher {
     }
 
     static void showUserList() {
-        UserService userService = new UserServiceImpl();;
+        UserService userService = new UserServiceImpl();
+        ;
         List<User> userListFromService = userService.readUserList();
         Map<String, Object> variables = new HashMap<>();
         variables.put("massage", "User for Secret Santa");
@@ -309,10 +311,11 @@ public class Launcher {
         Map<String, Object> variables = new HashMap<>();
         IContext context = new Context(Locale.getDefault(), variables);
         ThymeleaUtils.drawPage("showCreateUser", context);
-}
+    }
+
     static void readUser() {
         UserService userService = new UserServiceImpl();
-        System.out.println( userService.readUser(1));
+        System.out.println(userService.readUser(1));
     }
 
     static void readUserList() {
@@ -328,19 +331,19 @@ public class Launcher {
     static void updateUser() {
 
         UserService userService = new UserServiceImpl();
-       userService.updateUser(userService.readUserList().get(5), new User (1, "newName", "newRole"));
-           }
+        userService.updateUser(userService.readUserList().get(5), new User(1, "newName", "newRole"));
+    }
 
     static void deleteUser() {
         UserService userService = new UserServiceImpl();
-       userService.deleteUser(userService.readUserList().get(5));
+        userService.deleteUser(userService.readUserList().get(5));
     }
 
-// ------------------testHobby-----------------
-static void readHobby() {
-    HobbyService hobbyService = new HobbyServiceImpl();
-    System.out.println(hobbyService.readHobby(1).toString());
-}
+    // ------------------testHobby-----------------
+    static void readHobby() {
+        HobbyService hobbyService = new HobbyServiceImpl();
+        System.out.println(hobbyService.readHobby(1).toString());
+    }
 
     static void readHobbyList() {
         HobbyService hobbyService = new HobbyServiceImpl();

@@ -13,4 +13,5 @@ public interface UserTargetService {
     List<UserTarget> readList ();
     void createList(List<User> userList);
     Map<Integer,Integer> generateMapOfUsers(List<User> userList);
+    List getTargetForUserById (int id);
 }

@@ -1,6 +1,7 @@
 package dal;
 
 import application.Driver;
+import model.MyWishListResponse;
 import pojo.Rule;
 import pojo.UserToPresent;
 
@@ -17,6 +18,7 @@ public class UserToPresentDalImpl implements UserToPresentDal {
     private static final String TABLE_USER_TO_PRESENT_COLUMN_ID = "id";
     private static final String TABLE_USER_TO_PRESENT_COLUMN_USER_ID = "user_id";
     private static final String TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID = "present_id";
+    private static final String TABLE_PRESENT_NAME = "[present]";
     private ResultSet resultSet;
     @Override
     public void create(UserToPresent userToPresent) {
@@ -90,5 +92,26 @@ public class UserToPresentDalImpl implements UserToPresentDal {
     @Override
     public List<UserToPresent> readList() {
         return null;
+    }
+
+    @Override
+    public List<MyWishListResponse> readPresentListById(int id) {
+        List<MyWishListResponse> userToPresentsById = new LinkedList<>();
+        try {
+            String sql = "select p.name,p.url from [user_to_present] u join [present] p on u.present_id = p.id where u.[user_id]=?";
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+               String name = resultSet.getString(1);
+                String url = resultSet.getString(2);
+              //  System.out.printf("%s, %s, %s \n", userToPresentId, user_id, present_id);
+                userToPresentsById.add(new MyWishListResponse(name, url, "remove"));
+            }
+        } catch (SQLException | IOException ex) {
+            System.out.println("Wrong column name or table");
+            System.out.println(ex);
+        }
+        return userToPresentsById;
     }
 }

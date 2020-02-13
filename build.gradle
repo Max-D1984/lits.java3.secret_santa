@@ -35,8 +35,8 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.11.3'
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 
-    
 
 
 }

@@ -13,4 +13,5 @@ public interface UserTargetDal {
     void delete (int id);
     List<UserTarget> readList ();
     void createList(Map<Integer,Integer> mapOfSecretSanta);
+    public List getTargetForUserById (int id);
 }

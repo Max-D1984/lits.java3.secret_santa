@@ -2,11 +2,9 @@ package dal;
 
 import application.Driver;
 import model.MyWishListResponse;
-import pojo.Rule;
 import pojo.UserToPresent;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,12 +79,12 @@ public class UserToPresentDalImpl implements UserToPresentDal {
 
     @Override
     public void update(int id, UserToPresent userToPresent) {
-
+        System.out.println("Complite this method");
     }
 
     @Override
     public void delete(int id) {
-
+        System.out.println("Complite this method");
     }
 
     @Override

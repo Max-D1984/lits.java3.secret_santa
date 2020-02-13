@@ -1,5 +1,7 @@
 package controller;
 
+import dal.UserToPresentDal;
+import dal.UserToPresentDalImpl;
 import model.MyWishListResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +16,15 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/wishlist")
 public class MyWishListController {
+
+    private int loggedInUserId = 8;
+
     @RequestMapping(
             value = "/my-wishlist/list",
             method = RequestMethod.GET)
-    public ResponseEntity getMyWishListList(@RequestParam Integer targetwishlist) {
+    public ResponseEntity getMyWishListList() {
         UserToPresentService userToPresentDal = new UserToPresentServiceImpl();
-        List<MyWishListResponse> presentForUserId = userToPresentDal.readPresentListById(targetwishlist);
+        List<MyWishListResponse> presentForUserId = userToPresentDal.readPresentListById(loggedInUserId);
         return ResponseEntity.of(Optional.of(presentForUserId));
     }
 

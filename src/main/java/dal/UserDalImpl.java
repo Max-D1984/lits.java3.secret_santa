@@ -15,11 +15,10 @@ public class UserDalImpl implements UserDal {
 
     @Override
     public void create(User user) {
-        String sql = "insert into [User] (name, role) values (?,?)";
+        String sql = "insert into [User] (name) values (?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
-            preparedStatement.setString(2, user.getUserRole());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -38,7 +37,7 @@ public class UserDalImpl implements UserDal {
             while (rs.next()) {
                 String name = rs.getString("name");
                 Integer userId = rs.getInt("id");
-                user = new User(userId, name, "role");
+                user = new User(userId, name);
 
             }
             return user;
@@ -52,12 +51,11 @@ public class UserDalImpl implements UserDal {
 
     @Override
     public void update(User user, User newUser) {
-        String sql = "UPDATE [user] SET name= ?, role=? WHERE id=?";
+        String sql = "UPDATE [user] SET name=? WHERE id=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
-            preparedStatement.setString(2, user.getUserRole());
-            preparedStatement.setLong(3, user.getId());
+            preparedStatement.setLong(2, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -88,7 +86,7 @@ public class UserDalImpl implements UserDal {
             while (rs.next()) {
                 String name = rs.getString("name");
                 Integer userId = rs.getInt("id");
-                userList.add(new User(userId, name, "role"));
+                userList.add(new User(userId, name));
             }
             return userList;
         } catch (SQLException e) {
@@ -98,11 +96,7 @@ public class UserDalImpl implements UserDal {
             e.printStackTrace();
             return null;
         }
-
-
     }
-
-
 }
 
 

@@ -74,6 +74,7 @@ import pojo.User;
 import service.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 @EnableSwagger2
@@ -83,6 +84,7 @@ import java.util.Optional;
 public class UserController {
 
     UserService us = new UserServiceImpl();
+    UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
     @RequestMapping(
             value = "/user",
             method = RequestMethod.GET)
@@ -98,11 +100,9 @@ public class UserController {
     public ResponseEntity userListList() {
         return ResponseEntity.of(Optional.of(List.of(
                 new User(2,
-                        "someUserName",
-                        "http://..."),
+                        "someUserName"),
                 new User (2 + 2,
-                        "someUserName3",
-                        "http://..3"))));
+                        "someUserName3"))));
     }
 
     @RequestMapping(
@@ -112,8 +112,7 @@ public class UserController {
             @RequestBody User user) {
         return ResponseEntity.of(Optional.of(
                 new User(1,
-                        "SomeUserName",
-                        "http://Hello")));
+                        "SomeUserName")));
     }
 
     @RequestMapping(
@@ -123,8 +122,7 @@ public class UserController {
             @RequestBody User present) {
         return ResponseEntity.of(Optional.of(
                 new User(2,
-                        "SomeUserName",
-                        "Hello")));
+                        "SomeUserName")));
     }
 
     @RequestMapping(
@@ -134,7 +132,19 @@ public class UserController {
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
                 new User(1,
-                        "SomeUserName",
-                        "http://Hellooooo")));
+                        "SomeUserName")));
+    }
+    @RequestMapping(
+            value = "/userlist",
+            method = RequestMethod.GET)
+    public ResponseEntity getUsersByCompanyId(
+            @RequestParam Integer id) {
+        List<String> userName = new LinkedList<>();
+        List<User> userList = userToCompanyService.readUserByCompanyId(id);
+        for(User user: userList){
+            userName.add(user.getUserName());
+        }
+        return ResponseEntity.of(Optional.of(
+               userName));
     }
 }

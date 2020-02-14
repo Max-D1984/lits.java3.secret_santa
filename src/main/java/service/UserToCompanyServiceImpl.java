@@ -2,6 +2,7 @@ package service;
 
 import dal.UserToCompanyDal;
 import dal.UserToCompanyDalImpl;
+import pojo.User;
 import pojo.UserToCompany;
 
 import java.util.List;
@@ -30,5 +31,10 @@ public class UserToCompanyServiceImpl implements UserToCompanyService{
     @Override
     public void testUserToCompany() {
 
+    }
+
+    @Override
+    public List<User> readUserByCompanyId(int id) {
+        return userToCompanyDal.readListByCompanyId(id);
     }
 }

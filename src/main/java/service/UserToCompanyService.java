@@ -1,5 +1,6 @@
 package service;
 
+import pojo.User;
 import pojo.UserToCompany;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface UserToCompanyService {
     void updateUserToCompany(UserToCompany userToCompany, int newUser_id, int newCompany_id);
 
     void testUserToCompany();
+    List<User>readUserByCompanyId(int id);
 }

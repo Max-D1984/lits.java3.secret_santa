@@ -280,7 +280,6 @@ public class Launcher {
         User userFromService = userService.readUser(10);
         Map<String, Object> variables = new HashMap<>();
         variables.put("name", userFromService.getUserName());
-        variables.put("role", userFromService.getUserRole());
         IContext context = new Context(Locale.getDefault(), variables);
         ThymeleaUtils.drawPage("showExactCompany", context);
     }
@@ -290,7 +289,6 @@ public class Launcher {
         User userFromService = userService.readUser(8);
         Map<String, Object> variables = new HashMap<>();
         variables.put("companyName", userFromService.getUserName());
-        variables.put("companyRole", userFromService.getUserRole());
         IContext context = new Context(Locale.getDefault(), variables);
         ThymeleaUtils.drawPage("showUpdateUser", context);
     }
@@ -300,7 +298,6 @@ public class Launcher {
         User userFromService = userService.readUser(3);
         Map<String, Object> variables = new HashMap<>();
         variables.put("userName", userFromService.getUserName());
-        variables.put("userRole", userFromService.getUserRole());
         IContext context = new Context(Locale.getDefault(), variables);
         ThymeleaUtils.drawPage("showDeleteCompany", context);
     }
@@ -336,13 +333,13 @@ public class Launcher {
 
     static void createUser() {
         UserService userService = new UserServiceImpl();
-        userService.createUser(new User(0, "new User", "new Role"));
+        userService.createUser(new User(0, "new User"));
     }
 
     static void updateUser() {
 
         UserService userService = new UserServiceImpl();
-        userService.updateUser(userService.readUserList().get(5), new User(1, "newName", "newRole"));
+        userService.updateUser(userService.readUserList().get(5), new User(1, "newName"));
     }
 
     static void deleteUser() {

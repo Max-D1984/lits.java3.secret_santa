@@ -1,0 +1,246 @@
+USE [secretsanta]
+GO
+DELETE FROM [dbo].[user_target]
+GO
+DELETE FROM [dbo].[user_to_present]
+GO
+DELETE FROM [dbo].[present]
+GO
+DELETE FROM [dbo].[user_to_hobby]
+GO
+DELETE FROM [dbo].[hobby]
+GO
+DELETE FROM [dbo].[user_to_company]
+GO
+DELETE FROM [dbo].[user]
+GO
+DELETE FROM [dbo].[rule]
+GO
+DELETE FROM [dbo].[company]
+GO
+SET IDENTITY_INSERT [dbo].[company] ON
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (1, N'ПАТ ФРАНКІВСЬКА ХАРЧОСМАКОВА ФАБРИКА', N'ПАТ «Івано-Франківська Харчосмакова фабрика» базується на багаторічному досвіді роботи, використанні екологічно чистої сировини та креативному мисленні')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (2, N'АГРОАЗССЕРВІС, ГРУПА КОМПАНІЙ', N'Наша компанія пропонує послуги: - комплексне будівництво АЗС')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (3, N'DIT Systems', N'Digital Innovation Technology Systems (ISTD) Ltd. розробляє та пропонує спеціиалізоване телекоммунікаційні решення')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (4, N'CompMast', N'CompMast звільнить Вас від комп"ютерних проблем! Ремонт и налаштування ПК')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (5, N'Вектра IТ', N'Виробництво компьютерыв и серверыв під власною торговою маркою Elegances®')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (6, N'SonoScape', N'УЗД апарати Соноскейп')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (7, N'Michelle Perkol, creative agency', N'М. Perkol — креативне рекламне агентство')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (8, N'Артезианская 540, creative agency', N'доставка артезіанскої води')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (9, N'Student Adventure, creative agency', N'tudent Adventure - це одна із найбільших компаній на ринку культурно-освітніх обмінів і виїзду молоді та студентів до США, ОАЕ та Німеччини.')
+GO
+INSERT [dbo].[company] ([id], [name], [description]) VALUES (10, N'"Слобожанська промислова компанія"', N'крупний виробник сельськогосподарських тракторів 3-4 класса сериї "Слобожанець"')
+GO
+SET IDENTITY_INSERT [dbo].[company] OFF
+GO
+SET IDENTITY_INSERT [dbo].[rule] ON
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (1, 1, N'some description', CAST(N'2019-12-24' AS Date), 200)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (2, 2, N'some description', CAST(N'2019-12-25' AS Date), 300)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (3, 3, N'some description', CAST(N'2019-12-25' AS Date), 200)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (4, 4, N'some description', CAST(N'2019-12-26' AS Date), 150)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (5, 5, N'some description', CAST(N'2019-12-25' AS Date), 200)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (6, 6, N'some description', CAST(N'2019-12-27' AS Date), 350)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (7, 7, N'some description', CAST(N'2019-12-26' AS Date), 250)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (8, 8, N'some description', CAST(N'2019-12-25' AS Date), 200)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (9, 9, N'some description', CAST(N'2019-12-23' AS Date), 300)
+GO
+INSERT [dbo].[rule] ([id], [company_id], [description], [end_date], [gift_price]) VALUES (10, 10, N'some description', CAST(N'2019-12-23' AS Date), 250)
+GO
+SET IDENTITY_INSERT [dbo].[rule] OFF
+GO
+SET IDENTITY_INSERT [dbo].[user] ON
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (1, N'Marco')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (2, N'Andy')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (3, N'Max')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (4, N'Zoryana')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (5, N'Oleh')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (6, N'Vadim')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (7, N'Stas')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (8, N'Taras')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (9, N'Mykola')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (10, N'Slavik')
+GO
+INSERT [dbo].[user] ([id], [name]) VALUES (11, N'Andrei')
+GO
+SET IDENTITY_INSERT [dbo].[user] OFF
+GO
+SET IDENTITY_INSERT [dbo].[hobby] ON
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (1, N'cars')
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (2, N'computers')
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (3, N'books')
+GO
+INSERT [dbo].[hobby] ([id], [name]) VALUES (4, N'sport')
+GO
+SET IDENTITY_INSERT [dbo].[hobby] OFF
+GO
+SET IDENTITY_INSERT [dbo].[present] ON
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (1, N'Дрон', N'https://rozetka.com.ua/quadrocopters/c1124685/')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (2, N'Два ящика пива', N'https://chernovtsy.prom.ua/p867769119-yaschik-dlya-piva.html')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (3, N'Коробка цукерок', N'https://chernovtsy.prom.ua/p1066176939-podarok-rozhdestvo-konfety.html')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (4, N'Настільне дзеркало для макіяжу', N'https://zevstorg.com.ua/p982524016-zerkalo-dlya-makiyazha.html')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (5, N'Мікрофон-караоке', N'https://detap.com.ua/p1044957346-mikrofon-funktsiej-karaoke.html')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (6, N'Чохол для телефону', N'https://vipcase.com.ua/g24198228-xiaomi-redmi-note')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (7, N'Портативна музична колонка', N'https://chernovtsy.prom.ua/p810378710-kolonka-bluetooth-jbl.html')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (8, N'Настінний годинник', N'https://detap.com.ua/p783897431-chasy-meteostantsiya-proektorom.html')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (9, N'Набір викруток', N'https://detali.zp.ua/catalog/13048-nabor_otvertok_18_sht_stal/')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (10, N'Абонемент до спортзалу', N'https://nova-sport.com.ua/')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (11, N'Шкіряна сумка', N'https://leboutique.com/catalog/women/handbag')
+GO
+INSERT [dbo].[present] ([id], [name], [url]) VALUES (12, N'Путівка на море до Єгипту', N'http://egypt.coraltravel.ua/')
+GO
+SET IDENTITY_INSERT [dbo].[present] OFF
+GO
+SET IDENTITY_INSERT [dbo].[user_to_company] ON
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (1, 1, 1, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (2, 2, 1, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (3, 3, 1, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (4, 5, 1, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (5, 8, 1, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (6, 11, 1, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (7, 9, 2, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (8, 5, 2, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (9, 7, 2, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (10, 2, 2, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (11, 11, 2, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (12, 4, 3, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (13, 9, 3, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (14, 10, 3, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (15, 6, 4, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (16, 7, 4, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (17, 8, 4, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (18, 2, 5, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (19, 3, 5, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (20, 4, 5, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (21, 5, 5, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (22, 1, 6, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (23, 10, 6, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (24, 10, 7, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (25, 5, 7, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (26, 9, 7, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (27, 9, 8, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (28, 3, 9, N'admin')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (29, 2, 9, N'user')
+GO
+INSERT [dbo].[user_to_company] ([id], [user_id], [company_id], [role]) VALUES (30, 5, 10, N'admin')
+GO
+SET IDENTITY_INSERT [dbo].[user_to_company] OFF
+GO
+SET IDENTITY_INSERT [dbo].[user_to_present] ON
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (1, 1, 1)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (2, 1, 2)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (3, 1, 3)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (4, 2, 5)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (5, 3, 4)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (6, 3, 1)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (7, 3, 6)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (8, 5, 12)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (9, 5, 8)
+GO
+INSERT [dbo].[user_to_present] ([id], [user_id], [present_id]) VALUES (10, 6, 6)
+GO
+SET IDENTITY_INSERT [dbo].[user_to_present] OFF
+GO
+SET IDENTITY_INSERT [dbo].[user_to_hobby] ON
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (1, 1, 1)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (2, 1, 2)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (3, 2, 1)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (4, 2, 3)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (5, 3, 1)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (6, 3, 4)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (7, 4, 4)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (8, 5, 3)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (9, 6, 2)
+GO
+INSERT [dbo].[user_to_hobby] ([id], [user_id], [hobby_id]) VALUES (10, 6, 3)
+GO
+SET IDENTITY_INSERT [dbo].[user_to_hobby] OFF
+GO

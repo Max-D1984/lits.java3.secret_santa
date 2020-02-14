@@ -5,61 +5,49 @@ import java.util.Objects;
 public class User {
     private int id;
     private String userName;
-    private String userRole;
 
-
-    public User(int id, String userName, String userRole) {
+    public User(int id, String userName) {
         this.id = id;
         this.userName = userName;
-        this.userRole = userRole;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getUserRole() {
-        return userRole;
-    }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User that = (User) o;
-        return id == that.id &&
-                Objects.equals(userName, that.userName) &&
-                Objects.equals(userRole, that.userRole);
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(userName, user.userName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, userRole);
+        return Objects.hash(id, userName);
     }
 
     @Override
     public String toString() {
-        return "UserRecords{" +
+        return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", userRole='" + userRole + '\'' +
                 '}';
     }
+
 }
 

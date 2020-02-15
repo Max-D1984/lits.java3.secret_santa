@@ -6,12 +6,13 @@ public class UserToCompany {
     private int id;
     private int user_id;
     private int company_id;
+    private String role;
 
-    public UserToCompany(int id, int user_id, int hobby_id) {
+    public UserToCompany(int id, int user_id, int company_id, String role) {
         this.id = id;
         this.user_id = user_id;
-        this.company_id = hobby_id;
-
+        this.company_id = company_id;
+        this.role = role;
     }
 
     public int getId() {
@@ -34,16 +35,25 @@ public class UserToCompany {
         return company_id;
     }
 
-    public void setCompany_id(int hobby_id) {
-        this.company_id = hobby_id;
+    public void setCompany_id(int company_id) {
+        this.company_id = company_id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
     public String toString() {
-        return "UserToHobby{" +
+        return "UserToCompany{" +
                 "id=" + id +
                 ", user_id=" + user_id +
-                ", hobby_id=" + company_id +
+                ", company_id=" + company_id +
+                ", role='" + role + '\'' +
                 '}';
     }
 
@@ -54,11 +64,14 @@ public class UserToCompany {
         UserToCompany that = (UserToCompany) o;
         return id == that.id &&
                 user_id == that.user_id &&
-                company_id == that.company_id;
+                company_id == that.company_id &&
+                Objects.equals(role, that.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user_id, company_id);
+        return Objects.hash(id, user_id, company_id, role);
     }
+
+
 }

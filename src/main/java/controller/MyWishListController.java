@@ -3,8 +3,8 @@ package controller;
 import dal.UserToPresentDal;
 import dal.UserToPresentDalImpl;
 import model.MyWishListResponse;
-//import model.Present;
-//import model.WishList;
+import model.Present;
+import model.WishList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.UserToPresentService;
@@ -32,22 +32,22 @@ public class MyWishListController {
     }
 
 
-//    @RequestMapping(
-//            value = "/my-target-wish-list",
-//            method = RequestMethod.GET)
-//    public ResponseEntity getMyTargetWishListList(@RequestParam Integer targetwishlist) {
-//        UserToPresentService userToPresentService = new UserToPresentServiceImpl();
-//        List<MyWishListResponse> presentForUserId = userToPresentService.readPresentListById(targetwishlist);
-//
-//        List<Present> presentList = presentForUserId.stream()
-//                .map(presentFromDal -> new Present(presentFromDal.getName(), presentFromDal.getUrl()))
-//                .collect(Collectors.toList());
-//
-//
-//        WishList wishList = new WishList();
-//        wishList.setHobbyList(null);
-//        wishList.setPresentList(presentList);
-//
-//        return ResponseEntity.of(Optional.of(wishList));
-//    }
+    @RequestMapping(
+            value = "/my-target-wish-list",
+            method = RequestMethod.GET)
+    public ResponseEntity getMyTargetWishListList(@RequestParam Integer targetwishlist) {
+        UserToPresentService userToPresentService = new UserToPresentServiceImpl();
+        List<MyWishListResponse> presentForUserId = userToPresentService.readPresentListById(targetwishlist);
+
+        List<Present> presentList = presentForUserId.stream()
+                .map(presentFromDal -> new Present(presentFromDal.getName(), presentFromDal.getUrl()))
+                .collect(Collectors.toList());
+
+
+        WishList wishList = new WishList();
+        wishList.setHobbyList(null);
+        wishList.setPresentList(presentList);
+
+        return ResponseEntity.of(Optional.of(wishList));
+    }
 }

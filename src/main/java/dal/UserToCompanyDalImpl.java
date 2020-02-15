@@ -13,18 +13,20 @@ import java.util.List;
 
 public class UserToCompanyDalImpl implements UserToCompanyDal {
 
-    public static final String TABLE_USER_TO_COMPANY_COLUMN_USER_ID = "user_id";
-    public static final String TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID = "company_id";
-    public static final String TABLE_USER_TO_COMPANY_COLUMN_ID = "id";
-    public static final String TABLE_USER_TO_COMPANY = "user_to_company";
+    private static final String TABLE_USER_TO_COMPANY_COLUMN_ID = "id";
+    private static final String TABLE_USER_TO_COMPANY_COLUMN_USER_ID = "user_id";
+    private static final String TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID = "company_id";
+    private static final String TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE = "role";
+    private static final String TABLE_USER_TO_COMPANY = "user_to_company";
     private ResultSet resultSet;
 
     @Override
     public UserToCompany read(long id) {
         UserToCompany userToCompany = null;
-        String sql = "select " + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + ", " +
-                "" + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID +
-                " from [" + TABLE_USER_TO_COMPANY + "] where " + TABLE_USER_TO_COMPANY_COLUMN_ID + "=?";
+        String sql = "SELECT " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " +
+                TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID +
+                ", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE +
+                " FROM [" + TABLE_USER_TO_COMPANY + "] WHERE " + TABLE_USER_TO_COMPANY_COLUMN_ID + "=?";
 
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
@@ -32,10 +34,11 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {
                 while (resultSet.next()) {
-                    int presentId = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
+                    int user_to_company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
                     int user_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_USER_ID);
-                    int hobby_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
-                    userToCompany = new UserToCompany(1, 1, 1);
+                    int company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
+                    String role = resultSet.getString(TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE);
+                    userToCompany = new UserToCompany(user_to_company_id, user_id, company_id,role);
                 }
             }
             return userToCompany;
@@ -48,17 +51,19 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
     @Override
     public List<UserToCompany> readList() {
         List<UserToCompany> userToCompany = new LinkedList<UserToCompany>();
-        String sql = "select " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
-                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + " from [" + TABLE_USER_TO_COMPANY + "]";
+        String sql = "SELECT " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
+                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + ", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE
+                +  " FROM [" + TABLE_USER_TO_COMPANY + "]";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {
                 while (resultSet.next()) {
-                    int presentId = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
+                    int user_to_company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
                     int user_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_USER_ID);
-                    int hobby_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
-                    userToCompany.add(new UserToCompany(1, 1, 1));
+                    int company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
+                    String role = resultSet.getString(TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE);
+                    userToCompany.add(new UserToCompany(user_to_company_id, user_id, company_id,role));
                 }
             }
             return userToCompany;
@@ -70,12 +75,13 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
 
     @Override
     public void createUserToCompany(UserToCompany userToCompany) {
-        String sql = "insert into [" + TABLE_USER_TO_COMPANY + "] (" + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
-                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + ") values (?,?)";
+        String sql = "INSERT INTO [" + TABLE_USER_TO_COMPANY + "] (" + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
+                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID +", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE + ") values (?,?,?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, userToCompany.getUser_id());
             preparedStatement.setInt(2, userToCompany.getCompany_id());
+            preparedStatement.setString(3,userToCompany.getRole());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -83,14 +89,16 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
     }
 
     @Override
-    public void update(UserToCompany userToHobby, int newUser_id, int newHobby_id) {
+    public void update(UserToCompany userToCompany, int newUser_id, int newCompany_id, String newRole) {
         String sql = "UPDATE [" + TABLE_USER_TO_COMPANY + "] SET " + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + "= ?, "
-                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + "=? WHERE " + TABLE_USER_TO_COMPANY_COLUMN_ID + "=?";
+                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID +"=?, " +TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE + "=? WHERE "
+                + TABLE_USER_TO_COMPANY_COLUMN_ID + "=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, newUser_id);
-            preparedStatement.setInt(2, newHobby_id);
-            preparedStatement.setLong(3, userToHobby.getId());
+            preparedStatement.setInt(2, newCompany_id);
+            preparedStatement.setString(3,newRole);
+            preparedStatement.setLong(4, userToCompany.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -98,11 +106,11 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
     }
 
     @Override
-    public void delete(UserToCompany userToHobby) {
-        String sql = "delete from [" + TABLE_USER_TO_COMPANY + "] where " + TABLE_USER_TO_COMPANY_COLUMN_ID + " =  ?";
+    public void delete(UserToCompany userToCompany) {
+        String sql = "DELETE FROM [" + TABLE_USER_TO_COMPANY + "] WHERE " + TABLE_USER_TO_COMPANY_COLUMN_ID + " =  ?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
-            preparedStatement.setLong(1, userToHobby.getId());
+            preparedStatement.setLong(1, userToCompany.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();

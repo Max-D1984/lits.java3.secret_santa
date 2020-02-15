@@ -14,7 +14,7 @@ public interface UserToCompanyService {
 
     void deleteUserToCompany(UserToCompany userToCompany);
 
-    void updateUserToCompany(UserToCompany userToCompany, int newUser_id, int newCompany_id);
+    void updateUserToCompany(UserToCompany userToCompany, int newUser_id, int newCompany_id, String newRole);
 
     void testUserToCompany();
     List<User>readUserByCompanyId(int id);

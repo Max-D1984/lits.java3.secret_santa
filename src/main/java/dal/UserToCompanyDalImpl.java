@@ -139,4 +139,32 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
             return null;
         }
     }
+
+    @Override
+    public List<UserToCompany> readListByCompanyId(long id) {
+     List<UserToCompany> userToCompanyList = new LinkedList<>();
+        String sql = "SELECT " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " +
+                TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID +
+                ", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE +
+                " FROM [" + TABLE_USER_TO_COMPANY + "] WHERE " + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + "=?";
+
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int user_to_company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
+                    int user_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_USER_ID);
+                    int company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
+                    String role = resultSet.getString(TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE);
+                    userToCompanyList.add(new UserToCompany(user_to_company_id, user_id, company_id,role));
+                }
+            }
+            return userToCompanyList;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

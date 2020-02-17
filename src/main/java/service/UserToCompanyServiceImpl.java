@@ -44,4 +44,9 @@ public class UserToCompanyServiceImpl implements UserToCompanyService {
     public List<User> readUserByCompanyId(int id) {
         return userToCompanyDal.readListByCompanyId(id);
     }
+
+    @Override
+    public List<UserToCompany> readListByCompanyId(long id) {
+        return userToCompanyDal.readListByCompanyId(id);
+    }
 }

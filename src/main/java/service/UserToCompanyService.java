@@ -17,5 +17,8 @@ public interface UserToCompanyService {
     void updateUserToCompany(UserToCompany userToCompany, int newUser_id, int newCompany_id, String newRole);
 
     void testUserToCompany();
-    List<User>readUserByCompanyId(int id);
+
+    List<User> readUserByCompanyId(int id);
+
+    List<UserToCompany> readListByCompanyId(long id);
 }

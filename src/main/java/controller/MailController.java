@@ -6,19 +6,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pojo.Company;
+import pojo.UserToCompany;
 import service.CompanyService;
 import service.CompanyServiceImpl;
+import service.UserToCompanyService;
+import service.UserToCompanyServiceImpl;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
 @RestController
 public class MailController {
 
-    private int adminUserId = 1;
+    private int loggedInUserId = 1;
+    private UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
 
     @RequestMapping(
             value = "/mail",
@@ -68,44 +73,51 @@ public class MailController {
             @RequestParam String username,
             @RequestParam String password,
             @RequestParam Integer companyId) {
+        List<UserToCompany> currentUserList = userToCompanyService.readListByCompanyId(companyId);
         String url = "https://lits-java3-secret-santa.herokuapp.com/user/userlist?id=" + companyId;
         String url2 = "http://localhost:8080/secret-santa/user/userlist?id=" + companyId;
-        Properties props = new Properties();
-        CompanyService companyService = new CompanyServiceImpl();
-        props.put("mail.smtp.auth", true);
-        props.put("mail.smtp.ssl.enable", true);
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "465");
+        for (UserToCompany users : currentUserList) {
+            if (users.getId() == loggedInUserId && users.getRole().equals("admin")) {
+                Properties props = new Properties();
+                CompanyService companyService = new CompanyServiceImpl();
+                props.put("mail.smtp.auth", true);
+                props.put("mail.smtp.ssl.enable", true);
+                props.put("mail.smtp.host", "smtp.gmail.com");
+                props.put("mail.smtp.port", "465");
 
-            Session session = Session.getInstance(props,
+                Session session = Session.getInstance(props,
 
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(username, password);
-                        }
-                    });
-            try {
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("edulitsjava@gmail.com"));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(mailTo));
-                message.setSubject("Testing Subject");
+                        new javax.mail.Authenticator() {
+                            protected PasswordAuthentication getPasswordAuthentication() {
+                                return new PasswordAuthentication(username, password);
+                            }
+                        });
+                try {
+                    Message message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress("edulitsjava@gmail.com"));
+                    message.setRecipients(Message.RecipientType.TO,
+                            InternetAddress.parse(mailTo));
+                    message.setSubject("Testing Subject");
 
-                Company company = companyService.readCompany(companyId);
-                message.setText("Dear " + mailTo.substring(0,mailTo.lastIndexOf("@")) +",\n"
-                        + "\n"
-                        + "I want to invite you to participate in a Secret Santa game to my company " + company.getCompanyName()
-                        + "\n"
-                        + "If you want to confirm, please, follow this link " + url2);
-                Transport.send(message);
-                System.out.println("Mail Sent Successfully");
-            } catch (AuthenticationFailedException ex) {
-                throw new RuntimeException(ex);
-            } catch (MessagingException ex) {
-                throw new RuntimeException(ex);
+                    Company company = companyService.readCompany(companyId);
+                    message.setText("Dear " + mailTo.substring(0, mailTo.lastIndexOf("@")) + ",\n"
+                            + "\n"
+                            + "I want to invite you to participate in a Secret Santa game to my company " + company.getCompanyName()
+                            + "\n"
+                            + "If you want to confirm, please, follow this link " + url2);
+                    Transport.send(message);
+                    System.out.println("Mail Sent Successfully");
+                } catch (AuthenticationFailedException ex) {
+                    throw new RuntimeException(ex);
+                } catch (MessagingException ex) {
+                    throw new RuntimeException(ex);
+                }
+                return ResponseEntity.of(Optional.of(
+                        "Mail was send to " + mailTo));
             }
+        }
         return ResponseEntity.of(Optional.of(
-                "Mail was send to " + mailTo));
+                "Mail sending was failed"
+        ));
     }
-
 }

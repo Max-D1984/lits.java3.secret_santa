@@ -10,30 +10,26 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-
+    UserDal userDal = new UserDalImpl();
 
       @Override
     public void updateUser(User user, User newUser) {
-          UserDal userDal = new UserDalImpl();
           userDal.update(user, newUser);
     }
 
     @Override
     public void deleteUser(User user) {
-          UserDal userDal=new UserDalImpl();
           userDal.delete(user);
     }
 
     @Override
     public void createUser(User user) {
-          UserDal userDal=new UserDalImpl();
           userDal.create(user);
 
     }
 
     @Override
     public User readUser(long id) {
-        UserDal userDal = new UserDalImpl();
         return userDal.read(id);
     }
 
@@ -41,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> readUserList() {
 
-        UserDal userDal = new UserDalImpl();
+
         return userDal.readList();
     }
 
@@ -51,6 +47,11 @@ public class UserServiceImpl implements UserService {
     public void testUser() {
         readUserList().stream().forEach(y -> System.out.println(y.getUserName()));
 
+    }
+
+    @Override
+    public List getAllTargetsForUser(List<Integer> listOfCompanys, List<Integer> listOfTargets) {
+        return userDal.getAllTargetsForUser(listOfCompanys, listOfTargets);
     }
 
 }

@@ -1,5 +1,6 @@
 package dal;
 
+import model.TargetUserIdAndCompanyId;
 import pojo.User;
 import application.Driver;
 
@@ -131,6 +132,56 @@ List<String> namesOfUsers = new LinkedList<>();
         }
 
     }
+
+    @Override
+    public List<TargetUserIdAndCompanyId> getAllTargetsForUser(List<Integer> listOfCompanys, List<Integer> listOfTargets) {
+
+        List<TargetUserIdAndCompanyId> namesOfUsers = new LinkedList<>();
+
+        String stringOfTargetsId = doStringFromList(listOfTargets);
+        String stringOfCompanysId = doStringFromList(listOfCompanys);
+
+
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(
+                    "select user_id, company_id from user_to_company where " +
+                            "user_id in ("+ stringOfTargetsId+")" +
+                            "and " +
+                            "company_id in ("+stringOfCompanysId+")"
+            );
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("user_id");
+                String company = rs.getString("company_id");
+
+                namesOfUsers.add(new TargetUserIdAndCompanyId(name, company));
+            }
+            return namesOfUsers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String doStringFromList (List<Integer> currentListId){
+        int count=0;
+        String strId="";
+        for (int id:currentListId) {
+            if(count!=currentListId.size()-1){
+                strId = strId+id+", ";
+            }else{
+                strId = strId+id;
+            }
+            count++;
+
+        }
+        return strId;
+    }
+
+    //  select user_id, company_id from user_to_company where
 }
 
 

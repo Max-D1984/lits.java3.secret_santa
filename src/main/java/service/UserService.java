@@ -15,6 +15,7 @@ public interface UserService {
 
     List<User> readUserList();
     void testUser();
+    List getAllTargetsForUser(List<Integer> listOfCompanys, List<Integer> listOfTargets);
 
 }
 

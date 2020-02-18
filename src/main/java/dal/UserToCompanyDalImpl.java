@@ -189,6 +189,26 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
     }
     }
 
+    @Override
+    public List<Integer> getCompanysByUserId(int user_id) {
+        List<Integer> getUsersOfCompanyList = new LinkedList<>();
+        String sql = "select company_id from [user_to_company] where user_id =?";
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setLong(1, user_id);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int company_id = resultSet.getInt("company_id");
+                    getUsersOfCompanyList.add(company_id);
+                }
+            }
+            return getUsersOfCompanyList;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 

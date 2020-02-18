@@ -21,4 +21,6 @@ public interface UserToCompanyService {
     List<User> readUserByCompanyId(int id);
 
     List<UserToCompany> readListByCompanyId(long id);
+
+    List<Integer> getCompanysByUserId(int user_id);
 }

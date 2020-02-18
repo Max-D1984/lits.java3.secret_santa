@@ -14,6 +14,7 @@ public interface UserToCompanyDal {
      List<User>readListByCompanyId(int id);
      List<UserToCompany>readListByCompanyId(long id);
      List<Integer>getUsersOfCompany(int company_id);
+     List<Integer> getCompanysByUserId(int user_id);
 
 
 }

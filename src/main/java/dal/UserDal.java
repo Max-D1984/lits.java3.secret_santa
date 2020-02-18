@@ -11,5 +11,6 @@ public interface UserDal {
     public void update (User user, User newUser);
     public void delete (User user);
     public List<User> readList ();
+    List<String> getUsersNamesbyIdCompany (List<Integer> listOfId);
 
 }

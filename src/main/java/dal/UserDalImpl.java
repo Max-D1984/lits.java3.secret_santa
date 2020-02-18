@@ -97,6 +97,40 @@ public class UserDalImpl implements UserDal {
             return null;
         }
     }
+
+    @Override
+    public List<String> getUsersNamesbyIdCompany(List<Integer> listOfId) {
+        int count=0;
+        String strId="";
+        for (int id:listOfId) {
+            if(count!=listOfId.size()-1){
+                strId = strId+id+", ";
+            }else{
+                strId = strId+id;
+            }
+            count++;
+
+        }
+List<String> namesOfUsers = new LinkedList<>();
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(
+                    "select name from [user] where id in ("+strId+")"
+            );
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                namesOfUsers.add(name);
+            }
+            return namesOfUsers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }
 
 

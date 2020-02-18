@@ -152,5 +152,37 @@ public class UserTargetDalImpl implements UserTargetDal {
         return listOfTargetsId;
     }
 
+    @Override
+    public List<Integer> getTargetsIdByUsersId(List<Integer> usersIds) {
+        List<Integer> targetsIdList = new LinkedList<>();
+        int count=0;
+        String strId="";
+        for (int id:usersIds) {
+            if(count!=usersIds.size()-1){
+                strId = strId+id+", ";
+            }else{
+                strId = strId+id;
+            }
+            count++;
+        }
+        String sql = "select user_target_id from [user_target] where user_id in ("+strId+")";
+        try{
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+          //  preparedStatement.setString(1,strId);
+            resultSet = preparedStatement.executeQuery();
+          //  System.out.println(resultSet.toString());
+            while(resultSet.next()){
+                int id1 = resultSet.getInt("user_target_id");
+                targetsIdList.add(id1);
+            }
+            return targetsIdList;
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
 
-}
+    }
+    }
+
+
+

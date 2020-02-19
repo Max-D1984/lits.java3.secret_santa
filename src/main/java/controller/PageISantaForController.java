@@ -1,17 +1,11 @@
 package controller;
 
-import dal.UserDalImpl;
 import dal.UserTargetDalImpl;
-import dal.UserToCompanyDal;
-import dal.UserToCompanyDalImpl;
 import io.swagger.annotations.SwaggerDefinition;
-import model.ISantaForListResponse;
 import model.TargetUserIdAndCompanyId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.*;
-
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +42,7 @@ public class PageISantaForController {
         }
 
         return ResponseEntity.of(Optional.of(List.of(
-
+list
         )));
     }
 

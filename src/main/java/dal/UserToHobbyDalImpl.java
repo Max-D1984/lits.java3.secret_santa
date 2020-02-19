@@ -67,6 +67,29 @@ public class UserToHobbyDalImpl implements UserToHobbyDal {
     }
 
     @Override
+    public List<UserToHobby> readListByUserId(long userId) {
+        List<UserToHobby> userToHobby = new LinkedList<UserToHobby>();
+        String sql = "select " + TABLE_USER_TO_HOBBY_COLUMN_ID + ", " + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + ", "
+                + TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID + " from [user_to_hobby] WHERE " + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + "=?";;
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, (int)userId);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt(TABLE_USER_TO_HOBBY_COLUMN_ID);
+                    int user_id = resultSet.getInt(TABLE_USER_TO_HOBBY_COLUMN_USER_ID);
+                    int hobby_id = resultSet.getInt(TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID);
+                    userToHobby.add(new UserToHobby(id, user_id, hobby_id));
+                }
+            }
+            return userToHobby;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
     public void createUserToHobby(UserToHobby userToHobby) {
         String sql = "insert into [user_to_hobby] (" + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + ", "
                 + TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID + ") values (?,?)";

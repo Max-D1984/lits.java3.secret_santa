@@ -9,6 +9,8 @@ public interface UserToHobbyService {
 
     List<UserToHobby> readList();
 
+    List<UserToHobby> readListByUserId(int userId);
+
     void createUserToHobby(UserToHobby userToHobby);
 
     void deleteUserToHobby(UserToHobby userToHobby);

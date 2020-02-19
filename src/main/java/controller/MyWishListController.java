@@ -1,16 +1,16 @@
 package controller;
 
-import dal.UserToPresentDal;
-import dal.UserToPresentDalImpl;
 import model.MyWishListResponse;
 import model.Present;
 import model.WishList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.UserToPresentService;
-import service.UserToPresentServiceImpl;
+import model.Hobby;
+import pojo.UserToHobby;
+import service.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,15 +20,13 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/wish-list")
 public class MyWishListController {
 
-    private int loggedInUserId = 8;
+    private int loggedInUserId = 6;
 
     @RequestMapping(
             value = "/my-wish-list/list",
             method = RequestMethod.GET)
     public ResponseEntity getMyWishListList() {
-        UserToPresentService userToPresentDal = new UserToPresentServiceImpl();
-        List<MyWishListResponse> presentForUserId = userToPresentDal.readPresentListById(loggedInUserId);
-        return ResponseEntity.of(Optional.of(presentForUserId));
+        return getMyTargetWishListList(loggedInUserId);
     }
 
 
@@ -45,7 +43,23 @@ public class MyWishListController {
 
 
         WishList wishList = new WishList();
-        wishList.setHobbyList(null);
+
+        HobbyService hobbyService = new HobbyServiceImpl();
+        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+        List<pojo.UserToHobby> userToHobbies = userToHobbyService.readListByUserId(targetwishlist);
+
+        List<pojo.Hobby> hobbies = new ArrayList<>();
+        for (UserToHobby currentUserToHobbies : userToHobbies) {
+            pojo.Hobby hobby = hobbyService.readHobby(currentUserToHobbies.getHobby_id());
+            hobbies.add(hobby);
+
+        }
+
+        List<Hobby> hobbyList = hobbies.stream()
+                .map(hobbyFromDal -> new Hobby(hobbyFromDal.getId(), hobbyFromDal.getName()))
+                .collect(Collectors.toList());
+
+        wishList.setHobbyList(hobbyList);
         wishList.setPresentList(presentList);
 
         return ResponseEntity.of(Optional.of(wishList));

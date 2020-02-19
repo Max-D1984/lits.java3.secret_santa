@@ -16,6 +16,10 @@ public class UserToHobbyServiceImpl implements UserToHobbyService{
     @Override
     public List<UserToHobby> readList() {return userToHobbyDal.readList();
     }
+    @Override
+    public List<UserToHobby>  readListByUserId(int userId) {return userToHobbyDal.readListByUserId(userId);
+    }
+
 
     @Override
     public void createUserToHobby(UserToHobby userToHobby) {userToHobbyDal.createUserToHobby(userToHobby);}

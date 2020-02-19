@@ -1,6 +1,7 @@
 package dal;
 
 import application.Driver;
+import model.UserAndUserTargetId;
 import pojo.Rule;
 import pojo.User;
 import pojo.UserTarget;
@@ -178,6 +179,38 @@ public class UserTargetDalImpl implements UserTargetDal {
             return targetsIdList;
         } catch (SQLException | IOException ex) {
             ex.printStackTrace();
+            return null;
+        }
+
+    }
+    @Override
+    public List<UserAndUserTargetId> getTargetForUserInCompany(int user_id, List<Integer> target_id) {
+        List<UserAndUserTargetId> userAndUserTargetIds = new LinkedList<>();
+        int count=0;
+        String strId="";
+        for (int id:target_id) {
+            if(count!=target_id.size()-1){
+                strId = strId+id+", ";
+            }else{
+                strId = strId+id;
+            }
+            count++;
+        }
+        String sql = "select * from user_target where user_id = "+ user_id+" and user_target_id in ("+strId+")";
+
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int get_user_id = resultSet.getInt("user_id");
+                    int get_target_id = resultSet.getInt("user_target_id");
+                    userAndUserTargetIds.add(new UserAndUserTargetId(get_user_id, get_target_id));
+                }
+            }
+            return userAndUserTargetIds;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
             return null;
         }
 

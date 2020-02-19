@@ -151,8 +151,8 @@ List<String> namesOfUsers = new LinkedList<>();
             );
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                String name = rs.getString("user_id");
-                String company = rs.getString("company_id");
+                Integer name = rs.getInt("user_id");
+                Integer company = rs.getInt("company_id");
 
                 namesOfUsers.add(new TargetUserIdAndCompanyId(name, company));
             }

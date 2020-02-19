@@ -9,10 +9,7 @@ import model.ISantaForListResponse;
 import model.TargetUserIdAndCompanyId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.UserTargetService;
-import service.UserTargetServiceImpl;
-import service.UserToCompanyService;
-import service.UserToCompanyServiceImpl;
+import service.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -39,14 +36,19 @@ public class PageISantaForController {
         List<Integer> listComp = userToCompanyService.getCompanysByUserId(LOGGEDUSER);
 
         List<Integer> listTarg = userTargetService.getTargetForUserById(LOGGEDUSER);
-        UserDalImpl userDal = new UserDalImpl();
-        List<TargetUserIdAndCompanyId> list = userDal.getAllTargetsForUser(listComp, listTarg);
+        UserService userService = new UserServiceImpl();
+        CompanyService companyService= new CompanyServiceImpl();
+        List<TargetUserIdAndCompanyId> list = userService.getAllTargetsForUser(listComp, listTarg);
 
+        for (TargetUserIdAndCompanyId target: list
+             ) {
+            target.setUserName(userService.readUser(target.getUser_id()).getUserName());
+            target.setCompanyName(companyService.readCompany(target.getCompany_id()).getCompanyName());
 
-
+        }
 
         return ResponseEntity.of(Optional.of(List.of(
-                list
+
         )));
     }
 

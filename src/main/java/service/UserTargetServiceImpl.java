@@ -2,6 +2,7 @@ package service;
 
 import dal.UserTargetDal;
 import dal.UserTargetDalImpl;
+import model.UserAndUserTargetId;
 import pojo.User;
 import pojo.UserTarget;
 
@@ -147,4 +148,11 @@ public class UserTargetServiceImpl implements UserTargetService {
     public List getTargetForUserById (int id){
         return  userTargetDal.getTargetForUserById(id);
     }
+
+    @Override
+    public List<UserAndUserTargetId> getTargetForUserInCompany(int user_id, List<Integer> target_id) {
+        return userTargetDal.getTargetForUserInCompany(user_id, target_id);
+    }
+
+
 }

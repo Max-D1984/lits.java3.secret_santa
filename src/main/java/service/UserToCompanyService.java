@@ -1,5 +1,6 @@
 package service;
 
+import model.UserAndUserTargetId;
 import pojo.User;
 import pojo.UserToCompany;
 
@@ -23,4 +24,6 @@ public interface UserToCompanyService {
     List<UserToCompany> readListByCompanyId(long id);
 
     List<Integer> getCompanysByUserId(int user_id);
+    List<Integer>getUsersOfCompany(int company_id);
+
 }

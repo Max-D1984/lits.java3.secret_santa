@@ -1,6 +1,7 @@
 package dal;
 
 import application.Driver;
+import model.UserAndUserTargetId;
 import pojo.User;
 import pojo.UserToCompany;
 
@@ -209,7 +210,6 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
             return null;
         }
     }
-
 
 
 }

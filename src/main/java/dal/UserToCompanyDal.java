@@ -1,5 +1,6 @@
 package dal;
 
+import model.UserAndUserTargetId;
 import pojo.User;
 import pojo.UserToCompany;
 
@@ -15,6 +16,8 @@ public interface UserToCompanyDal {
      List<UserToCompany>readListByCompanyId(long id);
      List<Integer>getUsersOfCompany(int company_id);
      List<Integer> getCompanysByUserId(int user_id);
+
+
 
 
 }

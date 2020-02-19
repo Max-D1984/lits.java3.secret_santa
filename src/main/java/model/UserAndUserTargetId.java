@@ -5,6 +5,24 @@ import java.util.Objects;
 public class UserAndUserTargetId {
     Integer user_id;
     Integer target_id;
+    String userName;
+    String targetName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getTargetName() {
+        return targetName;
+    }
+
+    public void setTargetName(String targetName) {
+        this.targetName = targetName;
+    }
 
     public UserAndUserTargetId(Integer user_id, Integer target_id) {
         this.user_id = user_id;

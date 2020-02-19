@@ -2,6 +2,7 @@ package service;
 
 import dal.UserToCompanyDal;
 import dal.UserToCompanyDalImpl;
+import model.UserAndUserTargetId;
 import pojo.User;
 import pojo.UserToCompany;
 
@@ -54,4 +55,10 @@ public class UserToCompanyServiceImpl implements UserToCompanyService {
     public List<Integer> getCompanysByUserId(int user_id) {
         return userToCompanyDal.getCompanysByUserId(user_id);
     }
+
+    @Override
+    public List<Integer> getUsersOfCompany(int company_id) {return userToCompanyDal.getUsersOfCompany(1);
+    }
+
+
 }

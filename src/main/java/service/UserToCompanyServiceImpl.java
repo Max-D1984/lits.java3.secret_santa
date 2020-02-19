@@ -57,7 +57,7 @@ public class UserToCompanyServiceImpl implements UserToCompanyService {
     }
 
     @Override
-    public List<Integer> getUsersOfCompany(int company_id) {return userToCompanyDal.getUsersOfCompany(1);
+    public List<Integer> getUsersOfCompany(int company_id) {return userToCompanyDal.getUsersOfCompany(company_id);
     }
 
 

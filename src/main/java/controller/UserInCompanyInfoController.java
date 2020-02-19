@@ -6,11 +6,9 @@ import model.UserInCompanyInformationResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.UserTargetService;
-import service.UserTargetServiceImpl;
-import service.UserToCompanyService;
-import service.UserToCompanyServiceImpl;
+import service.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.LinkedList;
@@ -23,7 +21,7 @@ import java.util.Optional;
     public class UserInCompanyInfoController {
 
         @RequestMapping(
-                value = "/my-user-in-company-info/list",
+                value = "/pageCompany",
                 method = RequestMethod.GET)
         public ResponseEntity getCompanyInfoListList() {
             UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
@@ -46,6 +44,27 @@ import java.util.Optional;
             return ResponseEntity.of(Optional.of(List.of(
                      userAndUserTargetIdList)));
         }
+    @RequestMapping(
+            value = "/user-of-current-company",
+            method = RequestMethod.GET)
+    public ResponseEntity getUsersOfCurrentCompany(@RequestParam int id) {
+        UserService userService = new UserServiceImpl();
+        UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
+        List<Integer> userIdOfCompany = userToCompanyService.getUsersOfCompany(4);
+        List<String> userNamesOfCompany = new LinkedList<>();
+        for (Integer idd : userIdOfCompany
+        ) {
 
-//    }
+            userNamesOfCompany.add(userService.readUser(idd).getUserName());
+
+        }
+
+
+
+
+
+        return ResponseEntity.of(Optional.of(List.of(
+                userNamesOfCompany)));
+    }
 }
+

@@ -2,10 +2,11 @@ package service;
 
 import dal.UserToHobbyDal;
 import dal.UserToHobbyDalImpl;
+import org.springframework.stereotype.Service;
 import pojo.UserToHobby;
 
 import java.util.List;
-
+@Service
 public class UserToHobbyServiceImpl implements UserToHobbyService{
     private UserToHobbyDal userToHobbyDal = new UserToHobbyDalImpl();
 

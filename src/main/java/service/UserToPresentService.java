@@ -1,6 +1,7 @@
 package service;
 
 import model.MyWishListResponse;
+import org.springframework.stereotype.Service;
 import pojo.UserToPresent;
 
 import java.util.List;

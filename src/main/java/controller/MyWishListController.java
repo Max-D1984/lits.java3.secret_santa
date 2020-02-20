@@ -3,11 +3,18 @@ package controller;
 import model.MyWishListResponse;
 import model.Present;
 import model.WishList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import model.Hobby;
 import pojo.UserToHobby;
-import service.*;
+
+
+import pojo.UserToPresent;
+import service.HobbyService;
+import service.HobbyServiceImpl;
+import service.UserToHobbyService;
+import service.UserToPresentService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
@@ -22,6 +29,21 @@ public class MyWishListController {
 
     private int loggedInUserId = 6;
 
+
+    public UserToHobbyService getUserToHobbyService() {
+        return userToHobbyService;
+    }
+    @Autowired
+    private UserToHobbyService userToHobbyService;
+
+    public UserToPresentService getUserToPresentService() {
+        return userToPresentService;
+    }
+
+    @Autowired
+     private UserToPresentService userToPresentService;
+
+
     @RequestMapping(
             value = "/my-wish-list/list",
             method = RequestMethod.GET)
@@ -34,7 +56,7 @@ public class MyWishListController {
             value = "/my-target-wish-list",
             method = RequestMethod.GET)
     public ResponseEntity getMyTargetWishListList(@RequestParam Integer targetwishlist) {
-        UserToPresentService userToPresentService = new UserToPresentServiceImpl();
+
         List<MyWishListResponse> presentForUserId = userToPresentService.readPresentListById(targetwishlist);
 
         List<Present> presentList = presentForUserId.stream()
@@ -45,7 +67,6 @@ public class MyWishListController {
         WishList wishList = new WishList();
 
         HobbyService hobbyService = new HobbyServiceImpl();
-        UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
         List<pojo.UserToHobby> userToHobbies = userToHobbyService.readListByUserId(targetwishlist);
 
         List<pojo.Hobby> hobbies = new ArrayList<>();

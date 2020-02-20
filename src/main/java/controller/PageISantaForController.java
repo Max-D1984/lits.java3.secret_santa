@@ -17,9 +17,7 @@ import java.util.Optional;
 public class PageISantaForController {
    public static int LOGGEDUSER = 1;
 
-    UserTargetDalImpl sss = new UserTargetDalImpl();
-
-    @RequestMapping(
+     @RequestMapping(
             value = "/i-santa-for",
             method = RequestMethod.GET)
     public ResponseEntity putMyWishList(

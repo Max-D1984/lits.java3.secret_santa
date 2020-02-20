@@ -38,4 +38,9 @@ public class CompanyServiceImpl implements CompanyService {
     public void testCompany() {
         readCompanyList().stream().forEach(y -> System.out.println(y.getCompanyName()));
     }
+
+    @Override
+    public List<Company> getUsersCompany(List<Integer> user_id) {
+        return companyDal.getUsersCompany(user_id);
+    }
 }

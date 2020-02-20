@@ -87,6 +87,36 @@ public class CompanyDalImpl implements CompanyDal {
     }
 
     @Override
+    public List<Company> getUsersCompany(List<Integer> user_id) {
+        int count=0;
+        String strId="";
+        for (int id:user_id) {
+            if(count!=user_id.size()-1){
+                strId = strId+id+", ";
+            }else{
+                strId = strId+id;
+            }
+            count++;
+        }
+        List<Company> company = new LinkedList<Company>();
+        try {
+            String sql = "select name, description from company where id in ("+strId+")";
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    String name = resultSet.getString(TABLE_COMPANY_COLUMN_NAME);
+                    String description = resultSet.getString(TABLE_COMPANY_COLUMN_DESCRIPTION);
+                    company.add(new Company(0, name, description));
+                }
+            }
+        } catch (SQLException | IOException ex) {
+            System.out.println("Wrong column " + TABLE_COMPANY_COLUMN_NAME + " or table");
+        }
+        return company;
+    }
+
+    @Override
     public List<Company> readList() {
         List<Company> company = new LinkedList<Company>();
         try {

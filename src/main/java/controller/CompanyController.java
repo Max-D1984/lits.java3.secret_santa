@@ -5,7 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import pojo.Company;
 import service.CompanyService;
 import service.CompanyServiceImpl;
+import service.UserToCompanyService;
+import service.UserToCompanyServiceImpl;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.List;
 import java.util.Optional;
 
 @EnableSwagger2
@@ -13,19 +17,35 @@ import java.util.Optional;
 @RequestMapping(value = "/company")
 
 public class CompanyController {
+    public static int LOGGEDUSER = 1;
+
     CompanyService comp = new CompanyServiceImpl();
+    @RequestMapping(
+            value = "/users-company",
+            method = RequestMethod.GET)
+    public ResponseEntity getMyCompanys(
+            @RequestParam Integer user_id) {
+        UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
+        List<Integer> ids = userToCompanyService.getCompanysByUserId(LOGGEDUSER);
+               comp.getUsersCompany(ids);
+        return ResponseEntity.of(Optional.of(
+                comp.getUsersCompany(ids)));
+    }
+
     @RequestMapping(
             value = "/my-company",
             method = RequestMethod.GET)
-    public ResponseEntity getMyCompany(
-            @RequestParam Integer id) {
-        return ResponseEntity.of(Optional.of(
-                comp.readCompany(id)));
+    public ResponseEntity getExactCompany(
+            @RequestParam Integer company_id) {
+               return ResponseEntity.of(Optional.of(
+                       comp.readCompany(company_id)));
     }
+
     @RequestMapping(
             value = "/my-company/list",
             method = RequestMethod.GET)
     public ResponseEntity getMyCompanyList() {
+
         return ResponseEntity.of(Optional.of(
                 comp.readCompanyList()));
     }

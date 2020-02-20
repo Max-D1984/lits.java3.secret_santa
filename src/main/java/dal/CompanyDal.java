@@ -10,4 +10,5 @@ public interface CompanyDal {
     public void create (Company company);
     public void update (Company oldCompanyCompany, Company newCompany);
     public void delete (Company company);
+    List<Company> getUsersCompany (List<Integer> user_id);
 }

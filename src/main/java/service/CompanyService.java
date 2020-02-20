@@ -18,4 +18,5 @@ public interface CompanyService {
     void updateCompany(Company newCompany, Company oldCompany);
 
     void testCompany();
+    List<Company> getUsersCompany (List<Integer> user_id);
 }

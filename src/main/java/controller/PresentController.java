@@ -14,12 +14,12 @@ import java.util.Optional;
 @RequestMapping(value = "/present")
 
 public class PresentController {
+    //    private static Long userId =
+
+    @Autowired
+    private PresentService pres;
     public PresentService getPres() {return pres;
     }
-
-    //    private static Long userId =
-    @Autowired
-    PresentService pres;
     @RequestMapping(
             value = "/my-present",
             method = RequestMethod.GET)

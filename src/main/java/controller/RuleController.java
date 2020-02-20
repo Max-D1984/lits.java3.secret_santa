@@ -17,11 +17,11 @@ import java.util.Optional;
 @RequestMapping(value = "/rule")
 
 public class RuleController {
+    @Autowired
+    private RuleService ruleService;
+
     public RuleService getRuleService() {return ruleService;
     }
-
-    @Autowired
-    RuleService ruleService;
 
 
     @RequestMapping(

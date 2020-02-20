@@ -3,11 +3,12 @@ package service;
 import dal.UserTargetDal;
 import dal.UserTargetDalImpl;
 import model.UserAndUserTargetId;
+import org.springframework.stereotype.Service;
 import pojo.User;
 import pojo.UserTarget;
 
 import java.util.*;
-
+@Service
 public class UserTargetServiceImpl implements UserTargetService {
     private UserTargetDal userTargetDal = new UserTargetDalImpl();
 

@@ -1,11 +1,10 @@
 package controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Hobby;
-import pojo.Present;
 import service.HobbyService;
-import service.HobbyServiceImpl;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
@@ -15,14 +14,17 @@ import java.util.Optional;
 @RequestMapping(value = "/hobby")
 
 public class HobbyController {
-    HobbyService hob = new HobbyServiceImpl();
+   @Autowired
+    private HobbyService hobbyService;
+    public HobbyService getHobbyService() {return hobbyService;
+    }
     @RequestMapping(
             value = "/my-hobby",
             method = RequestMethod.GET)
     public ResponseEntity getHobby(
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
-                hob.readHobby(id)));
+                hobbyService.readHobby(id)));
     }
 
     @RequestMapping(
@@ -30,7 +32,7 @@ public class HobbyController {
             method = RequestMethod.GET)
     public ResponseEntity hobbyListList() {
         return ResponseEntity.of(Optional.of(List.of(
-                hob.readList())));
+                hobbyService.readList())));
     }
 
     @RequestMapping(
@@ -38,7 +40,7 @@ public class HobbyController {
             method = RequestMethod.POST)
     public ResponseEntity postHobbyList(@RequestParam String name){
         Hobby newHobby = new Hobby(1, "nameOfHobby");
-        hob.createHobby(newHobby);
+        hobbyService.createHobby(newHobby);
         return ResponseEntity.of(Optional.of(
                 "Created hobby" + newHobby));
     }
@@ -48,7 +50,7 @@ public class HobbyController {
             value = "/hobby",
             method = RequestMethod.PUT)
     public ResponseEntity putHobbyList(@RequestParam int id, String newName) {
-        hob.updateHobby(hob.readHobby(id), newName);
+        hobbyService.updateHobby(hobbyService.readHobby(id), newName);
         return ResponseEntity.of(Optional.of( "Update hobby" + newName));
     }
 
@@ -57,8 +59,8 @@ public class HobbyController {
             method = RequestMethod.DELETE)
     public ResponseEntity deleteHobbyList(
             @RequestParam Integer id) {
-        Hobby deletedHobby = hob.readHobby(1);
-        hob.deleteHobby(deletedHobby);
+        Hobby deletedHobby = hobbyService.readHobby(1);
+        hobbyService.deleteHobby(deletedHobby);
         return ResponseEntity.of(Optional.of(
                 "Deleted hobby "+ deletedHobby));
     }

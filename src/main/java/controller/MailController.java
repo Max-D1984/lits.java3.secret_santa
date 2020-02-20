@@ -29,7 +29,7 @@ import java.util.Properties;
 @RestController
 public class MailController {
 
-    private int loggedInUserId = 1;
+    private int loggedInUserId = 0;
     private UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
 
     @RequestMapping(
@@ -91,7 +91,7 @@ public class MailController {
         String scheme = uriComponents.getScheme();
         String host = uriComponents.getHost();
         if(host.equals("localhost")){
-            System.out.println("it is localhost");
+
             urlToCompany.append("http://localhost:8080/secret-santa/user/userlist?id=" + companyId);
         }else{
             urlToCompany.append("https://lits-java3-secret-santa.herokuapp.com/user/userlist?id=" + companyId);

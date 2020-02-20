@@ -3,12 +3,13 @@ package service;
 
 import dal.PresentDal;
 import dal.PresentDalImpl;
+import org.springframework.stereotype.Service;
 import pojo.Present;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
+@Service
 public class PresentServiceImpl implements PresentService {
 
     private PresentDal presentDal = new PresentDalImpl();

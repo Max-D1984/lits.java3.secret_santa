@@ -16,34 +16,35 @@ import java.util.List;
 import java.util.Optional;
 
 @EnableSwagger2
-    @RestController
-    @RequestMapping(value = "/user-in-company-info")
-    public class UserInCompanyInfoController {
+@RestController
+@RequestMapping(value = "/user-in-company-info")
+public class UserInCompanyInfoController {
 
-        @RequestMapping(
-                value = "/pageCompany",
-                method = RequestMethod.GET)
-        public ResponseEntity getCompanyInfoListList() {
-            UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
-            List<Integer> userIdOfCompany = userToCompanyService.getUsersOfCompany(1);
-            UserTargetService userTargetService = new UserTargetServiceImpl();
-            List<UserAndUserTargetId> userAndUserTargetIdList = new LinkedList<>();
-            for (Integer id:userIdOfCompany
-            ) {
-                userAndUserTargetIdList.addAll(userTargetService.getTargetForUserInCompany(id, userIdOfCompany));
-            }
-
-            userAndUserTargetIdList.stream().forEach(y-> System.out.println(y));
-
-            for (UserAndUserTargetId obj:userAndUserTargetIdList
-            ) {
-                UserDal userDal = new UserDalImpl();
-                obj.setUserName(userDal.read(obj.getUser_id()).getUserName());
-                obj.setTargetName(userDal.read(obj.getTarget_id()).getUserName());
-            }
-            return ResponseEntity.of(Optional.of(List.of(
-                     userAndUserTargetIdList)));
+    @RequestMapping(
+            value = "/pageCompany",
+            method = RequestMethod.GET)
+    public ResponseEntity getCompanyInfoListList() {
+        UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
+        List<Integer> userIdOfCompany = userToCompanyService.getUsersOfCompany(1);
+        UserTargetService userTargetService = new UserTargetServiceImpl();
+        List<UserAndUserTargetId> userAndUserTargetIdList = new LinkedList<>();
+        for (Integer id : userIdOfCompany
+        ) {
+            userAndUserTargetIdList.addAll(userTargetService.getTargetForUserInCompany(id, userIdOfCompany));
         }
+
+        userAndUserTargetIdList.stream().forEach(y -> System.out.println(y));
+
+        for (UserAndUserTargetId obj : userAndUserTargetIdList
+        ) {
+            UserDal userDal = new UserDalImpl();
+            obj.setUserName(userDal.read(obj.getUser_id()).getUserName());
+            obj.setTargetName(userDal.read(obj.getTarget_id()).getUserName());
+        }
+        return ResponseEntity.of(Optional.of(List.of(
+                userAndUserTargetIdList)));
+    }
+
     @RequestMapping(
             value = "/user-of-current-company",
             method = RequestMethod.GET)
@@ -54,15 +55,9 @@ import java.util.Optional;
         List<String> userNamesOfCompany = new LinkedList<>();
         for (Integer idd : userIdOfCompany
         ) {
-
             userNamesOfCompany.add(userService.readUser(idd).getUserName());
 
         }
-
-
-
-
-
         return ResponseEntity.of(Optional.of(List.of(
                 userNamesOfCompany)));
     }

@@ -1,12 +1,11 @@
 package controller;
 
+import application.Constants;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Company;
-import service.CompanyService;
-import service.CompanyServiceImpl;
-import service.UserToCompanyService;
-import service.UserToCompanyServiceImpl;
+import pojo.UserToCompany;
+import service.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @RequestMapping(value = "/company")
 
 public class CompanyController {
-    public static int LOGGEDUSER = 1;
+
 
     CompanyService comp = new CompanyServiceImpl();
     @RequestMapping(
@@ -26,7 +25,7 @@ public class CompanyController {
     public ResponseEntity getMyCompanys(
             @RequestParam Integer user_id) {
         UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
-        List<Integer> ids = userToCompanyService.getCompanysByUserId(LOGGEDUSER);
+        List<Integer> ids = userToCompanyService.getCompanysByUserId(Constants.LOGGEDUSER);
                comp.getUsersCompany(ids);
         return ResponseEntity.of(Optional.of(
                 comp.getUsersCompany(ids)));
@@ -52,11 +51,17 @@ public class CompanyController {
     @RequestMapping(
             value = "/company",
             method = RequestMethod.POST)
-    public ResponseEntity postCompany( @RequestParam String name, String description) {
-        Company newCompany = new Company(0,name, description);
-        comp.createCompany(newCompany);
+    public ResponseEntity postCompany( @RequestParam String name, String description, int loggedUserId) {
+        CompanyService companyService = new CompanyServiceImpl();
+        Company newCompany = new Company(0,"SomeName", "SomeDescription");
+        companyService.createCompany(newCompany);
+        List<Company> allCompany = companyService.readCompanyList();
+        Company lastCompany = allCompany.get(allCompany.size()-1);
+        UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
+        userToCompanyService.createUserToCompany(new UserToCompany(0, Constants.LOGGEDUSER,lastCompany.getId(),"admin"));
+        UserService userService = new UserServiceImpl();
         return ResponseEntity.of(Optional.of(
-               "Created company" + newCompany));
+               "Created company " + lastCompany.getCompanyName() + " admin: " +  userService.readUser( Constants.LOGGEDUSER)));
     }
 
     @RequestMapping(

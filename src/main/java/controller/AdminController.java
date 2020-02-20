@@ -22,7 +22,7 @@ import java.util.Optional;
 public class AdminController {
 
     UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
-    private int loggedInUserId = 1;
+    private int loggedInUserId = 0;
 
     @RequestMapping(
             value = "/set-admin",
@@ -32,14 +32,8 @@ public class AdminController {
             @RequestParam Integer user_id) {
 
         List<UserToCompany> userToCompanyList = userToCompanyService.readListByCompanyId(company_id);
-//        for (UserToCompany users : userToCompanyList) {
-//            if (loggedInUserId == users.getUser_id() && users.getRole().equals("admin")) {
-//             //   System.out.println("lalala");
-//                userToCompanyService.updateUserToCompany(null, 1, 2, "admin");
-//            }
-//        }
             if(userToCompanyList.get(loggedInUserId).getRole().equals("admin")){
-                UserToCompany userToUpdate = userToCompanyList.get(user_id);
+                UserToCompany userToUpdate = userToCompanyList.get(user_id-1);
                 userToCompanyService.updateUserToCompany(userToUpdate, userToUpdate.getUser_id(), userToUpdate.getCompany_id(),"admin");
                 return ResponseEntity.of(Optional.of(
                       "New admin was setted"  ));

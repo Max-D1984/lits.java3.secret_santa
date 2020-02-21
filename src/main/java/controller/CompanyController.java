@@ -62,7 +62,7 @@ public class CompanyController {
         return ResponseEntity.of(Optional.of(
                 companyService.readCompany(company_id)));
     }
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(
             value = "/my-company/list",
             method = RequestMethod.GET)

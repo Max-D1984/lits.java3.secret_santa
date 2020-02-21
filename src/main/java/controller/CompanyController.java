@@ -2,7 +2,6 @@ package controller;
 
 import application.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Company;
@@ -42,7 +41,7 @@ public class CompanyController {
     public UserService getUserService() {
         return userService;
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(
             value = "/users-company",
             method = RequestMethod.GET)
@@ -63,7 +62,7 @@ public class CompanyController {
         return ResponseEntity.of(Optional.of(
                 companyService.readCompany(company_id)));
     }
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(
             value = "/my-company/list",
             method = RequestMethod.GET)

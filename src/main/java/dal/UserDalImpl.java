@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class UserDalImpl implements UserDal {
     private ResultSet resultSet;
 

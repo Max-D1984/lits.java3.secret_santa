@@ -3,16 +3,17 @@ package service;
 
 import dal.UserDal;
 import dal.UserDalImpl;
+import org.springframework.stereotype.Service;
 import pojo.User;
 
-import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
+
     UserDal userDal = new UserDalImpl();
 
-      @Override
+    @Override
     public void updateUser(User user, User newUser) {
           userDal.update(user, newUser);
     }

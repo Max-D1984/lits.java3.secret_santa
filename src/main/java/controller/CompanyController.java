@@ -19,7 +19,7 @@ import java.util.Optional;
 @EnableSwagger2
 @RestController
 @RequestMapping(value = "/company")
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CompanyController {
 
 
@@ -41,7 +41,7 @@ public class CompanyController {
     public UserService getUserService() {
         return userService;
     }
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    
     @RequestMapping(
             value = "/users-company",
             method = RequestMethod.GET)

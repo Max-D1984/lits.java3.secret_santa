@@ -41,7 +41,7 @@ public class CompanyController {
     public UserService getUserService() {
         return userService;
     }
-    
+
     @RequestMapping(
             value = "/users-company",
             method = RequestMethod.GET)

@@ -67,8 +67,7 @@ public class UserToHobbyController {
             method = RequestMethod.DELETE)
     public ResponseEntity deleteUserToHobbyList(
             @RequestParam Integer user_id, @RequestParam Integer hobby_id) {
-      //  UserToHobby deletedUserToHobby = userToHobbyService.readUserToHobby();
-        userToHobbyService.deleteUserToHobby(new UserToHobby(0,user_id,hobby_id));
+               userToHobbyService.deleteUserToHobby(new UserToHobby(0,user_id,hobby_id));
         return ResponseEntity.of(Optional.of(
                 "Deleted user to hobby "));
     }

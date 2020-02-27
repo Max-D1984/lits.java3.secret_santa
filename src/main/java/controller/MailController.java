@@ -30,25 +30,24 @@ public class MailController {
 
     private int loggedInUserId = 0;
 
+    @Autowired
+    private CompanyService companyService ;
+    @Autowired
+    private UserToCompanyService userToCompanyService;
+    @Autowired
+    private UserTargetService userTargetService;
+
     public CompanyService getCompanyService() {
         return companyService;
     }
 
-    @Autowired
-    private CompanyService companyService ;
-
     public UserToCompanyService getUserToCompanyService() {
         return userToCompanyService;
     }
-    @Autowired
-    private UserToCompanyService userToCompanyService;
 
     public UserTargetService getUserTargetService() {
         return userTargetService;
     }
-
-    @Autowired
-    private UserTargetService userTargetService;
 
     @RequestMapping(
             value = "/mail",

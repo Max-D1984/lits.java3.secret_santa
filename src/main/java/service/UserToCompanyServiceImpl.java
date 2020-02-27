@@ -1,8 +1,6 @@
 package service;
 
 import dal.UserToCompanyDal;
-import dal.UserToCompanyDalImpl;
-import model.UserAndUserTargetId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pojo.User;
@@ -11,11 +9,17 @@ import pojo.UserToCompany;
 import java.util.List;
 @Service
 public class UserToCompanyServiceImpl implements UserToCompanyService {
-    private UserToCompanyDal userToCompanyDal = new UserToCompanyDalImpl();
+
+    @Autowired
+    private UserToCompanyDal userToCompanyDal ;
+
+    public UserToCompanyDal getUserToCompanyDal() {
+        return userToCompanyDal;
+    }
 
     @Override
     public UserToCompany readUserToCompany(long id) {
-        return userToCompanyDal.read(1);
+        return userToCompanyDal.read(id);
     }
 
     @Override

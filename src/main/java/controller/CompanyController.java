@@ -2,7 +2,6 @@ package controller;
 
 import application.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Company;
@@ -20,7 +19,7 @@ import java.util.Optional;
 @EnableSwagger2
 @RestController
 @RequestMapping(value = "/company")
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CompanyController {
 
 
@@ -63,7 +62,7 @@ public class CompanyController {
         return ResponseEntity.of(Optional.of(
                 companyService.readCompany(company_id)));
     }
-
+    @CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(
             value = "/my-company/list",
             method = RequestMethod.GET)

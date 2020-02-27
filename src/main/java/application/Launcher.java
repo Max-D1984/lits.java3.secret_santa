@@ -1,5 +1,10 @@
 package application;
 
+import dal.UserDalImpl;
+import dal.UserTargetDalImpl;
+import dal.UserToCompanyDal;
+import dal.UserToCompanyDalImpl;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
@@ -93,6 +98,39 @@ public class Launcher {
         //   showUserToHobbyList();
         //   showCreateUserToHobby();
         //   showDeleteUserToHobby();
+       // pageISanta();
+       // makeUrl();
+//        UserToCompanyDalImpl userToCompanyDal = new UserToCompanyDalImpl();
+//        userToCompanyDal.getUsersOfCompany(1).stream().forEach(y-> System.out.println(y));
+//
+//        UserDalImpl userDal = new UserDalImpl();
+//        userDal.getUsersNamesbyIdCompany(userToCompanyDal.getUsersOfCompany(1)).stream().forEach(y-> System.out.println(y));
+//
+//        UserTargetDalImpl userTargetDal = new UserTargetDalImpl();
+//        userTargetDal.getTargetsIdByUsersId(userToCompanyDal.getUsersOfCompany(1)).stream().forEach(y-> System.out.println("-----"+y));
+//
+//
+//        userDal.getUsersNamesbyIdCompany(userTargetDal.getTargetsIdByUsersId(userToCompanyDal.getUsersOfCompany(1))).stream().forEach(y-> System.out.println(y));
+CompanyService companyService = new CompanyServiceImpl();
+        Company newCompany = new Company(0,"SomeName", "SomeDescription");
+        companyService.createCompany(newCompany);
+        List<Company> allCompany = companyService.readCompanyList();
+        Company lastCompany = allCompany.get(allCompany.size()-1);
+        UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
+         userToCompanyService.createUserToCompany(new UserToCompany(0, Constants.LOGGEDUSER,lastCompany.getId(),"admin"));
+
+
+    }
+
+
+    static void pageISanta(){
+        UserToCompanyDalImpl userToCompanyDal = new UserToCompanyDalImpl();
+        userToCompanyDal.readListByCompanyId(1).stream().forEach(y-> System.out.println(y.getUserName()));
+    }
+
+    public static String makeUrl(HttpServletRequest request)
+    {
+        return request.getRequestURL().toString() + "?" + request.getQueryString();
     }
 
 

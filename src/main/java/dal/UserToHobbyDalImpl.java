@@ -120,10 +120,11 @@ public class UserToHobbyDalImpl implements UserToHobbyDal {
 
     @Override
     public void delete(UserToHobby userToHobby) {
-        String sql = "delete from [user_to_hobby] where " + TABLE_USER_TO_HOBBY_COLUMN_ID + " =  ?";
+        String sql = "delete from [user_to_hobby] where " + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + " =  ? AND " + TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID + " = ?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
-            preparedStatement.setLong(1, userToHobby.getId());
+            preparedStatement.setLong(1, userToHobby.getUser_id());
+            preparedStatement.setLong(2, userToHobby.getHobby_id());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();

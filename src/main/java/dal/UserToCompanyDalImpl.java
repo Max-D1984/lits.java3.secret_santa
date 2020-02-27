@@ -2,9 +2,13 @@ package dal;
 
 import application.Driver;
 import model.UserAndUserTargetId;
+import org.springframework.stereotype.Repository;
 import pojo.User;
 import pojo.UserToCompany;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +16,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+@Repository
 public class UserToCompanyDalImpl implements UserToCompanyDal {
 
     private static final String TABLE_USER_TO_COMPANY_COLUMN_ID = "id";
@@ -20,6 +25,11 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
     private static final String TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE = "role";
     private static final String TABLE_USER_TO_COMPANY = "user_to_company";
     private ResultSet resultSet;
+
+
+    @PersistenceContext
+    private EntityManager manager;
+
 
     @Override
     public UserToCompany read(long id) {
@@ -47,31 +57,39 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
             e.printStackTrace();
             return null;
         }
+
+//      UserToCompany userToCompany = manager.createQuery("Select u From UserToCompany u WHERE u.id= ?1", UserToCompany.class).setParameter(1,id).getSingleResult();
+//
+//        return userToCompany;
     }
 
     @Override
     public List<UserToCompany> readList() {
-        List<UserToCompany> userToCompany = new LinkedList<UserToCompany>();
-        String sql = "SELECT " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
-                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + ", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE
-                +  " FROM [" + TABLE_USER_TO_COMPANY + "]";
-        try {
-            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.getMetaData() != null) {
-                while (resultSet.next()) {
-                    int user_to_company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
-                    int user_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_USER_ID);
-                    int company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
-                    String role = resultSet.getString(TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE);
-                    userToCompany.add(new UserToCompany(user_to_company_id, user_id, company_id,role));
-                }
-            }
-            return userToCompany;
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+//        List<UserToCompany> userToCompany = new LinkedList<UserToCompany>();
+//        String sql = "SELECT " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
+//                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + ", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE
+//                +  " FROM [" + TABLE_USER_TO_COMPANY + "]";
+//        try {
+//            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+//            resultSet = preparedStatement.executeQuery();
+//            if (resultSet.getMetaData() != null) {
+//                while (resultSet.next()) {
+//                    int user_to_company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
+//                    int user_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_USER_ID);
+//                    int company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
+//                    String role = resultSet.getString(TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE);
+//                    userToCompany.add(new UserToCompany(user_to_company_id, user_id, company_id,role));
+//                }
+//            }
+//            return userToCompany;
+//        } catch (SQLException | IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+       List<UserToCompany> userToCompanyList = manager.createQuery("Select u From UserToCompany u", UserToCompany.class).getResultList();
+
+        return userToCompanyList;
+
     }
 
     @Override

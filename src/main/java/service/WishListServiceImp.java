@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class WishListServiceImp implements WishListService {
-    @Autowired
+
+@Autowired
     private UserToPresentService userToPresentService;
     @Autowired
     private PresentServiceImpl presentService;
@@ -23,19 +24,19 @@ public class WishListServiceImp implements WishListService {
     @Autowired
     private HobbyServiceImpl hobbyService;
 
-    private UserToPresentService getUserToPresentService() {
+    public UserToPresentService getUserToPresentService() {
         return userToPresentService;
     }
 
-    private PresentServiceImpl getPresentService() {
+    public PresentServiceImpl getPresentService() {
         return presentService;
     }
 
-    private UserToHobbyService getUserToHobbyService() {
+    public UserToHobbyService getUserToHobbyService() {
         return userToHobbyService;
     }
 
-    private HobbyServiceImpl getHobbyService() {
+    public HobbyServiceImpl getHobbyService() {
         return hobbyService;
     }
 
@@ -59,11 +60,11 @@ public class WishListServiceImp implements WishListService {
     }
 
     public List<TargetUserHobbyResponse> targetUserHobbyResponse(int targetUserId) {
-        try {
-            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(2).stream()
+                try {
+            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(targetUserId).stream()
                     .map(y -> y.getHobby_id())
                     .collect(Collectors.toList());
-            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(2);
+            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(targetUserId);
             List<Hobby> hobbyList = hobbyService.readListByHobbysId(usersHobbyListId);
             List<TargetUserHobbyResponse> targetUserHobbyResponses = new LinkedList<>();
 
@@ -94,10 +95,10 @@ public class WishListServiceImp implements WishListService {
 
     public List<LoggedUserHobbyResponse> loggedUserHobbyResponse(int loggedUserId) {
         try {
-            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(2).stream()
+            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(loggedUserId).stream()
                     .map(y -> y.getHobby_id())
                     .collect(Collectors.toList());
-            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(2);
+            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(loggedUserId);
             List<Hobby> hobbyList = hobbyService.readListByHobbysId(usersHobbyListId);
             List<LoggedUserHobbyResponse> loggedUserHobbyResponses = hobbyService.readListByHobbysId(usersHobbyListId).stream()
                     .map(hobby -> new LoggedUserHobbyResponse(hobby.getName()))

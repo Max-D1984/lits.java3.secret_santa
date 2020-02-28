@@ -33,6 +33,9 @@ public class PresentServiceImpl implements PresentService {
     @Override
     public void testPresent() {
        }
+    public List<Present> readListByPresentsId(List<Integer> id){
+        return presentDal.readListByPresentsId(id);
+    }
 
 }
 

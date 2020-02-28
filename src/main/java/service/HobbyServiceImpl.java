@@ -32,6 +32,10 @@ public class HobbyServiceImpl implements HobbyService {
     @Override
     public void testHobby() {
     }
+    @Override
+    public List<Hobby> readListByHobbysId(List<Integer> id){
+        return hobbyDal.readListByHobbysId(id);
+    }
 
 
 }

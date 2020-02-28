@@ -2,16 +2,16 @@ package model;
 
 import java.util.Objects;
 
-public class Present {
+public class LoggedUserPresentResponse {
     private String name;
     private String url;
 
-    public Present(String name, String url) {
+    public LoggedUserPresentResponse(String name, String url) {
         this.name = name;
         this.url = url;
     }
 
-    public Present() {
+    public LoggedUserPresentResponse() {
     }
 
     public String getName() {
@@ -34,7 +34,7 @@ public class Present {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Present that = (Present) o;
+        LoggedUserPresentResponse that = (LoggedUserPresentResponse) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(url, that.url);
     }

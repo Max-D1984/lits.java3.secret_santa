@@ -10,4 +10,5 @@ public interface HobbyDal {
     public void createHobby(Hobby hobby);
     public void update(Hobby hobby, String newName);
     public void delete(Hobby hobby);
+    public List<Hobby> readListByHobbysId(List<Integer> id);
 }

@@ -101,4 +101,43 @@ public class HobbyDalImpl implements HobbyDal {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public List<Hobby> readListByHobbysId(List<Integer> id) {
+        List<Hobby> hobby = new LinkedList<Hobby>();
+        String sql = "select " + TABLE_HOBBY_COLUMN_ID + ", " + TABLE_HOBBY_COLUMN_NAME +
+                " from [" + TABLE_HOBBY + "] where id in (" + doStringFromList(id) + ")";
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int hobbyId = resultSet.getInt(TABLE_HOBBY_COLUMN_ID);
+                    String name = resultSet.getString(TABLE_HOBBY_COLUMN_NAME);
+
+                    hobby.add(new Hobby(hobbyId, name));
+                }
+            }
+            return hobby;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String doStringFromList (List<Integer> currentListId){
+        int count=0;
+        String strId="";
+        for (int id:currentListId) {
+            if(count!=currentListId.size()-1){
+                strId = strId+id+", ";
+            }else{
+                strId = strId+id;
+            }
+            count++;
+
+        }
+        return strId;
+    }
 }

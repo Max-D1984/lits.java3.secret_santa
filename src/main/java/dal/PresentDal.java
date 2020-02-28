@@ -11,6 +11,6 @@ public interface PresentDal {
     public void createPresent (Present present);
     public void update (Present present, String newName, String newUrl);
     public void delete (Present present);
-
+    public List<Present> readListByPresentsId(List<Integer> id);
 
 }

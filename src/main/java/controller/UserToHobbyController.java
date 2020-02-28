@@ -47,7 +47,7 @@ public class UserToHobbyController {
             value = "/user-to-hobby",
             method = RequestMethod.POST)
     public ResponseEntity postUserToHobbyList(@RequestParam int user_id, int hobby_id){
-        UserToHobby newUserToHobby = new UserToHobby(0,user_id,hobby_id);
+        UserToHobby newUserToHobby = new UserToHobby(0,user_id,hobby_id,0);
         userToHobbyService.createUserToHobby(newUserToHobby);
         return ResponseEntity.of(Optional.of(
                 "Created user to hobby" + newUserToHobby));
@@ -67,7 +67,7 @@ public class UserToHobbyController {
             method = RequestMethod.DELETE)
     public ResponseEntity deleteUserToHobbyList(
             @RequestParam Integer user_id, @RequestParam Integer hobby_id) {
-               userToHobbyService.deleteUserToHobby(new UserToHobby(0,user_id,hobby_id));
+               userToHobbyService.deleteUserToHobby(new UserToHobby(0,user_id,hobby_id, 0));
         return ResponseEntity.of(Optional.of(
                 "Deleted user to hobby "));
     }

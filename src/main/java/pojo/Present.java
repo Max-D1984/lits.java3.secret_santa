@@ -8,10 +8,12 @@ public class Present {
     private String name;
     private String url;
 
+
     public Present(int id, String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
+
     }
 
     public int getId() {
@@ -39,26 +41,26 @@ public class Present {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Present present = (Present) o;
+        return id == present.id &&
+                Objects.equals(name, present.name) &&
+                Objects.equals(url, present.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, url);
+    }
+
+    @Override
     public String toString() {
         return "Present{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-       Present that = (Present) o;
-        return id == that.id &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(url, that.url);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, url);
     }
 }

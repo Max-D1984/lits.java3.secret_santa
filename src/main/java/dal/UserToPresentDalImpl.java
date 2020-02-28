@@ -16,6 +16,7 @@ public class UserToPresentDalImpl implements UserToPresentDal {
     private static final String TABLE_USER_TO_PRESENT_COLUMN_ID = "id";
     private static final String TABLE_USER_TO_PRESENT_COLUMN_USER_ID = "user_id";
     private static final String TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID = "present_id";
+    private static final String TABLE_USER_TO_PRESENT_COLUMN_USER_SANTA_ID = "user_santa_id";
     private static final String TABLE_PRESENT_NAME = "[present]";
     private ResultSet resultSet;
     @Override
@@ -59,7 +60,9 @@ public class UserToPresentDalImpl implements UserToPresentDal {
         List<UserToPresent> userToPresents = new LinkedList<>();
         try {
             String sql = "SELECT " + TABLE_USER_TO_PRESENT_COLUMN_ID + ", " + TABLE_USER_TO_PRESENT_COLUMN_USER_ID
-                    + ", " + TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID + " FROM " + TABLE_NAME + " WHERE " + TABLE_USER_TO_PRESENT_COLUMN_USER_ID + " = ?";            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+                    + ", " + TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID + ", "+TABLE_USER_TO_PRESENT_COLUMN_USER_SANTA_ID +" FROM " +
+                    TABLE_NAME + " WHERE " + TABLE_USER_TO_PRESENT_COLUMN_USER_ID + " = ?";
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -67,8 +70,9 @@ public class UserToPresentDalImpl implements UserToPresentDal {
                 int userToPresentId = resultSet.getInt(1);
                 int user_id = resultSet.getInt(2);
                 int present_id = resultSet.getInt(3);
-                System.out.printf("%d, %d, %d \n", userToPresentId, user_id, present_id);
-                userToPresents.add(new UserToPresent(userToPresentId, user_id, present_id));
+                int user_santa_id = resultSet.getInt(4);
+            //    System.out.printf("%d, %d, %d \n", userToPresentId, user_id, present_id);
+                userToPresents.add(new UserToPresent(userToPresentId, user_id, present_id,user_santa_id));
             }
         } catch (SQLException | IOException ex) {
             System.out.println("Wrong column name or table");
@@ -96,13 +100,14 @@ public class UserToPresentDalImpl implements UserToPresentDal {
     public List<MyWishListResponse> readPresentListById(int id) {
         List<MyWishListResponse> userToPresentsById = new LinkedList<>();
         try {
-            String sql = "select p.name,p.url from [user_to_present] u join [present] p on u.present_id = p.id where u.[user_id]=?";
+            String sql = "select p.name,p.url,p.user_santa_id from [user_to_present] u join [present] p on u.present_id = p.id where u.[user_id]=?";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                String name = resultSet.getString(1);
                 String url = resultSet.getString(2);
+                Integer user_santa_id = resultSet.getInt(3);
               //  System.out.printf("%s, %s, %s \n", userToPresentId, user_id, present_id);
                 userToPresentsById.add(new MyWishListResponse(name, url, "remove"));
             }
@@ -112,4 +117,9 @@ public class UserToPresentDalImpl implements UserToPresentDal {
         }
         return userToPresentsById;
     }
+
+
+
+
+
 }

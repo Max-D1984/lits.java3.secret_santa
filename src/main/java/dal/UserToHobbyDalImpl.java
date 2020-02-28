@@ -15,6 +15,7 @@ public class UserToHobbyDalImpl implements UserToHobbyDal {
     public static final String TABLE_USER_TO_HOBBY_COLUMN_USER_ID = "user_id";
     public static final String TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID = "hobby_id";
     public static final String TABLE_USER_TO_HOBBY_COLUMN_ID = "id";
+    public static final String TABLE_USER_TO_HOBBY_COLUMN_USER_SANTA_ID = "user_santa_id";
     private ResultSet resultSet;
 
     @Override
@@ -70,7 +71,8 @@ public class UserToHobbyDalImpl implements UserToHobbyDal {
     public List<UserToHobby> readListByUserId(long userId) {
         List<UserToHobby> userToHobby = new LinkedList<UserToHobby>();
         String sql = "select " + TABLE_USER_TO_HOBBY_COLUMN_ID + ", " + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + ", "
-                + TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID + " from [user_to_hobby] WHERE " + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + "=?";;
+                + TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID + ", " + TABLE_USER_TO_HOBBY_COLUMN_USER_SANTA_ID + " from [user_to_hobby] WHERE " +
+                TABLE_USER_TO_HOBBY_COLUMN_USER_ID + "=?";;
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, (int)userId);
@@ -80,7 +82,8 @@ public class UserToHobbyDalImpl implements UserToHobbyDal {
                     int id = resultSet.getInt(TABLE_USER_TO_HOBBY_COLUMN_ID);
                     int user_id = resultSet.getInt(TABLE_USER_TO_HOBBY_COLUMN_USER_ID);
                     int hobby_id = resultSet.getInt(TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID);
-                    userToHobby.add(new UserToHobby(id, user_id, hobby_id));
+                    int user_santa_id = resultSet.getInt(TABLE_USER_TO_HOBBY_COLUMN_USER_SANTA_ID);
+                    userToHobby.add(new UserToHobby(id, user_id, hobby_id, user_santa_id));
                 }
             }
             return userToHobby;

@@ -14,4 +14,5 @@ public interface UserToPresentService {
     void delete (int id);
     List<UserToPresent> readList ();
     List<MyWishListResponse> readPresentListById(int id);
+
 }

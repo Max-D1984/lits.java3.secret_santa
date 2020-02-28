@@ -16,4 +16,6 @@ public interface HobbyService {
     void updateHobby(Hobby hobby, String newName);
 
     void testHobby();
+
+    public List<Hobby> readListByHobbysId(List<Integer> id);
 }

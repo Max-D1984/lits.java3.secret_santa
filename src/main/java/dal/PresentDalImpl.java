@@ -107,5 +107,44 @@ public class PresentDalImpl implements PresentDal {
             return null;
         }
     }
+
+    @Override
+    public List<Present> readListByPresentsId(List<Integer> id) {
+        List<Present> present = new LinkedList<Present>();
+        String sql = "select " + TABLE_PRESENT_COLUMN_ID + ", " + TABLE_PRESENT_COLUMN_NAME + ", "
+                + TABLE_PRESENT_COLUMN_URL + " from [present] where id in (" + doStringFromList(id) + ")";
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int presentId = resultSet.getInt(TABLE_PRESENT_COLUMN_ID);
+                    String name = resultSet.getString(TABLE_PRESENT_COLUMN_NAME);
+                    String url = resultSet.getString(TABLE_PRESENT_COLUMN_URL);
+                    present.add(new Present(presentId, name, url));
+                }
+            }
+            return present;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private String doStringFromList (List<Integer> currentListId){
+        int count=0;
+        String strId="";
+        for (int id:currentListId) {
+            if(count!=currentListId.size()-1){
+                strId = strId+id+", ";
+            }else{
+                strId = strId+id;
+            }
+            count++;
+
+        }
+        return strId;
+    }
+
 }
 

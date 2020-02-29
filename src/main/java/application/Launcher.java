@@ -125,7 +125,8 @@ CompanyService companyService = new CompanyServiceImpl();
 
     static void pageISanta(){
         UserToCompanyDalImpl userToCompanyDal = new UserToCompanyDalImpl();
-        userToCompanyDal.readListByCompanyId(1).stream().forEach(y-> System.out.println(y.getUserName()));
+       // userToCompanyDal.readListByCompanyId(1).stream().forEach(y-> System.out.println(y.getUserName()));
+        userToCompanyDal.readListByCompanyId(1);
     }
 
     public static String makeUrl(HttpServletRequest request)
@@ -371,13 +372,13 @@ CompanyService companyService = new CompanyServiceImpl();
 
     static void createUser() {
         UserService userService = new UserServiceImpl();
-        userService.createUser(new User(0, "new User"));
+        userService.createUser(new User(0, "new User","new email","new pass"));
     }
 
     static void updateUser() {
 
         UserService userService = new UserServiceImpl();
-        userService.updateUser(userService.readUserList().get(5), new User(1, "newName"));
+        userService.updateUser(userService.readUserList().get(5), new User(1, "newName","newEmail","newPass"));
     }
 
     static void deleteUser() {

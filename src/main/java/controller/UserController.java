@@ -67,6 +67,7 @@
 
 package controller;
 
+import model.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Present;
@@ -100,9 +101,9 @@ public class UserController {
     public ResponseEntity userListList() {
         return ResponseEntity.of(Optional.of(List.of(
                 new User(2,
-                        "someUserName"),
+                        "someUserName","someEmail","somePass"),
                 new User (2 + 2,
-                        "someUserName3"))));
+                        "someUserName3","someEmail","somePass"))));
     }
 
     @RequestMapping(
@@ -112,7 +113,7 @@ public class UserController {
             @RequestBody User user) {
         return ResponseEntity.of(Optional.of(
                 new User(1,
-                        "SomeUserName")));
+                        "SomeUserName","someEmail","somePass")));
     }
 
     @RequestMapping(
@@ -122,7 +123,7 @@ public class UserController {
             @RequestBody User present) {
         return ResponseEntity.of(Optional.of(
                 new User(2,
-                        "SomeUserName")));
+                        "SomeUserName","someEmail","somePass")));
     }
 
     @RequestMapping(
@@ -132,7 +133,7 @@ public class UserController {
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
                 new User(1,
-                        "SomeUserName")));
+                        "SomeUserName","someEmail","somePass")));
     }
     @RequestMapping(
             value = "/userlist",
@@ -140,9 +141,9 @@ public class UserController {
     public ResponseEntity getUsersByCompanyId(
             @RequestParam Integer id) {
         List<String> userName = new LinkedList<>();
-        List<User> userList = userToCompanyService.readUserByCompanyId(id);
-        for(User user: userList){
-            userName.add(user.getUserName());
+        List<UserResponse> userList = userToCompanyService.readUserByCompanyId(id);
+        for(UserResponse user: userList){
+            userName.add(user.getName());
         }
         return ResponseEntity.of(Optional.of(
                userName));

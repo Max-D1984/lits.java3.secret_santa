@@ -1,6 +1,8 @@
 package controller;
 
 import application.Constants;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +64,7 @@ public class CompanyController {
         return ResponseEntity.of(Optional.of(
                 companyService.readCompany(company_id)));
     }
+
     @CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(
             value = "/my-company/list",
@@ -71,9 +74,9 @@ public class CompanyController {
                 companyService.readCompanyList()));
     }
 
-    @RequestMapping(
-            value = "/company",
-            method = RequestMethod.POST)
+//    @RequestMapping(
+//            value = "/company",
+//            method = RequestMethod.POST)
     public ResponseEntity postCompany(@RequestParam String name, @RequestParam String description, @RequestParam Integer loggedUserId) {
 
         Company newCompany = new Company(0, "SomeName", "SomeDescription");
@@ -87,9 +90,9 @@ public class CompanyController {
                 "Created company " + lastCompany.getCompanyName() + " admin: " + userService.readUser(Constants.LOGGEDUSER)));
     }
 
-    @RequestMapping(
-            value = "/company",
-            method = RequestMethod.PUT)
+//    @RequestMapping(
+//            value = "/company",
+//            method = RequestMethod.PUT)
     public ResponseEntity putCompany(@RequestParam int id, String newName, String newDescription) {
         Company newCompany = new Company(id, newName, newDescription);
         Company oldCompany = companyService.readCompany(id);
@@ -97,9 +100,9 @@ public class CompanyController {
         return ResponseEntity.of(Optional.of("Update company" + oldCompany + " to " + newCompany));
     }
 
-    @RequestMapping(
-            value = "/company",
-            method = RequestMethod.DELETE)
+//    @RequestMapping(
+//            value = "/company",
+//            method = RequestMethod.DELETE)
     public ResponseEntity deleteCompany(
             @RequestParam Integer id) {
         Company deletedCOmpany = companyService.readCompany(11);

@@ -3,6 +3,7 @@ package service;
 import dal.UserTargetDal;
 import dal.UserTargetDalImpl;
 import model.UserAndUserTargetId;
+import model.UserResponse;
 import org.springframework.stereotype.Service;
 import pojo.User;
 import pojo.UserTarget;
@@ -38,7 +39,7 @@ public class UserTargetServiceImpl implements UserTargetService {
     }
 
     @Override
-    public void createList(List<User> userList) {
+    public void createList(List<UserResponse> userList) {
         userTargetDal.createList(generateMapOfUsers(userList));
     }
 
@@ -49,11 +50,11 @@ public class UserTargetServiceImpl implements UserTargetService {
    на виході методу - колекція типу Map в якій елементи зберігаються як пара "ключ - значення".
    У нас "ключ" -> id юзера, а "значення" -> id таргета.
     */
-    public Map<Integer, Integer> generateMapOfUsers(List<User> userList) {
+    public Map<Integer, Integer> generateMapOfUsers(List<UserResponse> userList) {
         //Мапа в якій будемо зберігати пари "id хто дарує - id кому дарує"
         Map<Integer, Integer> mapOfSecretSanta = new HashMap<>();
         //Створюємо допоміжну колекцію, яка
-        List<User> targetList = new LinkedList<>();
+        List<UserResponse> targetList = new LinkedList<>();
         //Об'єкт класу Random, який ми використаємо для генерації випадкових чисел
         Random random = new Random();
         //Змінна, яка є ідентифікатором об'єктів в списку targetList
@@ -61,7 +62,7 @@ public class UserTargetServiceImpl implements UserTargetService {
         //Клонуємо всі об'єкти з вхідного списку userList в створений список targetList
         targetList.addAll(userList);
         //Головний цикл, в якому відбуваються всі процеси генерації пар "id Санти - id цілі"
-        for (User user : userList) {
+        for (UserResponse user : userList) {
             System.out.println();
             //номер ітерації
             System.out.println("Iteration number: " + (user.getId()));

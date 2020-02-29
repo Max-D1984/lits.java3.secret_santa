@@ -1,7 +1,7 @@
 package service;
 
-import model.UserAndUserTargetId;
-import pojo.User;
+
+import model.UserResponse;
 import pojo.UserToCompany;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface UserToCompanyService {
 
     void testUserToCompany();
 
-    List<User> readUserByCompanyId(int id);
+    List<UserResponse> readUserByCompanyId(int id);
 
     List<UserToCompany> readListByCompanyId(long id);
 

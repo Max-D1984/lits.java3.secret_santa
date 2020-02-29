@@ -1,6 +1,7 @@
 package service;
 
 import model.UserAndUserTargetId;
+import model.UserResponse;
 import pojo.User;
 import pojo.UserTarget;
 import java.util.List;
@@ -12,8 +13,8 @@ public interface UserTargetService {
     void create (UserTarget userTarget);
     UserTarget read (int id);
     List<UserTarget> readList ();
-    void createList(List<User> userList);
-    Map<Integer,Integer> generateMapOfUsers(List<User> userList);
+    void createList(List<UserResponse> userList);
+    Map<Integer,Integer> generateMapOfUsers(List<UserResponse> userList);
     List getTargetForUserById (int id);
     List<UserAndUserTargetId> getTargetForUserInCompany (int user_id, List<Integer> target_id);
 }

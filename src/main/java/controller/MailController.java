@@ -1,5 +1,6 @@
 package controller;
 
+import model.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
@@ -107,12 +108,26 @@ public class MailController {
         UriComponents uriComponents = UriComponentsBuilder.fromHttpRequest(httpRequest).build();
         String scheme = uriComponents.getScheme();
         String host = uriComponents.getHost();
+        Company company = companyService.readCompany(companyId);
+        String subject = "Testing Subject";
         if (host.equals("localhost")) {
 
             urlToCompany.append("http://localhost:8080/secret-santa/user/userlist?id=" + companyId);
         } else {
             urlToCompany.append("https://lits-java3-secret-santa.herokuapp.com/user/userlist?id=" + companyId);
         }
+        String mailText = "Dear " + mailTo.substring(0, mailTo.lastIndexOf("@")) + ",\n"
+                + "\n"
+                + "I want to invite you to participate in a Secret Santa game to my company " + company.getCompanyName()
+                + "\n"
+                + "If you want to confirm, please, follow this link " + urlToCompany;
+        if (sendEmail(mailTo, username, password, currentUserList, subject, mailText)) {
+            return ResponseEntity.of(Optional.of("Mail was send to " + mailTo));
+        }
+        return ResponseEntity.of(Optional.of("Mail sending was failed"));
+    }
+
+    private boolean sendEmail(String mailTo, String username, String password, List<UserToCompany> currentUserList, String subject, String mailText) {
         if (currentUserList.get(loggedInUserId).getRole().equals("admin")) {
             Properties props = new Properties();
             props.put("mail.smtp.auth", true);
@@ -122,7 +137,7 @@ public class MailController {
 
             Session session = Session.getInstance(props,
 
-                    new javax.mail.Authenticator() {
+                    new Authenticator() {
                         protected PasswordAuthentication getPasswordAuthentication() {
                             return new PasswordAuthentication(username, password);
                         }
@@ -132,14 +147,10 @@ public class MailController {
                 message.setFrom(new InternetAddress("edulitsjava@gmail.com"));
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse(mailTo));
-                message.setSubject("Testing Subject");
+                message.setSubject(subject);
 
-                Company company = companyService.readCompany(companyId);
-                message.setText("Dear " + mailTo.substring(0, mailTo.lastIndexOf("@")) + ",\n"
-                        + "\n"
-                        + "I want to invite you to participate in a Secret Santa game to my company " + company.getCompanyName()
-                        + "\n"
-                        + "If you want to confirm, please, follow this link " + urlToCompany);
+
+                message.setText(mailText);
                 Transport.send(message);
                 System.out.println("Mail Sent Successfully");
             } catch (AuthenticationFailedException ex) {
@@ -147,12 +158,9 @@ public class MailController {
             } catch (MessagingException ex) {
                 throw new RuntimeException(ex);
             }
-            return ResponseEntity.of(Optional.of(
-                    "Mail was send to " + mailTo));
+            return true;
         }
-        return ResponseEntity.of(Optional.of(
-                "Mail sending was failed"
-        ));
+        return false;
     }
 
 
@@ -165,25 +173,19 @@ public class MailController {
             @RequestParam String password,
             @RequestParam Integer companyId) {
 
-        List<User> currentUserList = userToCompanyService.readUserByCompanyId(companyId);
+        List<UserResponse> currentUserList = userToCompanyService.readUserByCompanyId(companyId);
         Map<Integer, Integer> usersId = userTargetService.generateMapOfUsers(currentUserList);
         StringBuilder userList = new StringBuilder();
-        Set mapSet = usersId.entrySet();
-//        Iterator iterator = mapSet.iterator();
-//        while(iterator.hasNext()) {
-//            Map.Entry entry = (Map.Entry) iterator.next();
-//
-//        }
         int userId = 0;
         int targetId = 0;
         for (Map.Entry<Integer, Integer> entry : usersId.entrySet()) {
             userId = entry.getKey();
             targetId = entry.getValue();
-            for (User user : currentUserList) {
+            for (UserResponse user : currentUserList) {
                 if (user.getId() == userId) {
-                    for(User target: currentUserList){
+                    for(UserResponse target: currentUserList){
                         if(target.getId() == targetId){
-                            userList.append("User " + user.getUserName() + " is Santa for " + target.getUserName() + "; ");
+                            userList.append("User " + user.getName() + " is Santa for " + target.getName() + "; ");
                         }
                     }
 

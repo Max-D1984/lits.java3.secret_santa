@@ -1,14 +1,12 @@
 package dal;
 
 import application.Driver;
-import model.UserAndUserTargetId;
+import model.UserResponse;
 import org.springframework.stereotype.Repository;
-import pojo.User;
 import pojo.UserToCompany;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -137,19 +135,20 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
     }
 
     @Override
-    public List<User> readListByCompanyId(int id) {
-        List<User> usersOfCompany = new LinkedList<>();
-        String sql = "SELECT u.id, u.name from [user] u\n" +
+    public List<UserResponse> readListByCompanyId(int id) {
+        List<UserResponse> usersOfCompany = new LinkedList<>();
+        String sql = "SELECT  u.id, u.name, u.email from [user] u\n" +
                 "join [user_to_company] uc on u.id=uc.[user_id] where uc.company_id=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {
                 while (resultSet.next()) {
-                    int user_id = resultSet.getInt(1);
-                    String name = resultSet.getString(2);
-                    usersOfCompany.add(new User(user_id,name));
+                    int user_id = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+                    String email = resultSet.getString("email");
+                    usersOfCompany.add(new UserResponse(user_id,name,email));
                 }
             }
             return usersOfCompany;

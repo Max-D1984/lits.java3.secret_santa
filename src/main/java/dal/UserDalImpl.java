@@ -39,8 +39,9 @@ public class UserDalImpl implements UserDal {
             while (rs.next()) {
                 String name = rs.getString("name");
                 Integer userId = rs.getInt("id");
-                user = new User(userId, name);
-
+                String email = rs.getString("email");
+                String passWord = rs.getString("password");
+                user = new User(userId, name, email, passWord);
             }
             return user;
         } catch (IOException | SQLException e) {
@@ -53,11 +54,13 @@ public class UserDalImpl implements UserDal {
 
     @Override
     public void update(User user, User newUser) {
-        String sql = "UPDATE [user] SET name=? WHERE id=?";
+        String sql = "UPDATE [user] SET name=?, email=?, password=? WHERE id=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(1, newUser.getUserName());
+
             preparedStatement.setLong(2, user.getId());
+
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -88,7 +91,9 @@ public class UserDalImpl implements UserDal {
             while (rs.next()) {
                 String name = rs.getString("name");
                 Integer userId = rs.getInt("id");
-                userList.add(new User(userId, name));
+                String email = rs.getString("email");
+                String passWord = rs.getString("password");
+                userList.add(new User(userId, name, email, passWord));
             }
             return userList;
         } catch (SQLException e) {

@@ -1,5 +1,7 @@
 package controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,12 +20,14 @@ import java.util.Optional;
 
 @EnableSwagger2
 @RestController
+@Api(tags = "")
 @RequestMapping(value = "/")
 public class AdminController {
 
     UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
-    private int loggedInUserId = 0;
+    private int loggedInUserId = 1;
 
+    @ApiOperation("Admin of company can set another member to admin")
     @RequestMapping(
             value = "/set-admin",
             method = RequestMethod.PUT)
@@ -32,13 +36,17 @@ public class AdminController {
             @RequestParam Integer user_id) {
 
         List<UserToCompany> userToCompanyList = userToCompanyService.readListByCompanyId(company_id);
-            if(userToCompanyList.get(loggedInUserId).getRole().equals("admin")){
-                UserToCompany userToUpdate = userToCompanyList.get(user_id-1);
-                userToCompanyService.updateUserToCompany(userToUpdate, userToUpdate.getUser_id(), userToUpdate.getCompany_id(),"admin");
-                return ResponseEntity.of(Optional.of(
-                      "New admin was setted"  ));
+        for (UserToCompany user : userToCompanyList) {
+            if (loggedInUserId==user.getUser_id() && user.getRole().equals("admin")) {
+                for(UserToCompany updateUser: userToCompanyList){
+                    if(updateUser.getUser_id()==user_id){
+                        userToCompanyService.updateUserToCompany(updateUser, updateUser.getUser_id(), updateUser.getCompany_id(), "admin");
+                    }
+                }
+                return ResponseEntity.of(Optional.of("New admin was set"));
             }
-        return ResponseEntity.of(Optional.of("Admin wasn`t set"));
+        }
+        return ResponseEntity.of(Optional.of("Admin was NOT set"));
     }
 }
 

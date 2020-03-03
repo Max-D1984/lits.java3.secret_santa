@@ -1,6 +1,7 @@
 package controller;
 
 import dal.UserTargetDalImpl;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
 import model.TargetUserIdAndCompanyId;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 public class PageISantaForController {
    public static int LOGGEDUSER = 1;
-
+    @ApiOperation("Return information about all your targets (you santa for)")
      @RequestMapping(
             value = "/i-santa-for",
             method = RequestMethod.GET)
@@ -32,16 +33,13 @@ public class PageISantaForController {
         CompanyService companyService= new CompanyServiceImpl();
         List<TargetUserIdAndCompanyId> list = userService.getAllTargetsForUser(listComp, listTarg);
 
-        for (TargetUserIdAndCompanyId target: list
-             ) {
+        for (TargetUserIdAndCompanyId target: list) {
             target.setUserName(userService.readUser(target.getUser_id()).getUserName());
             target.setCompanyName(companyService.readCompany(target.getCompany_id()).getCompanyName());
 
         }
 
-        return ResponseEntity.of(Optional.of(List.of(
-list
-        )));
+        return ResponseEntity.of(Optional.of(List.of(list)));
     }
 
 }

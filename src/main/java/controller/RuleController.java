@@ -24,37 +24,37 @@ public class RuleController {
     }
 
 
-    @RequestMapping(
-            value = "/my-rule",
-            method = RequestMethod.GET)
+//    @RequestMapping(
+//            value = "/my-rule",
+//            method = RequestMethod.GET)
     public ResponseEntity getRule(
             @RequestParam Integer id){
         return ResponseEntity.of(Optional.of(
                 ruleService.read(id)));
     }
-    @RequestMapping(
-            value = "/my-rule/list",
-            method = RequestMethod.GET)
+//    @RequestMapping(
+//            value = "/my-rule/list",
+//            method = RequestMethod.GET)
     public ResponseEntity getRuleList(){
         return ResponseEntity.of(Optional.of(ruleService.readList()));
     }
-    @RequestMapping(
-            value = "/my-rule",
-            method = RequestMethod.POST)
+//    @RequestMapping(
+//            value = "/my-rule",
+//            method = RequestMethod.POST)
     public ResponseEntity postRule(){
         return ResponseEntity.of(Optional.of(
                 new Rule(1,1,"new Rule", Date.valueOf("2019-12-24"),300)));
     }
-    @RequestMapping(
-            value = "/my-rule",
-            method = RequestMethod.PUT)
+//    @RequestMapping(
+//            value = "/my-rule",
+//            method = RequestMethod.PUT)
     public ResponseEntity putRule(){
         return ResponseEntity.of(Optional.of(
                 new Rule(1,1,"new Rule", Date.valueOf("2019-12-24"),300)));
     }
-    @RequestMapping(
-            value = "/my-rule",
-            method = RequestMethod.DELETE)
+//    @RequestMapping(
+//            value = "/my-rule",
+//            method = RequestMethod.DELETE)
     public ResponseEntity deleteRule(
             @RequestParam Integer id){
         return ResponseEntity.of(Optional.of(

@@ -20,42 +20,42 @@ public class UserTargetController {
 
 
 
-    @RequestMapping(
-            value = "/my-target",
-            method = RequestMethod.GET)
+//    @RequestMapping(
+//            value = "/my-target",
+//            method = RequestMethod.GET)
     public ResponseEntity getTarget(
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
                 userTargetService.read(id)));
     }
-    @RequestMapping(
-            value = "/my-target/list",
-            method = RequestMethod.GET)
+//    @RequestMapping(
+//            value = "/my-target/list",
+//            method = RequestMethod.GET)
     public ResponseEntity getTargetList() {
 
 
         return ResponseEntity.of(Optional.of(userTargetService.readList()));
     }
 
-    @RequestMapping(
-            value = "/my-target",
-            method = RequestMethod.POST)
+//    @RequestMapping(
+//            value = "/my-target",
+//            method = RequestMethod.POST)
     public ResponseEntity postUserTarget() {
         return ResponseEntity.of(Optional.of(
                 new UserTarget(1, 1, 2, "OK")));
     }
 
-    @RequestMapping(
-            value = "/my-target",
-            method = RequestMethod.PUT)
+//    @RequestMapping(
+//            value = "/my-target",
+//            method = RequestMethod.PUT)
     public ResponseEntity putUserTarget() {
         return ResponseEntity.of(Optional.of(
                 new UserTarget(1, 1, 2, "OK")));
     }
 
-    @RequestMapping(
-            value = "/my-target",
-            method = RequestMethod.DELETE)
+//    @RequestMapping(
+//            value = "/my-target",
+//            method = RequestMethod.DELETE)
     public ResponseEntity deleteTarget(
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(

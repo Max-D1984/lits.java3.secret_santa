@@ -1,5 +1,6 @@
 package controller;
 
+import io.swagger.annotations.ApiOperation;
 import model.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -50,9 +51,9 @@ public class MailController {
         return userTargetService;
     }
 
-    @RequestMapping(
-            value = "/mail",
-            method = RequestMethod.GET)
+//    @RequestMapping(
+//            value = "/mail",
+//            method = RequestMethod.GET)
     public ResponseEntity getUser(
             @RequestParam String mailTo,
             @RequestParam String username,
@@ -89,7 +90,7 @@ public class MailController {
                 "Mail was send to " + mailTo));
     }
 
-
+    @ApiOperation("Send email to user with invitation to company")
     @RequestMapping(
             value = "/mail-to-user",
             method = RequestMethod.GET)
@@ -103,10 +104,8 @@ public class MailController {
 
         List<UserToCompany> currentUserList = userToCompanyService.readListByCompanyId(companyId);
         StringBuilder urlToCompany = new StringBuilder();
-
         HttpRequest httpRequest = new ServletServerHttpRequest(request);
         UriComponents uriComponents = UriComponentsBuilder.fromHttpRequest(httpRequest).build();
-        String scheme = uriComponents.getScheme();
         String host = uriComponents.getHost();
         Company company = companyService.readCompany(companyId);
         String subject = "Testing Subject";
@@ -163,7 +162,7 @@ public class MailController {
         return false;
     }
 
-
+    @ApiOperation("Generate user->target of user and send email with list of couple user->target")
     @RequestMapping(
             value = "/define-santas",
             method = RequestMethod.GET)

@@ -1,5 +1,7 @@
 package controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,8 @@ import java.util.Optional;
 public class ImageController {
     // public ImageController() throws IOException {
     // }
+
+    @ApiOperation("Return image by URL")
     @RequestMapping(value = "/image", method = RequestMethod.GET)
     public ResponseEntity getImage(@RequestParam String imageURL) {
         Image image = null;
@@ -62,6 +66,8 @@ public class ImageController {
         System.out.println("The file has been written");
     }
 
+
+    @ApiOperation("Return image from file")
     @RequestMapping(value = "/getImage", method = RequestMethod.GET)
     public void showImage(HttpServletResponse response) throws Exception {
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();

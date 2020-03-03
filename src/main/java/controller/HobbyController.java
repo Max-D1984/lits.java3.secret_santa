@@ -1,5 +1,6 @@
 package controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,10 @@ import java.util.Optional;
 public class HobbyController {
    @Autowired
     private HobbyService hobbyService;
-    public HobbyService getHobbyService() {return hobbyService;
+    public HobbyService getHobbyService() {
+        return hobbyService;
     }
+    @ApiOperation("REad hobby by hobby id")
     @RequestMapping(
             value = "/my-hobby",
             method = RequestMethod.GET)
@@ -26,7 +29,7 @@ public class HobbyController {
         return ResponseEntity.of(Optional.of(
                 hobbyService.readHobby(id)));
     }
-
+    @ApiOperation("Read all hobby")
     @RequestMapping(
             value = "/my-hobby/list",
             method = RequestMethod.GET)
@@ -34,7 +37,7 @@ public class HobbyController {
         return ResponseEntity.of(Optional.of(List.of(
                 hobbyService.readList())));
     }
-
+    @ApiOperation("Create hobby")
     @RequestMapping(
             value = "/hobby",
             method = RequestMethod.POST)
@@ -46,14 +49,14 @@ public class HobbyController {
     }
 
 
-    @RequestMapping(
-            value = "/hobby",
-            method = RequestMethod.PUT)
+//    @RequestMapping(
+//            value = "/hobby",
+//            method = RequestMethod.PUT)
     public ResponseEntity putHobbyList(@RequestParam int id, String newName) {
         hobbyService.updateHobby(hobbyService.readHobby(id), newName);
         return ResponseEntity.of(Optional.of( "Update hobby" + newName));
     }
-
+    @ApiOperation("Delete hobby")
     @RequestMapping(
             value = "/hobby",
             method = RequestMethod.DELETE)

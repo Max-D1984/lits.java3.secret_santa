@@ -1,6 +1,7 @@
 package controller;
 
 import dal.*;
+import io.swagger.annotations.ApiOperation;
 import model.UserAndUserTargetId;
 import model.UserInCompanyInformationResponse;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @RequestMapping(value = "/user-in-company-info")
 public class UserInCompanyInfoController {
 
+    @ApiOperation("Information for company page")
     @RequestMapping(
             value = "/pageCompany",
             method = RequestMethod.GET)
@@ -44,7 +46,7 @@ public class UserInCompanyInfoController {
         return ResponseEntity.of(Optional.of(List.of(
                 userAndUserTargetIdList)));
     }
-
+    @ApiOperation("Return list of users in exact company")
     @RequestMapping(
             value = "/user-of-current-company",
             method = RequestMethod.GET)
@@ -53,8 +55,7 @@ public class UserInCompanyInfoController {
         UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
         List<Integer> userIdOfCompany = userToCompanyService.getUsersOfCompany(4);
         List<String> userNamesOfCompany = new LinkedList<>();
-        for (Integer idd : userIdOfCompany
-        ) {
+        for (Integer idd : userIdOfCompany) {
             userNamesOfCompany.add(userService.readUser(idd).getUserName());
 
         }

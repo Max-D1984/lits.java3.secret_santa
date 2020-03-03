@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @EnableSwagger2
 @RestController
-@Api(tags = "")
 @RequestMapping(value = "/")
 public class AdminController {
 

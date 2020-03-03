@@ -43,7 +43,7 @@ public class CompanyController {
     public UserService getUserService() {
         return userService;
     }
-
+    @ApiOperation("List of company for logged user")
     @RequestMapping(
             value = "/users-company",
             method = RequestMethod.GET)
@@ -55,7 +55,7 @@ public class CompanyController {
         return ResponseEntity.of(Optional.of(
                 companyService.getUsersCompany(ids)));
     }
-
+    @ApiOperation("Information about exact company")
     @RequestMapping(
             value = "/my-company",
             method = RequestMethod.GET)
@@ -66,18 +66,20 @@ public class CompanyController {
     }
 
     @CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
-    @RequestMapping(
-            value = "/my-company/list",
-            method = RequestMethod.GET)
+//    @RequestMapping(
+//            value = "/my-company/list",
+//            method = RequestMethod.GET)
     public ResponseEntity getMyCompanyList() {
         return ResponseEntity.of(Optional.of(
                 companyService.readCompanyList()));
     }
-
-//    @RequestMapping(
-//            value = "/company",
-//            method = RequestMethod.POST)
-    public ResponseEntity postCompany(@RequestParam String name, @RequestParam String description, @RequestParam Integer loggedUserId) {
+    @ApiOperation("Create new company")
+    @RequestMapping(
+            value = "/company",
+            method = RequestMethod.POST)
+    public ResponseEntity postCompany(@RequestParam String name,
+                                      @RequestParam String description,
+                                      @RequestParam Integer loggedUserId) {
 
         Company newCompany = new Company(0, "SomeName", "SomeDescription");
         companyService.createCompany(newCompany);

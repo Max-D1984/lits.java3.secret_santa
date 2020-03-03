@@ -1,5 +1,6 @@
 package controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.UserToHobby;
@@ -18,6 +19,8 @@ import java.util.Optional;
 
 public class UserToHobbyController {
     UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+
+
     @RequestMapping(
             value = "/my-user-to-hobby",
             method = RequestMethod.GET)
@@ -62,9 +65,9 @@ public class UserToHobbyController {
 //        return ResponseEntity.of(Optional.of( "Update user to hobby" + newUser_id + newHobby_id));
 //    }
 
-    @RequestMapping(
-            value = "/user-to-hobby",
-            method = RequestMethod.DELETE)
+//    @RequestMapping(
+//            value = "/user-to-hobby",
+//            method = RequestMethod.DELETE)
     public ResponseEntity deleteUserToHobbyList(
             @RequestParam Integer user_id, @RequestParam Integer hobby_id) {
                userToHobbyService.deleteUserToHobby(new UserToHobby(0,user_id,hobby_id, 0));

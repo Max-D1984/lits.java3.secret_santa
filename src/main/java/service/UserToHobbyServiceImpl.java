@@ -8,7 +8,11 @@ import pojo.UserToHobby;
 import java.util.List;
 @Service
 public class UserToHobbyServiceImpl implements UserToHobbyService{
-    private UserToHobbyDal userToHobbyDal = new UserToHobbyDalImpl();
+    public UserToHobbyDal getUserToHobbyDal() {
+        return userToHobbyDal;
+    }
+
+    private UserToHobbyDal userToHobbyDal;
 
     @Override
     public UserToHobby readUserToHobby(long id) {return userToHobbyDal.read(1);

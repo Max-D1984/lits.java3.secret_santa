@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class WishList {
-    private List<Present> presentList;
+    private List<LoggedUserPresentResponse> presentList;
     private List<Hobby> hobbyList;
 
-    public WishList(List<Present> presentList, List<Hobby> hobbyList) {
+    public WishList(List<LoggedUserPresentResponse> presentList, List<Hobby> hobbyList) {
         this.presentList = presentList;
         this.hobbyList = hobbyList;
     }
@@ -17,11 +17,11 @@ public class WishList {
     public WishList() {
     }
 
-    public List<Present> getPresentList() {
+    public List<LoggedUserPresentResponse> getPresentList() {
         return presentList;
     }
 
-    public void setPresentList(List<Present> presentList) {
+    public void setPresentList(List<LoggedUserPresentResponse> presentList) {
         this.presentList = presentList;
     }
 

@@ -1,6 +1,7 @@
 package dal;
 
 import application.Driver;
+import org.springframework.stereotype.Repository;
 import pojo.UserToHobby;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+@Repository
 public class UserToHobbyDalImpl implements UserToHobbyDal {
 
     public static final String TABLE_USER_TO_HOBBY_COLUMN_USER_ID = "user_id";

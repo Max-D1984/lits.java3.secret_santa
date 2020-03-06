@@ -67,6 +67,8 @@
 
 package controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import model.UserResponse;
 import org.springframework.http.ResponseEntity;
@@ -138,6 +140,9 @@ public class UserController {
     }
 
     @ApiOperation("Return name of users in exact company")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/userlist",
             method = RequestMethod.GET)

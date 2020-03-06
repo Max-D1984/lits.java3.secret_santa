@@ -1,5 +1,7 @@
 package controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import model.LoggedUserHobbyResponse;
 import model.MyWishListResponse;
 import model.LoggedUserPresentResponse;
@@ -31,7 +33,9 @@ public class WishListResponseController {
     public WishListService getWishListService() {
         return wishListService;
     }
-
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-wish-list",
             method = RequestMethod.GET)
@@ -39,7 +43,9 @@ public class WishListResponseController {
         return ResponseEntity.of(Optional.of(wishListService.loggeUserWishListResponse(loggedUserId)));
     }
 
-
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-target-wish-list",
             method = RequestMethod.GET)

@@ -2,6 +2,8 @@ package controller;
 
 import application.Constants;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,9 @@ public class CompanyController {
         return userService;
     }
     @ApiOperation("List of company for logged user")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/users-company",
             method = RequestMethod.GET)
@@ -55,7 +60,11 @@ public class CompanyController {
         return ResponseEntity.of(Optional.of(
                 companyService.getUsersCompany(ids)));
     }
+
     @ApiOperation("Information about exact company")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-company",
             method = RequestMethod.GET)
@@ -74,6 +83,9 @@ public class CompanyController {
                 companyService.readCompanyList()));
     }
     @ApiOperation("Create new company")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/company",
             method = RequestMethod.POST)

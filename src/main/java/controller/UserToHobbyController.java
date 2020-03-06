@@ -1,5 +1,7 @@
 package controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,9 @@ import java.util.Optional;
 public class UserToHobbyController {
     UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
 
-
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-user-to-hobby",
             method = RequestMethod.GET)
@@ -37,7 +41,9 @@ public class UserToHobbyController {
         return ResponseEntity.of(Optional.of(List.of(
                 hobbyName)));
     }
-
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-user-to-hobby/list",
             method = RequestMethod.GET)
@@ -46,6 +52,9 @@ public class UserToHobbyController {
                 userToHobbyService.readList())));
     }
 
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/user-to-hobby",
             method = RequestMethod.POST)

@@ -1,5 +1,7 @@
 package controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,10 @@ public class HobbyController {
     public HobbyService getHobbyService() {
         return hobbyService;
     }
-    @ApiOperation("REad hobby by hobby id")
+    @ApiOperation("Read hobby by hobby id")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-hobby",
             method = RequestMethod.GET)
@@ -30,6 +35,9 @@ public class HobbyController {
                 hobbyService.readHobby(id)));
     }
     @ApiOperation("Read all hobby")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-hobby/list",
             method = RequestMethod.GET)
@@ -38,6 +46,9 @@ public class HobbyController {
                 hobbyService.readList())));
     }
     @ApiOperation("Create hobby")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/hobby",
             method = RequestMethod.POST)
@@ -57,6 +68,9 @@ public class HobbyController {
         return ResponseEntity.of(Optional.of( "Update hobby" + newName));
     }
     @ApiOperation("Delete hobby")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/hobby",
             method = RequestMethod.DELETE)

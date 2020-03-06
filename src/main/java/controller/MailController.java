@@ -1,5 +1,7 @@
 package controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import model.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +93,9 @@ public class MailController {
     }
 
     @ApiOperation("Send email to user with invitation to company")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/mail-to-user",
             method = RequestMethod.GET)
@@ -163,6 +168,9 @@ public class MailController {
     }
 
     @ApiOperation("Generate user->target of user and send email with list of couple user->target")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/define-santas",
             method = RequestMethod.GET)

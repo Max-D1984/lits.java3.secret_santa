@@ -1,6 +1,8 @@
 package controller;
 
 import dal.UserTargetDalImpl;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
 import model.TargetUserIdAndCompanyId;
@@ -18,6 +20,9 @@ import java.util.Optional;
 public class PageISantaForController {
    public static int LOGGEDUSER = 1;
     @ApiOperation("Return information about all your targets (you santa for)")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
      @RequestMapping(
             value = "/i-santa-for",
             method = RequestMethod.GET)

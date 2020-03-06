@@ -1,6 +1,8 @@
 package controller;
 
 import dal.*;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import model.UserAndUserTargetId;
 import model.UserInCompanyInformationResponse;
@@ -22,6 +24,9 @@ import java.util.Optional;
 public class UserInCompanyInfoController {
 
     @ApiOperation("Information for company page")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/pageCompany",
             method = RequestMethod.GET)
@@ -47,6 +52,9 @@ public class UserInCompanyInfoController {
                 userAndUserTargetIdList)));
     }
     @ApiOperation("Return list of users in exact company")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/user-of-current-company",
             method = RequestMethod.GET)

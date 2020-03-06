@@ -1,6 +1,7 @@
 package controller;
 
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.util.IOUtils;
@@ -37,6 +38,9 @@ public class ImageController {
     // }
 
     @ApiOperation("Return image by URL")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(value = "/image", method = RequestMethod.GET)
     public ResponseEntity getImage(@RequestParam String imageURL) {
         Image image = null;
@@ -68,6 +72,9 @@ public class ImageController {
 
 
     @ApiOperation("Return image from file")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(value = "/getImage", method = RequestMethod.GET)
     public void showImage(HttpServletResponse response) throws Exception {
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();

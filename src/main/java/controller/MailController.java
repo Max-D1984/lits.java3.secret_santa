@@ -57,9 +57,8 @@ public class MailController {
 //            value = "/mail",
 //            method = RequestMethod.GET)
     public ResponseEntity getUser(
-            @RequestParam String mailTo,
-            @RequestParam String username,
-            @RequestParam String password) {
+            @RequestParam String mailTo
+) {
 
         Properties props = new Properties();
 
@@ -71,7 +70,7 @@ public class MailController {
 
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(System.getenv("lits_email_login"), System.getenv("lits_email_password"));
                     }
                 });
         try {

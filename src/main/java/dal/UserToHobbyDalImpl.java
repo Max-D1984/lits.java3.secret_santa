@@ -71,7 +71,7 @@ public class UserToHobbyDalImpl implements UserToHobbyDal {
 
     @Override
     public List<UserToHobby> readListByUserId(long userId) {
-        List<UserToHobby> userToHobby = new LinkedList<UserToHobby>();
+        List<UserToHobby> userToHobby = new LinkedList<>();
         String sql = "select " + TABLE_USER_TO_HOBBY_COLUMN_ID + ", " + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + ", "
                 + TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID + ", " + TABLE_USER_TO_HOBBY_COLUMN_USER_SANTA_ID + " from [user_to_hobby] WHERE " +
                 TABLE_USER_TO_HOBBY_COLUMN_USER_ID + "=?";;

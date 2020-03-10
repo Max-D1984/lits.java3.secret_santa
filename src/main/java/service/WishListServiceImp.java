@@ -8,40 +8,21 @@ import pojo.Present;
 import pojo.UserToHobby;
 import pojo.UserToPresent;
 
-import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class WishListServiceImp implements WishListService {
-    @Autowired
-    private UserToPresentService userToPresentService;
-    @Autowired
-    private PresentServiceImpl presentService;
-    @Autowired
-    private UserToHobbyService userToHobbyService;
-    @Autowired
-    private HobbyServiceImpl hobbyService;
+
+    private UserToPresentService userToPresentService = new UserToPresentServiceImpl();
+    private PresentServiceImpl presentService = new PresentServiceImpl();
+    private UserToHobbyService userToHobbyService = new UserToHobbyServiceImpl();
+    private HobbyServiceImpl hobbyService = new HobbyServiceImpl();
 
 
-    private UserToPresentService getUserToPresentService() {
-        return userToPresentService;
-    }
 
-    private PresentServiceImpl getPresentService() {
-        return presentService;
-    }
-
-    private UserToHobbyService getUserToHobbyService() {
-        return userToHobbyService;
-    }
-
-    private HobbyServiceImpl getHobbyService() {
-        return hobbyService;
-    }
-
-    public List<TargetUserPresentResponse> targetUserPresentResponse(int targetUserId) {
+    public List<TargetUserPresentResponse> targetUserPresentResponse(int targetUserId, int loggedUserId) {
         try {
             List<Integer> usersPresentsListId = userToPresentService.readByUser(targetUserId).stream()
                     .map(y -> y.getPresentId())
@@ -49,9 +30,18 @@ public class WishListServiceImp implements WishListService {
             List<UserToPresent> userToPresentList = userToPresentService.readByUser(targetUserId);
             List<Present> presentList = presentService.readListByPresentsId(usersPresentsListId);
             List<TargetUserPresentResponse> targetUserPresentResponses = new LinkedList<>();
-
+boolean presentCheckedByUser = false;
             for (int i = 0; i < presentList.size(); i++) {
-                targetUserPresentResponses.add(new TargetUserPresentResponse(presentList.get(i).getName(), presentList.get(i).getUrl(), userToPresentList.get(i).getUser_santa_id()));
+                if(userToPresentList.get(i).getUser_santa_id()==0 || userToPresentList.get(i).getUser_santa_id() == loggedUserId) {
+                    if(userToPresentList.get(i).getUser_santa_id() == loggedUserId){
+                        presentCheckedByUser = true;
+                    }else{
+                        presentCheckedByUser = false;
+
+                    }
+                    targetUserPresentResponses.add(new TargetUserPresentResponse(presentList.get(i).getName(), presentList.get(i).getUrl(), presentCheckedByUser));
+                }
+
             }
             return targetUserPresentResponses;
         } catch (Exception ex) {
@@ -61,11 +51,11 @@ public class WishListServiceImp implements WishListService {
     }
 
     public List<TargetUserHobbyResponse> targetUserHobbyResponse(int targetUserId) {
-        try {
-            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(2).stream()
+                try {
+            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(targetUserId).stream()
                     .map(y -> y.getHobby_id())
                     .collect(Collectors.toList());
-            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(2);
+            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(targetUserId);
             List<Hobby> hobbyList = hobbyService.readListByHobbysId(usersHobbyListId);
             List<TargetUserHobbyResponse> targetUserHobbyResponses = new LinkedList<>();
 
@@ -80,6 +70,7 @@ public class WishListServiceImp implements WishListService {
     }
 
     public List<LoggedUserPresentResponse> loggedUserPresentResponse(int loggedUserId) {
+
         try {
             List<Integer> usersPresentsListId = userToPresentService.readByUser(loggedUserId).stream()
                     .map(y -> y.getPresentId())
@@ -96,17 +87,17 @@ public class WishListServiceImp implements WishListService {
 
     public List<LoggedUserHobbyResponse> loggedUserHobbyResponse(int loggedUserId) {
         try {
-            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(2).stream()
+            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(loggedUserId).stream()
                     .map(y -> y.getHobby_id())
                     .collect(Collectors.toList());
-            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(2);
+            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(loggedUserId);
             List<Hobby> hobbyList = hobbyService.readListByHobbysId(usersHobbyListId);
             List<LoggedUserHobbyResponse> loggedUserHobbyResponses = hobbyService.readListByHobbysId(usersHobbyListId).stream()
                     .map(hobby -> new LoggedUserHobbyResponse(hobby.getName()))
                     .collect(Collectors.toList());
             return loggedUserHobbyResponses;
         } catch (Exception ex) {
-            System.out.println("Somthing was wrong");
+            System.out.println("Somthing was wrong in userHobbyResponse");
             return null;
         }
     }
@@ -116,22 +107,17 @@ public class WishListServiceImp implements WishListService {
 
     }
 
-    public TargetUserWishListResponse targetUserWishListResponse (int targetUserId){
-        return new TargetUserWishListResponse(targetUserPresentResponse(targetUserId), targetUserHobbyResponse(targetUserId));
+    public TargetUserWishListResponse targetUserWishListResponse (int targetUserId, int loggedUserId){
+        return new TargetUserWishListResponse(targetUserPresentResponse(targetUserId, loggedUserId), targetUserHobbyResponse(targetUserId));
     }
 
     @Override
-    public void addPresentToWishlist(String presentName, String presentURl, int loggedUserId){
+    public void addPresentToWishlist(String presentName, String presentURl, int loggedUserId) {
         try {
             presentService.readIdByNameAndURL(presentName, presentURl);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex);
         }
-       //     userToPresentService.create(new UserToPresent(0, loggedUserId,present.getId()));
-
-
-
-
     }
 
 }

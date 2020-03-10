@@ -5,12 +5,12 @@ import java.util.Objects;
 public class TargetUserPresentResponse {
     private String name;
     private String url;
-    private int user_santa_id;
+    private boolean checkd;
 
-    public TargetUserPresentResponse(String name, String url, int user_santa_id) {
+    public TargetUserPresentResponse(String name, String url, boolean checkd) {
         this.name = name;
         this.url = url;
-        this.user_santa_id = user_santa_id;
+        this.checkd = checkd;
     }
 
     public TargetUserPresentResponse(String name, String url) {
@@ -34,12 +34,12 @@ public class TargetUserPresentResponse {
         this.url = url;
     }
 
-    public int getUser_santa_id() {
-        return user_santa_id;
+    public boolean isCheckd() {
+        return checkd;
     }
 
-    public void setUser_santa_id(int user_santa_id) {
-        this.user_santa_id = user_santa_id;
+    public void setCheckd(boolean checkd) {
+        this.checkd = checkd;
     }
 
     @Override
@@ -47,22 +47,22 @@ public class TargetUserPresentResponse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TargetUserPresentResponse that = (TargetUserPresentResponse) o;
-        return user_santa_id == that.user_santa_id &&
+        return checkd == that.checkd &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, url, user_santa_id);
+        return Objects.hash(name, url, checkd);
     }
 
     @Override
     public String toString() {
-        return "TargetUserWhishlistPresentResponse{" +
+        return "TargetUserPresentResponse{" +
                 "name='" + name + '\'' +
                 ", url='" + url + '\'' +
-                ", user_santa_id=" + user_santa_id +
+                ", checkd=" + checkd +
                 '}';
     }
 }

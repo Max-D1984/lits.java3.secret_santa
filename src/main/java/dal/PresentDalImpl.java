@@ -135,14 +135,14 @@ public class PresentDalImpl implements PresentDal {
     @Override
     public Present readIdByNameAndURL(String presentName, String presentUrl) {
         try{
-        byte ptext[] = presentName.getBytes();
-        presentName = new String(ptext, "UTF-8");
-        ptext=presentUrl.getBytes();
-        presentUrl = new String(ptext, "UTF-8");
-    }catch (
-    UnsupportedEncodingException ex){
+            byte ptext[] = presentName.getBytes();
+            presentName = new String(ptext, "UTF-8");
+            ptext=presentUrl.getBytes();
+            presentUrl = new String(ptext, "UTF-8");
+        }catch (
+                UnsupportedEncodingException ex){
 
-    }
+        }
         Present present = null;
         String sql = "select " + TABLE_PRESENT_COLUMN_ID + ", " +
                 "" + TABLE_PRESENT_COLUMN_NAME + ", " + TABLE_PRESENT_COLUMN_URL +

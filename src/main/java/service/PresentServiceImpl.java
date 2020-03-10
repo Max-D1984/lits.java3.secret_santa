@@ -38,6 +38,10 @@ public class PresentServiceImpl implements PresentService {
         return presentDal.readListByPresentsId(id);
     }
 
+    public Present readIdByNameAndURL(String presentName, String presentUrl){
+       return  presentDal.readIdByNameAndURL(presentName,presentName);
+    }
+
 }
 
 

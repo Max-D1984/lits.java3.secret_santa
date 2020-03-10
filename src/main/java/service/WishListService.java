@@ -11,4 +11,5 @@ public interface WishListService {
     List<TargetUserHobbyResponse> targetUserHobbyResponse(int targetUserId);
     LoggedUserWishListResponse loggeUserWishListResponse (int loggedUserId);
     TargetUserWishListResponse targetUserWishListResponse (int targetUserId);
+    void addPresentToWishlist(String presentName, String presentURl, int loggedUserId);
 }

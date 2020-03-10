@@ -4,6 +4,7 @@ import application.Driver;
 import pojo.Present;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -122,6 +123,43 @@ public class PresentDalImpl implements PresentDal {
                     String name = resultSet.getString(TABLE_PRESENT_COLUMN_NAME);
                     String url = resultSet.getString(TABLE_PRESENT_COLUMN_URL);
                     present.add(new Present(presentId, name, url));
+                }
+            }
+            return present;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Present readIdByNameAndURL(String presentName, String presentUrl) {
+        try{
+        byte ptext[] = presentName.getBytes();
+        presentName = new String(ptext, "UTF-8");
+        ptext=presentUrl.getBytes();
+        presentUrl = new String(ptext, "UTF-8");
+    }catch (
+    UnsupportedEncodingException ex){
+
+    }
+        Present present = null;
+        String sql = "select " + TABLE_PRESENT_COLUMN_ID + ", " +
+                "" + TABLE_PRESENT_COLUMN_NAME + ", " + TABLE_PRESENT_COLUMN_URL +
+                " from [present] where " + TABLE_PRESENT_COLUMN_NAME + "=? AND "+ TABLE_PRESENT_COLUMN_URL +"=?" ;
+
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, presentName);
+            preparedStatement.setString(2, presentUrl);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int presentId = resultSet.getInt(TABLE_PRESENT_COLUMN_ID);
+                    String name = resultSet.getString(TABLE_PRESENT_COLUMN_NAME);
+                    String url = resultSet.getString(TABLE_PRESENT_COLUMN_URL);
+                    present = new Present(presentId, name, url);
                 }
             }
             return present;

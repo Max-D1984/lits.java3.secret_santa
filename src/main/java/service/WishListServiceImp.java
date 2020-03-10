@@ -8,13 +8,13 @@ import pojo.Present;
 import pojo.UserToHobby;
 import pojo.UserToPresent;
 
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class WishListServiceImp implements WishListService {
-
     @Autowired
     private UserToPresentService userToPresentService;
     @Autowired
@@ -24,19 +24,20 @@ public class WishListServiceImp implements WishListService {
     @Autowired
     private HobbyServiceImpl hobbyService;
 
-    public UserToPresentService getUserToPresentService() {
+
+    private UserToPresentService getUserToPresentService() {
         return userToPresentService;
     }
 
-    public PresentServiceImpl getPresentService() {
+    private PresentServiceImpl getPresentService() {
         return presentService;
     }
 
-    public UserToHobbyService getUserToHobbyService() {
+    private UserToHobbyService getUserToHobbyService() {
         return userToHobbyService;
     }
 
-    public HobbyServiceImpl getHobbyService() {
+    private HobbyServiceImpl getHobbyService() {
         return hobbyService;
     }
 
@@ -60,11 +61,11 @@ public class WishListServiceImp implements WishListService {
     }
 
     public List<TargetUserHobbyResponse> targetUserHobbyResponse(int targetUserId) {
-                try {
-            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(targetUserId).stream()
+        try {
+            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(2).stream()
                     .map(y -> y.getHobby_id())
                     .collect(Collectors.toList());
-            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(targetUserId);
+            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(2);
             List<Hobby> hobbyList = hobbyService.readListByHobbysId(usersHobbyListId);
             List<TargetUserHobbyResponse> targetUserHobbyResponses = new LinkedList<>();
 
@@ -95,10 +96,10 @@ public class WishListServiceImp implements WishListService {
 
     public List<LoggedUserHobbyResponse> loggedUserHobbyResponse(int loggedUserId) {
         try {
-            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(loggedUserId).stream()
+            List<Integer> usersHobbyListId = userToHobbyService.readListByUserId(2).stream()
                     .map(y -> y.getHobby_id())
                     .collect(Collectors.toList());
-            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(loggedUserId);
+            List<UserToHobby> userToHobbyList = userToHobbyService.readListByUserId(2);
             List<Hobby> hobbyList = hobbyService.readListByHobbysId(usersHobbyListId);
             List<LoggedUserHobbyResponse> loggedUserHobbyResponses = hobbyService.readListByHobbysId(usersHobbyListId).stream()
                     .map(hobby -> new LoggedUserHobbyResponse(hobby.getName()))
@@ -117,6 +118,20 @@ public class WishListServiceImp implements WishListService {
 
     public TargetUserWishListResponse targetUserWishListResponse (int targetUserId){
         return new TargetUserWishListResponse(targetUserPresentResponse(targetUserId), targetUserHobbyResponse(targetUserId));
+    }
+
+    @Override
+    public void addPresentToWishlist(String presentName, String presentURl, int loggedUserId){
+        try {
+            presentService.readIdByNameAndURL(presentName, presentURl);
+        }catch (Exception ex){
+            System.out.println(ex);
+        }
+       //     userToPresentService.create(new UserToPresent(0, loggedUserId,present.getId()));
+
+
+
+
     }
 
 }

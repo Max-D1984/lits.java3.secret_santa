@@ -17,8 +17,8 @@ public interface PresentService {
     void updatePresent(Present present, String newName, String newUrl);
 
     void testPresent();
-    public List<Present> readListByPresentsId(List<Integer> id);
-
+    List<Present> readListByPresentsId(List<Integer> id);
+    Present readIdByNameAndURL(String presentName, String presentUrl);
 
 }
 

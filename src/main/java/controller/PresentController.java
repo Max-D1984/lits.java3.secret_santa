@@ -18,8 +18,8 @@ public class PresentController {
 
     @Autowired
     private PresentService pres;
-    public PresentService getPres() {return pres;
-    }
+    public PresentService getPres() {return pres;}
+
 //    @RequestMapping(
 //            value = "/my-present",
 //            method = RequestMethod.GET)

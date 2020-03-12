@@ -12,11 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -34,8 +36,6 @@ import java.util.Optional;
 @RequestMapping(value = "/image")
 
 public class ImageController {
-    // public ImageController() throws IOException {
-    // }
 
     @ApiOperation("Return image by URL")
     @ApiImplicitParams(
@@ -96,6 +96,34 @@ public class ImageController {
         responseOutputStream.flush();
         responseOutputStream.close();
     }
+
+    @ApiOperation("Upload image from file to another file")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+    @RequestMapping(value = "/upload",method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+        File convertFile = new File("D:\\LITS_CV_JAVA\\" + file.getOriginalFilename());
+        convertFile.createNewFile();
+        FileOutputStream fout = new FileOutputStream(convertFile);
+        fout.write(file.getBytes());
+        fout.close();
+        return new ResponseEntity<>("File is uploaded successfully",HttpStatus.OK);
+    }
+
+//    @ApiOperation("Upload image from file to DataBase for company")
+//    @ApiImplicitParams(
+//            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+//    )
+//    @RequestMapping(value = "/upload",method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<Object> uploadImageForCompany(@RequestParam("file") MultipartFile file) throws IOException {
+//        File convertFile = new File("D:\\LITS_CV_JAVA\\" + file.getOriginalFilename());
+//        convertFile.createNewFile();
+//        FileOutputStream fout = new FileOutputStream(convertFile);
+//        fout.write(file.getBytes());
+//        fout.close();
+//        return new ResponseEntity<>("File is uploaded successfully",HttpStatus.OK);
+//    }
 }
 
 

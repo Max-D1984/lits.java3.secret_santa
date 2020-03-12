@@ -8,9 +8,12 @@ public interface UserDal {
 
     public void create (User user);
     public User read(long id);
+    public User readUserByName(String name);
     public void update (User user, User newUser);
     public void delete (User user);
     public List<User> readList ();
     List<String> getUsersNamesbyIdCompany (List<Integer> listOfId);
     List getAllTargetsForUser(List<Integer> listOfCompanys, List<Integer> listOfTargets);
+
+
 }

@@ -17,12 +17,10 @@ public class UserDalImpl implements UserDal {
 
     @Override
     public void create(User user) {
-        String sql = "insert into [User] (name, email, password) values (?,?,?)";
+        String sql = "insert into [User] (name) values (?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPassWord());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -53,6 +51,29 @@ public class UserDalImpl implements UserDal {
 
     }
 
+    @Override
+    public User readUserByName(String name) {
+        User user = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where name=?");
+            preparedStatement.setString(1, name);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String userName  = rs.getString("name");
+                Integer userId = rs.getInt("id");
+                String email = rs.getString("email");
+                String passWord = rs.getString("password");
+                user = new User(userId, name, email, passWord);
+            }
+            return user;
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
     @Override
     public void update(User user, User newUser) {

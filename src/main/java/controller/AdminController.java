@@ -5,12 +5,17 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pojo.UserToCompany;
+import service.UserService;
+import service.UserServiceImpl;
 import service.UserToCompanyService;
 import service.UserToCompanyServiceImpl;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -25,8 +30,10 @@ import java.util.Optional;
 @RequestMapping(value = "/")
 public class AdminController {
 
+    UserService userService = new UserServiceImpl();
     UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
     private int loggedInUserId = 1;
+    private String loggedInUserName;
 
     @ApiOperation("Admin of company can set another member to admin")
     @ApiImplicitParams(
@@ -38,6 +45,14 @@ public class AdminController {
     public ResponseEntity setAdmin(
             @RequestParam Integer company_id,
             @RequestParam Integer user_id) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username = ((UserDetails) principal).getUsername();
+
+        loggedInUserName = (userService.readUserByName(username)).;
+
+
 
         List<UserToCompany> userToCompanyList = userToCompanyService.readListByCompanyId(company_id);
         for (UserToCompany user : userToCompanyList) {

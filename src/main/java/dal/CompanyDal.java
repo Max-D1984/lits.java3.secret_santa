@@ -1,5 +1,6 @@
 package dal;
 
+import org.springframework.web.multipart.MultipartFile;
 import pojo.Company;
 
 import java.util.List;

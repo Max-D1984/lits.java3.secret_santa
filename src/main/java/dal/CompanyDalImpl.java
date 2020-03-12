@@ -14,6 +14,7 @@ public class CompanyDalImpl implements CompanyDal {
     public static final String TABLE_COMPANY_COLUMN_NAME = "name";
     public static final String TABLE_COMPANY_COLUMN_DESCRIPTION = "description";
     public static final String TABLE_NAME_COMPANY = "company";
+    public static final String TABLE_COMPANY_COLUMN_IMAGE = "image";
     private ResultSet resultSet;
 
 
@@ -21,11 +22,12 @@ public class CompanyDalImpl implements CompanyDal {
     @Override
     public void create(Company company) {
         String sql = "INSERT INTO [" + TABLE_NAME_COMPANY + "] (" + TABLE_COMPANY_COLUMN_NAME + ", " +
-                TABLE_COMPANY_COLUMN_DESCRIPTION + ") VALUES (?,?)";
+                TABLE_COMPANY_COLUMN_DESCRIPTION + ", " + TABLE_COMPANY_COLUMN_IMAGE + ") VALUES (?,?,?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, company.getCompanyName());
             preparedStatement.setString(2, company.getCompanyDescription());
+            preparedStatement.setBytes(3,company.getImage());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException ex) {
             System.out.println("Company creation failed");
@@ -36,8 +38,9 @@ public class CompanyDalImpl implements CompanyDal {
     public Company read(long id) {
         Company company = null;
         try {
-            String sql = "SELECT " + TABLE_COMPANY_COLUMN_ID + ", " + TABLE_COMPANY_COLUMN_NAME + ", " +
-                    TABLE_COMPANY_COLUMN_DESCRIPTION + " FROM [" + TABLE_NAME_COMPANY + "] WHERE " + TABLE_COMPANY_COLUMN_ID +"=?";
+            String sql = "SELECT " + TABLE_COMPANY_COLUMN_ID + ", " + TABLE_COMPANY_COLUMN_NAME + ", "
+                    + TABLE_COMPANY_COLUMN_DESCRIPTION + ", " + TABLE_COMPANY_COLUMN_IMAGE
+                    + " FROM [" + TABLE_NAME_COMPANY + "] WHERE " + TABLE_COMPANY_COLUMN_ID +"=?";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -46,7 +49,8 @@ public class CompanyDalImpl implements CompanyDal {
                     int compId = resultSet.getInt(TABLE_COMPANY_COLUMN_ID);
                     String name = resultSet.getString(TABLE_COMPANY_COLUMN_NAME);
                     String description = resultSet.getString(TABLE_COMPANY_COLUMN_DESCRIPTION);
-                    company = new Company(compId, name, description);
+                    byte[] image = resultSet.getBytes(TABLE_COMPANY_COLUMN_IMAGE);
+                    company = new Company(compId, name, description,image);
                 }
 
             }
@@ -100,14 +104,15 @@ public class CompanyDalImpl implements CompanyDal {
         }
         List<Company> company = new LinkedList<Company>();
         try {
-            String sql = "select name, description from company where id in ("+strId+")";
+            String sql = "select name, description, image from company where id in ("+strId+")";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {
                 while (resultSet.next()) {
                     String name = resultSet.getString(TABLE_COMPANY_COLUMN_NAME);
                     String description = resultSet.getString(TABLE_COMPANY_COLUMN_DESCRIPTION);
-                    company.add(new Company(0, name, description));
+                    byte[] image = resultSet.getBytes(TABLE_COMPANY_COLUMN_IMAGE);
+                    company.add(new Company(0, name, description, image));
                 }
             }
         } catch (SQLException | IOException ex) {
@@ -121,7 +126,7 @@ public class CompanyDalImpl implements CompanyDal {
         List<Company> company = new LinkedList<Company>();
         try {
             String sql = "SELECT " + TABLE_COMPANY_COLUMN_ID + ", " + TABLE_COMPANY_COLUMN_NAME + ", " +
-                    TABLE_COMPANY_COLUMN_DESCRIPTION + " FROM [" + TABLE_NAME_COMPANY + "]";
+                    TABLE_COMPANY_COLUMN_DESCRIPTION + ", " + TABLE_COMPANY_COLUMN_IMAGE + " FROM [" + TABLE_NAME_COMPANY + "]";
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.getMetaData() != null) {
@@ -129,7 +134,8 @@ public class CompanyDalImpl implements CompanyDal {
                     int id = resultSet.getInt(TABLE_COMPANY_COLUMN_ID);
                     String name = resultSet.getString(TABLE_COMPANY_COLUMN_NAME);
                     String description = resultSet.getString(TABLE_COMPANY_COLUMN_DESCRIPTION);
-                    company.add(new Company(id, name, description));
+                    byte[] image = resultSet.getBytes(TABLE_COMPANY_COLUMN_IMAGE);
+                    company.add(new Company(id, name, description,image));
                 }
             }
         } catch (SQLException | IOException ex) {

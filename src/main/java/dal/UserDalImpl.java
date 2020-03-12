@@ -17,10 +17,12 @@ public class UserDalImpl implements UserDal {
 
     @Override
     public void create(User user) {
-        String sql = "insert into [User] (name) values (?)";
+        String sql = "insert into [User] (name, email, password) values (?,?,?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassWord());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();

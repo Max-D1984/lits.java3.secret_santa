@@ -89,54 +89,55 @@ public class UserController {
 
     UserService us = new UserServiceImpl();
     UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
-//    @RequestMapping(
+
+    //    @RequestMapping(
 //            value = "/user",
 //            method = RequestMethod.GET)
     public ResponseEntity getUser(
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
-               us.readUser(id)));
+                us.readUser(id)));
     }
 
-//    @RequestMapping(
+    //    @RequestMapping(
 //            value = "/user/list",
 //            method = RequestMethod.GET)
     public ResponseEntity userListList() {
         return ResponseEntity.of(Optional.of(List.of(
                 new User(2,
-                        "someUserName","someEmail","somePass"),
-                new User (2 + 2,
-                        "someUserName3","someEmail","somePass"))));
+                        "someUserName", "someEmail", "somePass"),
+                new User(2 + 2,
+                        "someUserName3", "someEmail", "somePass"))));
     }
 
-//    @RequestMapping(
+    //    @RequestMapping(
 //            value = "/user",
 //            method = RequestMethod.POST)
     public ResponseEntity postUserList(
             @RequestBody User user) {
         return ResponseEntity.of(Optional.of(
                 new User(1,
-                        "SomeUserName","someEmail","somePass")));
+                        "SomeUserName", "someEmail", "somePass")));
     }
 
-//    @RequestMapping(
+    //    @RequestMapping(
 //            value = "/user",
 //            method = RequestMethod.PUT)
     public ResponseEntity putUserList(
             @RequestBody User present) {
         return ResponseEntity.of(Optional.of(
                 new User(2,
-                        "SomeUserName","someEmail","somePass")));
+                        "SomeUserName", "someEmail", "somePass")));
     }
 
-//    @RequestMapping(
+    //    @RequestMapping(
 //            value = "/user",
 //            method = RequestMethod.DELETE)
     public ResponseEntity deleteUserList(
             @RequestParam Integer id) {
         return ResponseEntity.of(Optional.of(
                 new User(1,
-                        "SomeUserName","someEmail","somePass")));
+                        "SomeUserName", "someEmail", "somePass")));
     }
 
     @ApiOperation("Return name of users in exact company")
@@ -150,10 +151,25 @@ public class UserController {
             @RequestParam Integer id) {
         List<String> userName = new LinkedList<>();
         List<UserResponse> userList = userToCompanyService.readUserByCompanyId(id);
-        for(UserResponse user: userList){
+        for (UserResponse user : userList) {
             userName.add(user.getName());
         }
         return ResponseEntity.of(Optional.of(
-               userName));
+                userName));
+    }
+
+    @RequestMapping(
+            value = "/save-user",
+            method = RequestMethod.PUT)
+    public ResponseEntity putUser(
+            @RequestParam String userName, @RequestParam String email, @RequestParam String passWord) {
+        User user = new User();
+        user.setUserName(userName);
+        user.setEmail(email);
+        user.setPassWord(passWord);
+        UserRegistrationService userRegistrationService = new UserRegistrationServiceImpl();
+        userRegistrationService.save(user);
+        return ResponseEntity.of(Optional.of(""));
+
     }
 }

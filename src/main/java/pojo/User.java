@@ -21,6 +21,8 @@ public class User {
 
     @Column(name = "password")
     private String passWord;
+    @Transient
+    private String passwordConfirm;
 
     public User() {
     }
@@ -72,12 +74,13 @@ public class User {
         return id == user.id &&
                 Objects.equals(userName, user.userName) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(passWord, user.passWord);
+                Objects.equals(passWord, user.passWord) &&
+                Objects.equals (passwordConfirm, user.passwordConfirm);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, email, passWord);
+        return Objects.hash(id, userName, email, passWord,passwordConfirm);
     }
 
     @Override
@@ -87,6 +90,7 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", passWord='" + passWord + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
                 '}';
     }
 

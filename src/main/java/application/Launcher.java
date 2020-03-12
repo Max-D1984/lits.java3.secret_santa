@@ -112,7 +112,7 @@ public class Launcher {
 //
 //        userDal.getUsersNamesbyIdCompany(userTargetDal.getTargetsIdByUsersId(userToCompanyDal.getUsersOfCompany(1))).stream().forEach(y-> System.out.println(y));
 CompanyService companyService = new CompanyServiceImpl();
-        Company newCompany = new Company(0,"SomeName", "SomeDescription");
+        Company newCompany = new Company(0,"SomeName", "SomeDescription",null);
         companyService.createCompany(newCompany);
         List<Company> allCompany = companyService.readCompanyList();
         Company lastCompany = allCompany.get(allCompany.size()-1);
@@ -274,13 +274,13 @@ CompanyService companyService = new CompanyServiceImpl();
 
     static void createCompany() {
         CompanyService companyService = new CompanyServiceImpl();
-        companyService.createCompany(new Company(0, "newCompany", "newDescription"));
+        companyService.createCompany(new Company(0, "newCompany", "newDescription",null));
     }
 
     static void updateCompany() {
         CompanyService companyService = new CompanyServiceImpl();
 
-        companyService.updateCompany(companyService.readCompanyList().get(10), new Company(0, "newCompany", "newCompanyDescription"));
+        companyService.updateCompany(companyService.readCompanyList().get(10), new Company(0, "newCompany", "newCompanyDescription",null));
     }
 
     static void deleteCompany() {

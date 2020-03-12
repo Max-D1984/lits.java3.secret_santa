@@ -45,6 +45,10 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.2.2.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.2.2.RELEASE'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    compile group: 'org.springframework.security', name: 'spring-security-crypto', version: '3.1.0.RELEASE'
+    compile group: 'org.mindrot.bcrypt', name: 'bcrypt', version: '0.3'
+
+
 
 
 

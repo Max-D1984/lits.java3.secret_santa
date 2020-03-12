@@ -70,4 +70,5 @@
         <property name="entityManagerFactory" ref="entityManagerFactoryBean" />
     </bean>
     <bean name="webSecurityConfig" class="configuration.WebSecurityConfig" />
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>

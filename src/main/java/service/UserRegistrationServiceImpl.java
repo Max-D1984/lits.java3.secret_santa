@@ -11,7 +11,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService{
     UserDal userDal = new UserDalImpl();
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public void save(User user) {

@@ -1,13 +1,13 @@
 package controller;
 
 import application.Constants;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pojo.Company;
 import pojo.UserToCompany;
 
@@ -17,6 +17,8 @@ import service.UserService;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,9 +93,10 @@ public class CompanyController {
             method = RequestMethod.POST)
     public ResponseEntity postCompany(@RequestParam String name,
                                       @RequestParam String description,
-                                      @RequestParam Integer loggedUserId) {
+                                      @RequestParam Integer loggedUserId,
+                                      @RequestParam("file") MultipartFile file) throws IOException {
 
-        Company newCompany = new Company(0, "SomeName", "SomeDescription");
+        Company newCompany = new Company(0, name, description,file.getBytes());
         companyService.createCompany(newCompany);
         List<Company> allCompany = companyService.readCompanyList();
         Company lastCompany = allCompany.get(allCompany.size() - 1);
@@ -104,11 +107,29 @@ public class CompanyController {
                 "Created company " + lastCompany.getCompanyName() + " admin: " + userService.readUser(Constants.LOGGEDUSER)));
     }
 
+    @ApiOperation("Create new company(test)")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+    @RequestMapping(
+            value = "/companytest",
+            method = RequestMethod.POST)
+    public ResponseEntity createCompanyTest(@RequestParam String name,
+                                      @RequestParam String description,
+                                      @RequestParam("file") MultipartFile file) throws IOException {
+
+        Company newCompany = new Company(0, name, description,file.getBytes());
+        companyService.createCompany(newCompany);
+
+        return ResponseEntity.of(Optional.of(
+                "The creation of the company was successful" ));
+    }
+
 //    @RequestMapping(
 //            value = "/company",
 //            method = RequestMethod.PUT)
     public ResponseEntity putCompany(@RequestParam int id, String newName, String newDescription) {
-        Company newCompany = new Company(id, newName, newDescription);
+        Company newCompany = new Company(id, newName, newDescription,null);
         Company oldCompany = companyService.readCompany(id);
         companyService.updateCompany(oldCompany, newCompany);
         return ResponseEntity.of(Optional.of("Update company" + oldCompany + " to " + newCompany));

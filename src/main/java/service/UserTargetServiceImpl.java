@@ -156,5 +156,10 @@ public class UserTargetServiceImpl implements UserTargetService {
         return userTargetDal.getTargetForUserInCompany(user_id, target_id);
     }
 
+    @Override
+    public List<Integer> getSantasInCompany(Integer companyId) {
+        return userTargetDal.getSantasInCompany(companyId);
+    }
+
 
 }

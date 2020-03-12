@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RestController
+
+
 public class MailController {
 
     private int loggedInUserId = 0;
@@ -52,10 +54,12 @@ public class MailController {
     public UserTargetService getUserTargetService() {
         return userTargetService;
     }
-
-//    @RequestMapping(
-//            value = "/mail",
-//            method = RequestMethod.GET)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+    @RequestMapping(
+            value = "/mail",
+            method = RequestMethod.GET)
     public ResponseEntity getUser(
             @RequestParam String mailTo
 ) {
@@ -130,7 +134,7 @@ public class MailController {
         return ResponseEntity.of(Optional.of("Mail sending was failed"));
     }
 
-    private boolean sendEmail(String mailTo, String username, String password, List<UserToCompany> currentUserList, String subject, String mailText) {
+    public boolean sendEmail(String mailTo, String username, String password, List<UserToCompany> currentUserList, String subject, String mailText) {
         if (currentUserList.get(loggedInUserId).getRole().equals("admin")) {
             Properties props = new Properties();
             props.put("mail.smtp.auth", true);

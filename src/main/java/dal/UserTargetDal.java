@@ -17,4 +17,5 @@ public interface UserTargetDal {
     public List getTargetForUserById (int id);
     List<Integer> getTargetsIdByUsersId (List<Integer> usersIds);
     List<UserAndUserTargetId> getTargetForUserInCompany (int user_id, List<Integer> target_id);
+    List<Integer> getSantasInCompany(Integer companyId);
 }

@@ -13,6 +13,4 @@ public interface UserDal {
     public List<User> readList ();
     List<String> getUsersNamesbyIdCompany (List<Integer> listOfId);
     List getAllTargetsForUser(List<Integer> listOfCompanys, List<Integer> listOfTargets);
-
-
 }

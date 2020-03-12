@@ -17,4 +17,5 @@ public interface UserTargetService {
     Map<Integer,Integer> generateMapOfUsers(List<UserResponse> userList);
     List getTargetForUserById (int id);
     List<UserAndUserTargetId> getTargetForUserInCompany (int user_id, List<Integer> target_id);
+    public List<Integer> getSantasInCompany(Integer companyId);
 }

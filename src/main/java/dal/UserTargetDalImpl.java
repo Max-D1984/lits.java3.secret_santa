@@ -215,7 +215,27 @@ public class UserTargetDalImpl implements UserTargetDal {
         }
 
     }
+
+    @Override
+    public List<Integer> getSantasInCompany(Integer companyId) {
+        List listOfSantasId = new LinkedList();
+        String sql = "select user_id from [user_target] where company_id = ?";
+        try{
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, companyId);
+            resultSet = preparedStatement.executeQuery();
+            System.out.println(resultSet.toString());
+            while(resultSet.next()){
+                int id1 = resultSet.getInt("user_id");
+                listOfSantasId.add(id1);
+            }
+            return listOfSantasId;
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace();
+        }
+        return listOfSantasId;
     }
+}
 
 
 

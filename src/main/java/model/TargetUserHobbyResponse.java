@@ -10,6 +10,9 @@ public class TargetUserHobbyResponse {
         this.name = name;
         this.user_santa_id = user_santa_id;
     }
+    public TargetUserHobbyResponse(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -45,7 +48,6 @@ public class TargetUserHobbyResponse {
     public String toString() {
         return "TargetUserHobbyResponse{" +
                 "name='" + name + '\'' +
-                ", user_santa_id=" + user_santa_id +
                 '}';
     }
 }

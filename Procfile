@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar build/server/webapp-runner-8.5.35.0.jar --port $PORT build/libs/secret-santa.war
+web: java $JAVA_OPTS -jar build/server/webapp-runner-9.0.27.1.jar --port $PORT build/libs/secret-santa.war

@@ -37,8 +37,8 @@ dependencies {
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.11.3'
     compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
-    compile group: 'org.springframework', name: 'spring-orm', version: '5.2.3.RELEASE'
-
+    
+    // compile group: 'org.springframework', name: 'spring-orm', version: '5.2.3.RELEASE'
   // compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.12.Final'
 
 //    implementation('org.hibernate:hibernate-core:5.4.12.Final'){
@@ -48,7 +48,7 @@ dependencies {
 //        exclude group: 'net.bytebuddy', module: 'byte-buddy'
 //    }
 
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+//    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
     compile group: 'org.webjars.npm', name: 'jsonwebtoken', version: '8.5.1'
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.2.2.RELEASE'

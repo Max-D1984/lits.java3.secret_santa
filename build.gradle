@@ -42,6 +42,9 @@ dependencies {
 
     implementation('org.hibernate:hibernate-core:5.4.12.Final'){
         exclude group: 'org.glassfish.jaxb', module: 'jaxb-runtime'
+        exclude group: 'javax.xml.bind', module: 'jaxb-api'
+        exclude group: 'com.fasterxml', module: 'classmate'
+        exclude group: 'net.bytebuddy', module: 'byte-buddy'
     }
 
     compile group: 'org.webjars.npm', name: 'jsonwebtoken', version: '8.5.1'

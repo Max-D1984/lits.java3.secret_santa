@@ -2,6 +2,7 @@ package controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import model.LoggedUserHobbyResponse;
 import model.MyWishListResponse;
 import model.LoggedUserPresentResponse;
@@ -42,7 +43,9 @@ public class WishListResponseController {
     public ResponseEntity getMyWishListList(@RequestParam Integer loggedUserId) {
         return ResponseEntity.of(Optional.of(wishListService.loggeUserWishListResponse(loggedUserId)));
     }
-
+    @ApiOperation("Метод показує нам як зареєстрованому юзеру wishList вибраного нами таргета. \n " +
+            "Однак, якщо з цього списку хтось вже вибрав подарунок з іншої компанії, то для нас вибрані подарунки іншими юзерами не відображаються \n" +
+            "Якщо ми вибрали якийсь подарунок, то буде передано в списку статус вибрано")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     )

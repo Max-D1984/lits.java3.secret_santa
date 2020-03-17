@@ -37,23 +37,23 @@
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
 
-    <bean id="entityManagerFactoryBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <!-- This makes /META-INF/persistence.xml is no longer necessary -->
-        <property name="packagesToScan" value="pojo" />
-        <!-- JpaVendorAdapter implementation for Hibernate EntityManager.
-             Exposes Hibernate's persistence provider and EntityManager extension interface -->
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-        </property>
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.hbm2ddl.auto">validate</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
-                <prop key="hibernate.globally_quoted_identifiers">true</prop>
-            </props>
-        </property>
-    </bean>
+<!--    <bean id="entityManagerFactoryBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSource" />-->
+<!--        &lt;!&ndash; This makes /META-INF/persistence.xml is no longer necessary &ndash;&gt;-->
+<!--        <property name="packagesToScan" value="pojo" />-->
+<!--        &lt;!&ndash; JpaVendorAdapter implementation for Hibernate EntityManager.-->
+<!--             Exposes Hibernate's persistence provider and EntityManager extension interface &ndash;&gt;-->
+<!--        <property name="jpaVendorAdapter">-->
+<!--            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />-->
+<!--        </property>-->
+<!--        <property name="jpaProperties">-->
+<!--            <props>-->
+<!--                <prop key="hibernate.hbm2ddl.auto">validate</prop>-->
+<!--                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>-->
+<!--                <prop key="hibernate.globally_quoted_identifiers">true</prop>-->
+<!--            </props>-->
+<!--        </property>-->
+<!--    </bean>-->
 
     <!-- Simple implementation of the standard JDBC DataSource interface,
      configuring the plain old JDBC DriverManager via bean properties -->
@@ -64,11 +64,11 @@
         <property name="password" value="cywngr7wx1" />
     </bean>
     <context:annotation-config />
-    <!-- This transaction manager is appropriate for applications that use a single JPA EntityManagerFactory for transactional data access.
-    JTA (usually through JtaTransactionManager) is necessary for accessing multiple transactional resources within the same transaction. -->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactoryBean" />
-    </bean>
+<!--    &lt;!&ndash; This transaction manager is appropriate for applications that use a single JPA EntityManagerFactory for transactional data access.-->
+<!--    JTA (usually through JtaTransactionManager) is necessary for accessing multiple transactional resources within the same transaction. &ndash;&gt;-->
+<!--    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+<!--        <property name="entityManagerFactory" ref="entityManagerFactoryBean" />-->
+<!--    </bean>-->
     <bean name="webSecurityConfig" class="configuration.WebSecurityConfig" />
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>

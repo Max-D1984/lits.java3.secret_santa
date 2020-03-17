@@ -25,22 +25,22 @@ import java.util.Objects;
 
  */
 
-@Entity
-@Table(name = "user_to_company")
+//@Entity
+//@Table(name = "user_to_company")
 public class UserToCompany {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @Column(name = "id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "user_id")
+//    @Column(name = "user_id")
     private int user_id;
 
-    @Column(name = "company_id")
+//    @Column(name = "company_id")
     private int company_id;
 
-    @Column(name = "role")
+//    @Column(name = "role")
     private String role;
 
     //НЕприватний конструктор без параметрів

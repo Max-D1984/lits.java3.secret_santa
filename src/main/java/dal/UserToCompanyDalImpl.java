@@ -24,9 +24,9 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
     private static final String TABLE_USER_TO_COMPANY = "user_to_company";
     private ResultSet resultSet;
 
-
-    @PersistenceContext
-    private EntityManager manager;
+//
+//    @PersistenceContext
+//    private EntityManager manager;
 
 
     @Override
@@ -63,30 +63,30 @@ public class UserToCompanyDalImpl implements UserToCompanyDal {
 
     @Override
     public List<UserToCompany> readList() {
-//        List<UserToCompany> userToCompany = new LinkedList<UserToCompany>();
-//        String sql = "SELECT " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
-//                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + ", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE
-//                +  " FROM [" + TABLE_USER_TO_COMPANY + "]";
-//        try {
-//            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
-//            resultSet = preparedStatement.executeQuery();
-//            if (resultSet.getMetaData() != null) {
-//                while (resultSet.next()) {
-//                    int user_to_company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
-//                    int user_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_USER_ID);
-//                    int company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
-//                    String role = resultSet.getString(TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE);
-//                    userToCompany.add(new UserToCompany(user_to_company_id, user_id, company_id,role));
-//                }
-//            }
-//            return userToCompany;
-//        } catch (SQLException | IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-       List<UserToCompany> userToCompanyList = manager.createQuery("Select u From UserToCompany u", UserToCompany.class).getResultList();
+        List<UserToCompany> userToCompany = new LinkedList<UserToCompany>();
+        String sql = "SELECT " + TABLE_USER_TO_COMPANY_COLUMN_ID + ", " + TABLE_USER_TO_COMPANY_COLUMN_USER_ID + ", "
+                + TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID + ", " + TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE
+                +  " FROM [" + TABLE_USER_TO_COMPANY + "]";
+        try {
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.getMetaData() != null) {
+                while (resultSet.next()) {
+                    int user_to_company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_ID);
+                    int user_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_USER_ID);
+                    int company_id = resultSet.getInt(TABLE_USER_TO_COMPANY_COLUMN_COMPANY_ID);
+                    String role = resultSet.getString(TABLE_USER_TO_COMPANY_COMPANY_COLUMN_ROLE);
+                    userToCompany.add(new UserToCompany(user_to_company_id, user_id, company_id,role));
+                }
+            }
+            return userToCompany;
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+//       List<UserToCompany> userToCompanyList = manager.createQuery("Select u From UserToCompany u", UserToCompany.class).getResultList();
 
-        return userToCompanyList;
+//        return userToCompanyList;
 
     }
 

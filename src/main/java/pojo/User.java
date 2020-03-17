@@ -4,24 +4,24 @@ package pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "user")
+//@Entity
+//@Table(name = "user")
 public class User {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @Column(name = "id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+//    @Column(name = "name")
     private String userName;
 
-    @Column(name = "email")
+//    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
+//    @Column(name = "password")
     private String passWord;
-    @Transient
+//    @Transient
     private String passwordConfirm;
 
     public User() {

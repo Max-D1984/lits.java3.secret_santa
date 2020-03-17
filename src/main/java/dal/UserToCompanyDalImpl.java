@@ -5,8 +5,7 @@ import model.UserResponse;
 import org.springframework.stereotype.Repository;
 import pojo.UserToCompany;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

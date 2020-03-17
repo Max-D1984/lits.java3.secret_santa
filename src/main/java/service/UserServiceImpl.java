@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User readUserByEmail(String email) { return userDal.readUserByEmail(email);    }
+
+    @Override
     public List<User> readUserList() {
         return userDal.readList();
     }

@@ -11,6 +11,7 @@ public interface UserService {
     void createUser(User user);
 
     User readUser(long id);
+    User readUserByEmail(String email);
 
 
     List<User> readUserList();

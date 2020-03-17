@@ -53,6 +53,30 @@ public class UserDalImpl implements UserDal {
 
     }
 
+    @Override
+    public User readUserByEmail(String email) {
+        User user = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where email =?");
+            preparedStatement.setString(1, email);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String name  = rs.getString("name");
+                Integer userId = rs.getInt("id");
+                String userEmail = rs.getString("email");
+                String passWord = rs.getString("password");
+                user = new User(userId, name, email, passWord);
+            }
+            return user;
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
 
     @Override
     public void update(User user, User newUser) {

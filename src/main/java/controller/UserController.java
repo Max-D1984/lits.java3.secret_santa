@@ -75,12 +75,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Present;
 import pojo.User;
+import pojo.UserToCompany;
 import service.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
+
 @EnableSwagger2
 @RestController
 @RequestMapping(value = "/user")
@@ -157,7 +163,9 @@ public class UserController {
         return ResponseEntity.of(Optional.of(
                 userName));
     }
-
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/save-user",
             method = RequestMethod.PUT)
@@ -169,7 +177,38 @@ public class UserController {
         user.setPassWord(passWord);
         UserRegistrationService userRegistrationService = new UserRegistrationServiceImpl();
         userRegistrationService.save(user);
+        sendEmail(email,"litscvjava3@gmail.com" ,"MZOAM123456789","You sre is registred");
         return ResponseEntity.of(Optional.of(""));
 
     }
-}
+    public boolean sendEmail (String mailTo, String username, String password, String mailText) {
+            Properties props = new Properties();
+            props.put("mail.smtp.auth", true);
+            props.put("mail.smtp.ssl.enable", true);
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "465");
+
+            Session session = Session.getInstance(props,
+
+                    new Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(username, password);
+                        }
+                    });
+            try {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("edulitsjava@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(mailTo));
+
+                message.setText(mailText);
+                Transport.send(message);
+                System.out.println("Mail Sent Successfully");
+            } catch (AuthenticationFailedException ex) {
+                throw new RuntimeException(ex);
+            } catch (MessagingException ex) {
+                throw new RuntimeException(ex);
+            }
+            return true;
+        }
+    }

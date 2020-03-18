@@ -171,44 +171,16 @@ public class UserController {
             method = RequestMethod.PUT)
     public ResponseEntity putUser(
             @RequestParam String userName, @RequestParam String email, @RequestParam String passWord) {
+        MailController sendEmailRegistr = new MailController();
         User user = new User();
         user.setUserName(userName);
         user.setEmail(email);
         user.setPassWord(passWord);
         UserRegistrationService userRegistrationService = new UserRegistrationServiceImpl();
         userRegistrationService.save(user);
-        sendEmail(email,"litscvjava3@gmail.com" ,"MZOAM123456789","You sre is registred");
+        sendEmailRegistr.sendEmail(email,"litscvjava3@gmail.com" ,"MZOAM123456789","You sre is registred");
         return ResponseEntity.of(Optional.of(""));
 
     }
-    public boolean sendEmail (String mailTo, String username, String password, String mailText) {
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", true);
-            props.put("mail.smtp.ssl.enable", true);
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "465");
 
-            Session session = Session.getInstance(props,
-
-                    new Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(username, password);
-                        }
-                    });
-            try {
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("edulitsjava@gmail.com"));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(mailTo));
-
-                message.setText(mailText);
-                Transport.send(message);
-                System.out.println("Mail Sent Successfully");
-            } catch (AuthenticationFailedException ex) {
-                throw new RuntimeException(ex);
-            } catch (MessagingException ex) {
-                throw new RuntimeException(ex);
-            }
-            return true;
-        }
-    }
+}

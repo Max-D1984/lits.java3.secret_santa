@@ -38,8 +38,11 @@ dependencies {
     compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.11.3'
     compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 
-     compile group: 'org.springframework', name: 'spring-orm', version: '5.2.3.RELEASE'
-     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.12.Final'
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
+//     compile group: 'org.springframework', name: 'spring-orm', version: '5.2.3.RELEASE'
+//     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.12.Final'
 
 //    implementation('org.hibernate:hibernate-core:5.4.12.Final'){
 //        exclude group: 'org.glassfish.jaxb', module: 'jaxb-runtime'

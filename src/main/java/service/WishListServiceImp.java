@@ -1,8 +1,6 @@
 package service;
 
 import model.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import pojo.Hobby;
 import pojo.Present;
 import pojo.UserToHobby;
@@ -12,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 public class WishListServiceImp implements WishListService {
 
     private UserToPresentService userToPresentService = new UserToPresentServiceImpl();

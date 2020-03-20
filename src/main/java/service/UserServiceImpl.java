@@ -3,14 +3,11 @@ package service;
 
 import dal.UserDal;
 import dal.UserDalImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 import pojo.User;
 
 import java.util.List;
 
-@Service
+//@Service
 public class UserServiceImpl implements UserService {
 
     UserDal userDal = new UserDalImpl();

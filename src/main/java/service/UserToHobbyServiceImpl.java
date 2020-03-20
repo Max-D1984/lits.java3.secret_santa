@@ -2,15 +2,13 @@ package service;
 
 import dal.UserToHobbyDal;
 import dal.UserToHobbyDalImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import pojo.UserToHobby;
-
 import java.util.List;
-@Service
+
+//@Service
 public class UserToHobbyServiceImpl implements UserToHobbyService{
 
-    @Autowired
+  //  @Autowired
     private UserToHobbyDal userToHobbyDal = new UserToHobbyDalImpl();
 
 //    public UserToHobbyDal getUserToHobbyDal() {

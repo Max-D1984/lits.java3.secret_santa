@@ -3,12 +3,10 @@ package service;
 import dal.UserToPresentDal;
 import dal.UserToPresentDalImpl;
 import model.MyWishListResponse;
-import org.springframework.stereotype.Service;
 import pojo.UserToPresent;
-
 import java.util.List;
 
-@Service
+//@Service
 public class UserToPresentServiceImpl implements UserToPresentService {
     private UserToPresentDal userToPresentDal = new UserToPresentDalImpl();
     @Override

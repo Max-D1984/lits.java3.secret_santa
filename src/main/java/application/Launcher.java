@@ -1,16 +1,13 @@
 package application;
 
-import dal.UserDalImpl;
-import dal.UserTargetDalImpl;
-import dal.UserToCompanyDal;
+
 import dal.UserToCompanyDalImpl;
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.slf4j.Logger;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import pojo.*;
 import service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.*;
 

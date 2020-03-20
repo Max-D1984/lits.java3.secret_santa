@@ -41,12 +41,12 @@ public class UserDalImpl implements UserDal {
             preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where " + COLUMN_TABLE_NAME_ID + "=?");
             preparedStatement.setLong(1, id);
 
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString(COLUMN_TABLE_NAME_NAME);
-                Integer userId = rs.getInt(COLUMN_TABLE_NAME_ID);
-                String email = rs.getString(COLUMN_TABLE_NAME_EMAIL);
-                String passWord = rs.getString(COLUMN_TABLE_NAME_PASSWORD);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString(COLUMN_TABLE_NAME_NAME);
+                Integer userId = resultSet.getInt(COLUMN_TABLE_NAME_ID);
+                String email = resultSet.getString(COLUMN_TABLE_NAME_EMAIL);
+                String passWord = resultSet.getString(COLUMN_TABLE_NAME_PASSWORD);
                 user = new User(userId, name, email, passWord);
             }
             return user;
@@ -65,13 +65,13 @@ public class UserDalImpl implements UserDal {
             preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where " + COLUMN_TABLE_NAME_EMAIL + " =?");
             preparedStatement.setString(1, email);
 
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                String name  = rs.getString(COLUMN_TABLE_NAME_NAME);
-                Integer userId = rs.getInt(COLUMN_TABLE_NAME_ID);
-                String userEmail = rs.getString(COLUMN_TABLE_NAME_EMAIL);
-                String passWord = rs.getString(COLUMN_TABLE_NAME_PASSWORD);
-                user = new User(userId, name, email, passWord);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name  = resultSet.getString(COLUMN_TABLE_NAME_NAME);
+                Integer userId = resultSet.getInt(COLUMN_TABLE_NAME_ID);
+                String userEmail = resultSet.getString(COLUMN_TABLE_NAME_EMAIL);
+                String passWord = resultSet.getString(COLUMN_TABLE_NAME_PASSWORD);
+                user = new User(userId, name, userEmail, passWord);
             }
             return user;
         } catch (IOException | SQLException e) {

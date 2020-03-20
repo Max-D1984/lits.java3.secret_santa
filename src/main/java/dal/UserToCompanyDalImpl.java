@@ -2,7 +2,6 @@ package dal;
 
 import application.Driver;
 import model.UserResponse;
-import org.springframework.stereotype.Repository;
 import pojo.UserToCompany;
 
 
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-@Repository
+//@Repository
 public class UserToCompanyDalImpl implements UserToCompanyDal {
 
     private static final String TABLE_USER_TO_COMPANY_COLUMN_ID = "id";

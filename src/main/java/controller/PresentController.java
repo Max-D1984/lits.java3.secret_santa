@@ -1,10 +1,10 @@
 package controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Present;
 import service.PresentService;
+import service.PresentServiceImpl;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
@@ -16,9 +16,11 @@ import java.util.Optional;
 public class PresentController {
     //    private static Long userId =
 
-    @Autowired
-    private PresentService pres;
-    public PresentService getPres() {return pres;}
+    private PresentService pres = new PresentServiceImpl();
+
+//    @Autowired
+//    private PresentService pres;
+//    public PresentService getPres() {return pres;}
 
 //    @RequestMapping(
 //            value = "/my-present",

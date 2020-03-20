@@ -3,14 +3,9 @@ package controller;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import model.LoggedUserHobbyResponse;
-import model.MyWishListResponse;
-import model.LoggedUserPresentResponse;
-import model.LoggedUserWishListResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pojo.UserToHobby;
+
 
 
 import service.*;
@@ -28,12 +23,15 @@ public class WishListResponseController {
 
     private int loggedInUserId = 6;
 
-    @Autowired
-    public WishListService wishListService;
+    private WishListService wishListService = new WishListServiceImp();
 
-    public WishListService getWishListService() {
-        return wishListService;
-    }
+//    @Autowired
+//    public WishListService wishListService;
+//
+//    public WishListService getWishListService() {
+//        return wishListService;
+//    }
+
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     )

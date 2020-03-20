@@ -73,19 +73,12 @@ import io.swagger.annotations.ApiOperation;
 import model.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pojo.Present;
 import pojo.User;
-import pojo.UserToCompany;
 import service.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 
 @EnableSwagger2
 @RestController

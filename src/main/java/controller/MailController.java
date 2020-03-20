@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import model.UserResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -15,11 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import pojo.Company;
-import pojo.User;
 import pojo.UserToCompany;
-import service.CompanyService;
-import service.UserTargetService;
-import service.UserToCompanyService;
+import service.*;
 
 
 import javax.mail.*;
@@ -34,26 +30,31 @@ import java.util.*;
 
 public class MailController {
 
+    private CompanyService companyService = new CompanyServiceImpl();
+    private UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
+    private UserTargetService userTargetService = new UserTargetServiceImpl();
+
     private int loggedInUserId = 0;
 
-    @Autowired
-    private CompanyService companyService ;
-    @Autowired
-    private UserToCompanyService userToCompanyService;
-    @Autowired
-    private UserTargetService userTargetService;
+//    @Autowired
+//    private CompanyService companyService ;
+//    @Autowired
+//    private UserToCompanyService userToCompanyService;
+//    @Autowired
+//    private UserTargetService userTargetService;
+//
+//    public CompanyService getCompanyService() {
+//        return companyService;
+//    }
+//
+//    public UserToCompanyService getUserToCompanyService() {
+//        return userToCompanyService;
+//    }
+//
+//    public UserTargetService getUserTargetService() {
+//        return userTargetService;
+//    }
 
-    public CompanyService getCompanyService() {
-        return companyService;
-    }
-
-    public UserToCompanyService getUserToCompanyService() {
-        return userToCompanyService;
-    }
-
-    public UserTargetService getUserTargetService() {
-        return userTargetService;
-    }
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     )

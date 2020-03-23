@@ -38,7 +38,8 @@ dependencies {
 
 //    compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.11.3'
     // https://mvnrepository.com/artifact/com.github.jsimone/webapp-runner
-    providedCompile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.35.0'
+    compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.45.0'
+
 
 
 

@@ -3,15 +3,23 @@ package model;
 import java.util.Objects;
 
 public class LoggedUserPresentResponse {
+    private long presentId;
     private String name;
     private String url;
 
-    public LoggedUserPresentResponse(String name, String url) {
+
+    public LoggedUserPresentResponse(long presentId, String name, String url) {
+        this.presentId = presentId;
         this.name = name;
         this.url = url;
     }
 
-    public LoggedUserPresentResponse() {
+    public long getPresentId() {
+        return presentId;
+    }
+
+    public void setPresentId(long presentId) {
+        this.presentId = presentId;
     }
 
     public String getName() {
@@ -35,21 +43,22 @@ public class LoggedUserPresentResponse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoggedUserPresentResponse that = (LoggedUserPresentResponse) o;
-        return Objects.equals(name, that.name) &&
+        return presentId == that.presentId &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, url);
+        return Objects.hash(presentId, name, url);
     }
 
     @Override
     public String toString() {
-        return "UserWishList{" +
-                "name='" + name + '\'' +
+        return "LoggedUserPresentResponse{" +
+                "presentId=" + presentId +
+                ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }
-
 }

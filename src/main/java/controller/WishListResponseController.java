@@ -54,6 +54,9 @@ public class WishListResponseController {
         return ResponseEntity.of(Optional.of(wishListService.targetUserWishListResponse(targetUserId, loggedUserId)));
     }
 
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-wish-list",
             method = RequestMethod.PUT)
@@ -62,6 +65,9 @@ public class WishListResponseController {
         return ResponseEntity.of(Optional.of(getMyWishListList(loggedUserId)));
     }
 
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-wish-list",
             method = RequestMethod.DELETE)

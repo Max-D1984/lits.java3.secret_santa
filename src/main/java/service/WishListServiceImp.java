@@ -110,12 +110,13 @@ public class WishListServiceImp implements WishListService {
     }
 
     @Override
-    public void addPresentToWishlist(String presentName, String presentURl, int loggedUserId) {
-        try {
-            presentService.readIdByNameAndURL(presentName, presentURl);
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+    public void addPresentToWishlist(int loggedUserId, int presentId) {
+//        try {
+//            presentService.readIdByNameAndURL(presentName, presentURl);
+//        } catch (Exception ex) {
+//            System.out.println(ex);
+//        }
+        userToPresentService.create(new UserToPresent(0, loggedUserId, presentId,0));
     }
 
     @Override

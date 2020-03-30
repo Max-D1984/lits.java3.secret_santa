@@ -60,8 +60,8 @@ public class WishListResponseController {
     @RequestMapping(
             value = "/my-wish-list",
             method = RequestMethod.PUT)
-    public ResponseEntity putPresentToMyWishListList(@RequestParam String presentName, @RequestParam String presentURL, @RequestParam Integer loggedUserId) {
-        wishListService.addPresentToWishlist(presentName,presentURL,loggedUserId);
+    public ResponseEntity putPresentToMyWishListList(@RequestParam Integer loggedUserId, @RequestParam Integer presentId) {
+        wishListService.addPresentToWishlist(loggedUserId,presentId);
         return ResponseEntity.of(Optional.of(getMyWishListList(loggedUserId)));
     }
 

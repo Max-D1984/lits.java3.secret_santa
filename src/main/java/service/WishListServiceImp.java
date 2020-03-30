@@ -118,5 +118,10 @@ public class WishListServiceImp implements WishListService {
         }
     }
 
+    @Override
+    public void checkUncheckTargetPresent (int loggedUser, int targetUser, int presentId, boolean check){
+
+    }
+
 }
 

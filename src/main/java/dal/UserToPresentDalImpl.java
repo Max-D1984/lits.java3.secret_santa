@@ -21,11 +21,12 @@ public class UserToPresentDalImpl implements UserToPresentDal {
     private ResultSet resultSet;
     @Override
     public void create(UserToPresent userToPresent) {
-        String sql = "INSERT INTO " + TABLE_NAME + " (" + TABLE_USER_TO_PRESENT_COLUMN_USER_ID + ", " + TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID + ") VALUES(?,?)";
+        String sql = "INSERT INTO " + TABLE_NAME + " (" + TABLE_USER_TO_PRESENT_COLUMN_USER_ID + ", " + TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID + ", " + TABLE_USER_TO_PRESENT_COLUMN_USER_SANTA_ID + ") VALUES(?,?,?)";
         try{
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setInt(1,userToPresent.getUserId());
             preparedStatement.setInt(2,userToPresent.getPresentId());
+            preparedStatement.setInt(3,0);
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException ex) {
             ex.printStackTrace();
@@ -83,7 +84,17 @@ public class UserToPresentDalImpl implements UserToPresentDal {
 
     @Override
     public void update(int id, UserToPresent userToPresent) {
-        System.out.println("Complite this method");
+        String sql = "UPDATE " + TABLE_NAME + " SET "+ TABLE_USER_TO_PRESENT_COLUMN_USER_ID + "= ?, " + TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID + "= ?, " +
+                TABLE_USER_TO_PRESENT_COLUMN_USER_SANTA_ID + " =? WHERE id=" + id;
+        try{
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1,userToPresent.getUserId());
+            preparedStatement.setInt(2,userToPresent.getPresentId());
+            preparedStatement.setInt(3,userToPresent.getUser_santa_id());
+            preparedStatement.executeUpdate();
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
@@ -118,8 +129,20 @@ public class UserToPresentDalImpl implements UserToPresentDal {
         return userToPresentsById;
     }
 
-
-
+    @Override
+    public void updateSantaId(int userId, int presentId, int santaId) {
+        String sql = "UPDATE " + TABLE_NAME + " SET " + TABLE_USER_TO_PRESENT_COLUMN_USER_SANTA_ID + " =? WHERE " +
+                TABLE_USER_TO_PRESENT_COLUMN_USER_ID + "= ? AND " + TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID + "= ?";
+        try{
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1,santaId);
+            preparedStatement.setInt(2,userId);
+            preparedStatement.setInt(3,presentId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
 }

@@ -43,4 +43,9 @@ public class UserToPresentServiceImpl implements UserToPresentService {
     public List<MyWishListResponse> readPresentListById(int id) {
         return userToPresentDal.readPresentListById(id);
     }
+
+    @Override
+    public void setSantaIdInUserToPresent(int userId, int presentId, int santaId) {
+        userToPresentDal.updateSantaId(userId,presentId,santaId);
+    }
 }

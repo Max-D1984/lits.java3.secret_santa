@@ -99,7 +99,7 @@ public class UserToPresentDalImpl implements UserToPresentDal {
 
     @Override
     public void delete(int id) {
-        System.out.println("Complite this method");
+
     }
 
     @Override
@@ -138,6 +138,20 @@ public class UserToPresentDalImpl implements UserToPresentDal {
             preparedStatement.setInt(1,santaId);
             preparedStatement.setInt(2,userId);
             preparedStatement.setInt(3,presentId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteByPresentAndUser(int userId, int presentId) {
+        String sql = "DELETE FROM " + TABLE_NAME + " WHERE " +
+                TABLE_USER_TO_PRESENT_COLUMN_USER_ID + "= ? AND " + TABLE_USER_TO_PRESENT_COLUMN_PRESENT_ID + "= ?";
+        try{
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1,userId);
+            preparedStatement.setInt(2,presentId);
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException ex) {
             ex.printStackTrace();

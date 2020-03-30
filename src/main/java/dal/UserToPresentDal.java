@@ -15,4 +15,5 @@ public interface UserToPresentDal {
     List<UserToPresent> readList ();
     List<MyWishListResponse> readPresentListById(int id);
     void updateSantaId(int userId, int presentId, int santaId);
+    void deleteByPresentAndUser(int userId, int presentId);
 }

@@ -48,4 +48,9 @@ public class UserToPresentServiceImpl implements UserToPresentService {
     public void setSantaIdInUserToPresent(int userId, int presentId, int santaId) {
         userToPresentDal.updateSantaId(userId,presentId,santaId);
     }
+
+    @Override
+    public void deletePresentFromWhishlist(int userId, int presentId) {
+        userToPresentDal.deleteByPresentAndUser(userId, presentId);
+    }
 }

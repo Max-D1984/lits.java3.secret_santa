@@ -119,9 +119,10 @@ public class WishListServiceImp implements WishListService {
     }
 
     @Override
-    public void checkUncheckTargetPresent (int loggedUser, int targetUser, int presentId, boolean check){
-
+    public void deletePresentFromWishlist(int userId,int presentId) {
+userToPresentService.deletePresentFromWhishlist(userId,presentId);
     }
+
 
 }
 

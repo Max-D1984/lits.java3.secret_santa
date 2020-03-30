@@ -15,5 +15,5 @@ public interface UserToPresentService {
     List<UserToPresent> readList ();
     List<MyWishListResponse> readPresentListById(int id);
     void setSantaIdInUserToPresent(int userId, int presentId, int santaId);
-
+    void deletePresentFromWhishlist(int userId, int presentId);
 }

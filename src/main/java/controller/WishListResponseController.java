@@ -61,6 +61,14 @@ public class WishListResponseController {
         wishListService.addPresentToWishlist(presentName,presentURL,loggedUserId);
         return ResponseEntity.of(Optional.of(getMyWishListList(loggedUserId)));
     }
+
+    @RequestMapping(
+            value = "/my-wish-list",
+            method = RequestMethod.DELETE)
+    public ResponseEntity deletePresentToMyWishListList(@RequestParam Integer loggedUserId, @RequestParam Integer presentId) {
+        wishListService.deletePresentFromWishlist(loggedUserId, presentId);
+        return ResponseEntity.of(Optional.of(getMyWishListList(loggedUserId)));
+    }
 }
 
 

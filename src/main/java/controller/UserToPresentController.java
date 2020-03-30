@@ -24,24 +24,7 @@ import java.util.stream.Collectors;
 public class UserToPresentController {
     UserToPresentService userToPresentService = new UserToPresentServiceImpl();
 
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
-    )
-    @RequestMapping(
-            value = "/set-user-to-present",
-            method = RequestMethod.POST)
-    public ResponseEntity getUserToHobby(
-            @RequestParam Integer targetId, Integer presentId, Integer santaId, boolean check) {
-        Integer id;
-        if(check){
-            id= santaId;
-        }else{
-            id=0;
-        }
-        userToPresentService.setSantaIdInUserToPresent(targetId,presentId,id);
-        return ResponseEntity.of(Optional.of(List.of(userToPresentService.readPresentListById(id))));
 
-    }
 
 }
 

@@ -24,6 +24,7 @@ public class WishListResponseController {
     private int loggedInUserId = 6;
 
     private WishListService wishListService = new WishListServiceImp();
+    private UserToPresentService userToPresentService = new UserToPresentServiceImpl();
 
 //    @Autowired
 //    public WishListService wishListService;
@@ -74,6 +75,27 @@ public class WishListResponseController {
     public ResponseEntity deletePresentToMyWishListList(@RequestParam Integer loggedUserId, @RequestParam Integer presentId) {
         wishListService.deletePresentFromWishlist(loggedUserId, presentId);
         return ResponseEntity.of(Optional.of(getMyWishListList(loggedUserId)));
+    }
+
+    @ApiOperation("Метод який на вхід отримує id залогіненого юзера, id юзера для якого зологінений буде сантою, id подарунку, та параметр boolean\n"
+            + "в звлежності від якого подарунок буде вибраний(надіслано id залогіненого юзера) або не вибраний (відправлення 0)")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+    @RequestMapping(
+            value = "/check-present-by-santa",
+            method = RequestMethod.POST)
+    public ResponseEntity checkPresent(
+            @RequestParam Integer targetId, Integer presentId, Integer santaId, boolean check) {
+        Integer id;
+        if(check){
+            id= santaId;
+        }else{
+            id=0;
+        }
+        userToPresentService.setSantaIdInUserToPresent(targetId,presentId,id);
+        return ResponseEntity.of(Optional.of(List.of(userToPresentService.readPresentListById(id))));
+
     }
 }
 

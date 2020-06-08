@@ -11,7 +11,8 @@ public interface UserService {
     void createUser(User user);
 
     User readUser(long id);
-    User readUserByName(String name);
+    User readUserByEmail(String email);
+
 
     List<User> readUserList();
     void testUser();

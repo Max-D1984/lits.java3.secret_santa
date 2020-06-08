@@ -1,6 +1,5 @@
 package dal;
 
-import model.UserAndUserTargetId;
 
 import model.UserResponse;
 import pojo.UserToCompany;

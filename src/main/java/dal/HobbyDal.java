@@ -5,10 +5,10 @@ import pojo.Hobby;
 import java.util.List;
 
 public interface HobbyDal {
-    public Hobby read(long id);
-    public List<Hobby> readList();
-    public void createHobby(Hobby hobby);
-    public void update(Hobby hobby, String newName);
-    public void delete(Hobby hobby);
-    public List<Hobby> readListByHobbysId(List<Integer> id);
+    Hobby read(long id);
+    List<Hobby> readList();
+    void createHobby(Hobby hobby);
+    void update(Hobby hobby, String newName);
+    void delete(Hobby hobby);
+    List<Hobby> readListByHobbysId(List<Integer> id);
 }

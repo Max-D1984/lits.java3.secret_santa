@@ -3,12 +3,10 @@ package service;
 import dal.UserToPresentDal;
 import dal.UserToPresentDalImpl;
 import model.MyWishListResponse;
-import org.springframework.stereotype.Service;
 import pojo.UserToPresent;
-
 import java.util.List;
 
-@Service
+//@Service
 public class UserToPresentServiceImpl implements UserToPresentService {
     private UserToPresentDal userToPresentDal = new UserToPresentDalImpl();
     @Override
@@ -44,5 +42,15 @@ public class UserToPresentServiceImpl implements UserToPresentService {
     @Override
     public List<MyWishListResponse> readPresentListById(int id) {
         return userToPresentDal.readPresentListById(id);
+    }
+
+    @Override
+    public void setSantaIdInUserToPresent(int userId, int presentId, int santaId) {
+        userToPresentDal.updateSantaId(userId,presentId,santaId);
+    }
+
+    @Override
+    public void deletePresentFromWhishlist(int userId, int presentId) {
+        userToPresentDal.deleteByPresentAndUser(userId, presentId);
     }
 }

@@ -3,10 +3,10 @@ package service;
 
 import dal.RuleDal;
 import dal.RuleDalImpl;
-import org.springframework.stereotype.Service;
 import pojo.Rule;
 import java.util.List;
-@Service
+
+//@Service
 public class RuleServiceImpl implements RuleService {
     private  RuleDal ruleDal = new RuleDalImpl();
 

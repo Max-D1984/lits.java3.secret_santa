@@ -4,16 +4,13 @@ import application.Constants;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pojo.Company;
 import pojo.UserToCompany;
 
-import service.CompanyService;
-import service.UserToCompanyService;
-import service.UserService;
+import service.*;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -28,25 +25,31 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CompanyController {
 
+    private UserService userService = new UserServiceImpl();
+    private CompanyService companyService = new CompanyServiceImpl();
+    private UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private CompanyService companyService;
-    @Autowired
-    private UserToCompanyService userToCompanyService;
+//    @Autowired
+//    private UserService userService;
+//    @Autowired
+//    private CompanyService companyService;
+//    @Autowired
+//    private UserToCompanyService userToCompanyService;
+//
+//    public UserToCompanyService getUserToCompanyService() {
+//        return userToCompanyService;
+//    }
+//
+//    public CompanyService getCompanyService() {
+//        return companyService;
+//    }
+//
+//    public UserService getUserService() {
+//        return userService;
+//    }
 
-    public UserToCompanyService getUserToCompanyService() {
-        return userToCompanyService;
-    }
 
-    public CompanyService getCompanyService() {
-        return companyService;
-    }
 
-    public UserService getUserService() {
-        return userService;
-    }
     @ApiOperation("List of company for logged user")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")

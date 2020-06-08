@@ -13,14 +13,20 @@ import java.util.List;
 
 
 public class UserDalImpl implements UserDal {
+    public static final String COLUMN_TABLE_NAME_ID = "id";
+    public static final String COLUMN_TABLE_NAME_EMAIL = "email";
+    public static final String COLUMN_TABLE_NAME_NAME = "name";
+    public static final String COLUMN_TABLE_NAME_PASSWORD = "password";
     private ResultSet resultSet;
 
     @Override
     public void create(User user) {
-        String sql = "insert into [User] (name) values (?)";
+        String sql = "insert into [User] (" + COLUMN_TABLE_NAME_NAME + ", " + COLUMN_TABLE_NAME_EMAIL + ", " + COLUMN_TABLE_NAME_PASSWORD + ") values (?,?,?)";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassWord());
             preparedStatement.executeUpdate();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -32,15 +38,15 @@ public class UserDalImpl implements UserDal {
         User user = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where id=?");
+            preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where " + COLUMN_TABLE_NAME_ID + "=?");
             preparedStatement.setLong(1, id);
 
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString("name");
-                Integer userId = rs.getInt("id");
-                String email = rs.getString("email");
-                String passWord = rs.getString("password");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name = resultSet.getString(COLUMN_TABLE_NAME_NAME);
+                Integer userId = resultSet.getInt(COLUMN_TABLE_NAME_ID);
+                String email = resultSet.getString(COLUMN_TABLE_NAME_EMAIL);
+                String passWord = resultSet.getString(COLUMN_TABLE_NAME_PASSWORD);
                 user = new User(userId, name, email, passWord);
             }
             return user;
@@ -52,20 +58,20 @@ public class UserDalImpl implements UserDal {
     }
 
     @Override
-    public User readUserByName(String name) {
+    public User readUserByEmail(String email) {
         User user = null;
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where name=?");
-            preparedStatement.setString(1, name);
+            preparedStatement = Driver.getConnection().prepareStatement("select * from [user] where " + COLUMN_TABLE_NAME_EMAIL + " =?");
+            preparedStatement.setString(1, email);
 
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                String userName  = rs.getString("name");
-                Integer userId = rs.getInt("id");
-                String email = rs.getString("email");
-                String passWord = rs.getString("password");
-                user = new User(userId, name, email, passWord);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String name  = resultSet.getString(COLUMN_TABLE_NAME_NAME);
+                Integer userId = resultSet.getInt(COLUMN_TABLE_NAME_ID);
+                String userEmail = resultSet.getString(COLUMN_TABLE_NAME_EMAIL);
+                String passWord = resultSet.getString(COLUMN_TABLE_NAME_PASSWORD);
+                user = new User(userId, name, userEmail, passWord);
             }
             return user;
         } catch (IOException | SQLException e) {
@@ -75,9 +81,10 @@ public class UserDalImpl implements UserDal {
 
     }
 
+
     @Override
     public void update(User user, User newUser) {
-        String sql = "UPDATE [user] SET name=?, email=?, password=? WHERE id=?";
+        String sql = "UPDATE [user] SET " + COLUMN_TABLE_NAME_NAME + "=?, " + COLUMN_TABLE_NAME_EMAIL + "=?, " + COLUMN_TABLE_NAME_PASSWORD + "=? WHERE " + COLUMN_TABLE_NAME_ID + "=?";
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, newUser.getUserName());
@@ -94,7 +101,7 @@ public class UserDalImpl implements UserDal {
     @Override
     public void delete(User user) {
         try {
-            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement("delete from [user] where id=?");
+            PreparedStatement preparedStatement = Driver.getConnection().prepareStatement("delete from [user] where " + COLUMN_TABLE_NAME_ID + "=?");
             preparedStatement.setLong(1, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -112,10 +119,10 @@ public class UserDalImpl implements UserDal {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement("select * from [User]");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                String name = rs.getString("name");
-                Integer userId = rs.getInt("id");
-                String email = rs.getString("email");
-                String passWord = rs.getString("password");
+                String name = rs.getString(COLUMN_TABLE_NAME_NAME);
+                Integer userId = rs.getInt(COLUMN_TABLE_NAME_ID);
+                String email = rs.getString(COLUMN_TABLE_NAME_EMAIL);
+                String passWord = rs.getString(COLUMN_TABLE_NAME_PASSWORD);
                 userList.add(new User(userId, name, email, passWord));
             }
             return userList;
@@ -144,11 +151,11 @@ public class UserDalImpl implements UserDal {
 List<String> namesOfUsers = new LinkedList<>();
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(
-                    "select name from [user] where id in ("+strId+")"
+                    "select " + COLUMN_TABLE_NAME_NAME + " from [user] where " + COLUMN_TABLE_NAME_ID + " in (" +strId+")"
             );
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                String name = rs.getString("name");
+                String name = rs.getString(COLUMN_TABLE_NAME_NAME);
                 namesOfUsers.add(name);
             }
             return namesOfUsers;
@@ -173,15 +180,15 @@ List<String> namesOfUsers = new LinkedList<>();
 
         try {
             PreparedStatement preparedStatement = Driver.getConnection().prepareStatement(
-                    "select user_id, company_id from user_to_company where " +
-                            "user_id in ("+ stringOfTargetsId+")" +
+                    "select user_" + COLUMN_TABLE_NAME_ID + ", company_id from user_to_company where " +
+                            "user_" + COLUMN_TABLE_NAME_ID + " in (" + stringOfTargetsId+")" +
                             "and " +
-                            "company_id in ("+stringOfCompanysId+")"
+                            "company_" + COLUMN_TABLE_NAME_ID + " in (" +stringOfCompanysId+")"
             );
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Integer name = rs.getInt("user_id");
-                Integer company = rs.getInt("company_id");
+                Integer name = rs.getInt("user_" + COLUMN_TABLE_NAME_ID);
+                Integer company = rs.getInt("company_" + COLUMN_TABLE_NAME_ID);
 
                 namesOfUsers.add(new TargetUserIdAndCompanyId(name, company));
             }

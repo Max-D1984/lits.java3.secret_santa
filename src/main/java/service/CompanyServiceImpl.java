@@ -2,11 +2,10 @@ package service;
 
 import dal.CompanyDal;
 import dal.CompanyDalImpl;
-import org.springframework.stereotype.Service;
 import pojo.Company;
 import java.util.List;
 
-@Service
+//@Service
 public class CompanyServiceImpl implements CompanyService {
     private CompanyDal companyDal = new CompanyDalImpl();
 

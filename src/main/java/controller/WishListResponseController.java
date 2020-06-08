@@ -2,14 +2,10 @@ package controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import model.LoggedUserHobbyResponse;
-import model.MyWishListResponse;
-import model.LoggedUserPresentResponse;
-import model.LoggedUserWishListResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pojo.UserToHobby;
+
 
 
 import service.*;
@@ -27,12 +23,16 @@ public class WishListResponseController {
 
     private int loggedInUserId = 6;
 
-    @Autowired
-    public WishListService wishListService;
+    private WishListService wishListService = new WishListServiceImp();
+    private UserToPresentService userToPresentService = new UserToPresentServiceImpl();
 
-    public WishListService getWishListService() {
-        return wishListService;
-    }
+//    @Autowired
+//    public WishListService wishListService;
+//
+//    public WishListService getWishListService() {
+//        return wishListService;
+//    }
+
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     )
@@ -42,7 +42,9 @@ public class WishListResponseController {
     public ResponseEntity getMyWishListList(@RequestParam Integer loggedUserId) {
         return ResponseEntity.of(Optional.of(wishListService.loggeUserWishListResponse(loggedUserId)));
     }
-
+    @ApiOperation("Метод показує нам як зареєстрованому юзеру wishList вибраного нами таргета. \n " +
+            "Однак, якщо з цього списку хтось вже вибрав подарунок з іншої компанії, то для нас вибрані подарунки іншими юзерами не відображаються \n" +
+            "Якщо ми вибрали якийсь подарунок, то буде передано в списку статус вибрано")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     )
@@ -53,12 +55,47 @@ public class WishListResponseController {
         return ResponseEntity.of(Optional.of(wishListService.targetUserWishListResponse(targetUserId, loggedUserId)));
     }
 
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
     @RequestMapping(
             value = "/my-wish-list",
             method = RequestMethod.PUT)
-    public ResponseEntity putPresentToMyWishListList(@RequestParam String presentName, @RequestParam String presentURL, @RequestParam Integer loggedUserId) {
-        wishListService.addPresentToWishlist(presentName,presentURL,loggedUserId);
+    public ResponseEntity putPresentToMyWishListList(@RequestParam Integer loggedUserId, @RequestParam Integer presentId) {
+        wishListService.addPresentToWishlist(loggedUserId,presentId);
         return ResponseEntity.of(Optional.of(getMyWishListList(loggedUserId)));
+    }
+
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+    @RequestMapping(
+            value = "/my-wish-list",
+            method = RequestMethod.DELETE)
+    public ResponseEntity deletePresentToMyWishListList(@RequestParam Integer loggedUserId, @RequestParam Integer presentId) {
+        wishListService.deletePresentFromWishlist(loggedUserId, presentId);
+        return ResponseEntity.of(Optional.of(getMyWishListList(loggedUserId)));
+    }
+
+    @ApiOperation("Метод який на вхід отримує id залогіненого юзера, id юзера для якого зологінений буде сантою, id подарунку, та параметр boolean\n"
+            + "в звлежності від якого подарунок буде вибраний(надіслано id залогіненого юзера) або не вибраний (відправлення 0)")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+    @RequestMapping(
+            value = "/check-present-by-santa",
+            method = RequestMethod.POST)
+    public ResponseEntity checkPresent(
+            @RequestParam Integer targetId, Integer presentId, Integer santaId, boolean check) {
+        Integer id;
+        if(check){
+            id= santaId;
+        }else{
+            id=0;
+        }
+        userToPresentService.setSantaIdInUserToPresent(targetId,presentId,id);
+        return ResponseEntity.of(Optional.of(List.of(userToPresentService.readPresentListById(id))));
+
     }
 }
 

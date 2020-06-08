@@ -1,7 +1,6 @@
 package dal;
 
 import application.Driver;
-import org.springframework.stereotype.Repository;
 import pojo.UserToHobby;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-@Repository
+//@Repository
 public class UserToHobbyDalImpl implements UserToHobbyDal {
 
     public static final String TABLE_USER_TO_HOBBY_COLUMN_USER_ID = "user_id";
@@ -48,7 +47,7 @@ public class UserToHobbyDalImpl implements UserToHobbyDal {
 
     @Override
     public List<UserToHobby> readList() {
-        List<UserToHobby> userToHobby = new LinkedList<UserToHobby>();
+        List<UserToHobby> userToHobby = new LinkedList<>();
         String sql = "select " + TABLE_USER_TO_HOBBY_COLUMN_ID + ", " + TABLE_USER_TO_HOBBY_COLUMN_USER_ID + ", "
                 + TABLE_USER_TO_HOBBY_COLUMN_HOBBY_ID + " from [user_to_hobby]";
         try {

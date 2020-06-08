@@ -3,11 +3,11 @@ package controller;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Hobby;
 import service.HobbyService;
+import service.HobbyServiceImpl;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
@@ -17,11 +17,15 @@ import java.util.Optional;
 @RequestMapping(value = "/hobby")
 
 public class HobbyController {
-   @Autowired
-    private HobbyService hobbyService;
-    public HobbyService getHobbyService() {
-        return hobbyService;
-    }
+
+    private HobbyService hobbyService = new HobbyServiceImpl();
+
+//   @Autowired
+//    private HobbyService hobbyService;
+//    public HobbyService getHobbyService() {
+//        return hobbyService;
+//    }
+
     @ApiOperation("Read hobby by hobby id")
     @ApiImplicitParams(
             @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")

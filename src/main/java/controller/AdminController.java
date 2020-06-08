@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 @EnableSwagger2
@@ -32,26 +40,28 @@ public class AdminController {
 
     UserService userService = new UserServiceImpl();
     UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
-    private int loggedInUserId = 1;
-    private String loggedInUserName;
+
+    private long loggedInUserId;
+
 
     @ApiOperation("Admin of company can set another member to admin")
     @ApiImplicitParams(
-            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     )
+
+
     @RequestMapping(
             value = "/set-admin",
             method = RequestMethod.PUT)
     public ResponseEntity setAdmin(
+            HttpServletRequest httpServletRequest,
             @RequestParam Integer company_id,
             @RequestParam Integer user_id) {
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
-        String username = ((UserDetails) principal).getUsername();
-
-        loggedInUserName = (userService.readUserByName(username)).;
-
+        loggedInUserId = (userService.readUserByEmail (userDetail.getUsername())).getId();
 
 
         List<UserToCompany> userToCompanyList = userToCompanyService.readListByCompanyId(company_id);
@@ -67,5 +77,5 @@ public class AdminController {
         }
         return ResponseEntity.of(Optional.of("Admin was NOT set"));
     }
-}
+    }
 

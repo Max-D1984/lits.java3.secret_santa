@@ -44,6 +44,7 @@ public class UserToCompany {
 
     //НЕприватний конструктор без параметрів
     public UserToCompany() {
+
     }
 
     public UserToCompany(int id, int user_id, int company_id, String role) {

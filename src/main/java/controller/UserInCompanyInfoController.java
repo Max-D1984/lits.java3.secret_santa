@@ -1,5 +1,7 @@
 package controller;
 
+import application.Constants;
+import configuration.JwtResponse;
 import dal.*;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pojo.User;
+import pojo.UserToCompany;
 import service.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -69,5 +73,25 @@ public class UserInCompanyInfoController {
         return ResponseEntity.of(Optional.of(List.of(
                 userNamesOfCompany)));
     }
-}
 
+
+    @RequestMapping(
+            value = "/user-of-current-company",
+            method = RequestMethod.GET)
+    public ResponseEntity getUsersOfCurrentCompany(@RequestParam int company_id, @RequestParam String email ) {
+        UserService userService = new UserServiceImpl();
+        UserToCompanyService userToCompanyService = new UserToCompanyServiceImpl();
+        UserToCompany userToCompany = new UserToCompany();
+        userToCompany.setCompany_id(company_id);
+        userToCompany.setRole("user");
+        User user = userService.readUserByEmail(email);
+
+        userToCompany.setUser_id(user.getId());
+        userToCompanyService.createUserToCompany(userToCompany);
+
+        return ResponseEntity.ok("OK");
+
+    }
+
+
+}

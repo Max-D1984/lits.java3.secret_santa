@@ -76,7 +76,7 @@ public class UserInCompanyInfoController {
 
 
     @RequestMapping(
-            value = "/user-of-current-company",
+            value = "/user-of-defined-company",
             method = RequestMethod.GET)
     public ResponseEntity getUsersOfCurrentCompany(@RequestParam int company_id, @RequestParam String email ) {
         UserService userService = new UserServiceImpl();

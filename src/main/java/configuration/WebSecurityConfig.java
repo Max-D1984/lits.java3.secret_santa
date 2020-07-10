@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 
@@ -60,7 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate",
+                .antMatchers("/define-santas",
+                        "/user/login",
+                        "/user/save-user",
+                        "/authenticate",
                         "/swagger-ui.html/*",
                         "/v2/api-docs",
                         "/swagger-resources",
@@ -69,14 +73,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/swagger-ui.html**",
                         "/webjars/**",
-                        "favicon.ico",
-                        "/user/save-user")
+                        "favicon.ico")
                 .permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling()
+                .defaultAuthenticationEntryPointFor(jwtAuthenticationEntryPoint,
+                        new CustomRequestMatcher(AUTH_LIST))
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        httpSecurity.cors();
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
+    private static final List<String> AUTH_LIST = Arrays.asList(
+            "/swagger-resources/**",
+            "/swagger-ui.html**",
+            "/webjars/**",
+            "favicon.ico");
+
+    @Bean
+    public BasicAuthenticationEntryPoint swaggerAuthenticationEntryPoint() {
+        BasicAuthenticationEntryPoint entryPoint = new BasicAuthenticationEntryPoint();
+        entryPoint.setRealmName("Swagger Realm");
+        return entryPoint;
+    }
+
+    private class CustomRequestMatcher implements RequestMatcher {
+
+        private List<AntPathRequestMatcher> matchers;
+
+        private CustomRequestMatcher(List<String> matchers) {
+            this.matchers = matchers.stream().map(AntPathRequestMatcher::new).collect(Collectors.toList());
+        }
+
+        @Override
+        public boolean matches(HttpServletRequest request) {
+            return matchers.stream().anyMatch(a -> a.matches(request));
+        }
+    }
 }

@@ -88,9 +88,9 @@ public class CompanyController {
                 companyService.readCompanyList()));
     }
     @ApiOperation("Create new company")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
-    )
+//    @ApiImplicitParams(
+//            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+//    )
     @RequestMapping(
             value = "/company",
             method = RequestMethod.POST)
@@ -111,9 +111,9 @@ public class CompanyController {
     }
 
     @ApiOperation("Create new company(test)")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
-    )
+//    @ApiImplicitParams(
+//            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+//    )
     @RequestMapping(
             value = "/companytest",
             method = RequestMethod.POST)

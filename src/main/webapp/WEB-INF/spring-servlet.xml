@@ -71,4 +71,6 @@
 <!--    </bean>-->
     <bean name="webSecurityConfig" class="configuration.WebSecurityConfig" />
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+    <bean id="UserDetailsService" class="service.UserDetailsServiceImpl" />
 </beans>
+

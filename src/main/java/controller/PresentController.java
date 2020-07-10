@@ -1,5 +1,7 @@
 package controller;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pojo.Present;
@@ -30,18 +32,22 @@ public class PresentController {
         return ResponseEntity.of(Optional.of(
               pres.readPresent(id)));
     }
-
-//    @RequestMapping(
-//            value = "/my-present/list",
-//            method = RequestMethod.GET)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+  @RequestMapping(
+            value = "/my-present/list",
+           method = RequestMethod.GET)
     public ResponseEntity presentListList() {
         return ResponseEntity.of(Optional.of(List.of(
                 pres.readList())));
     }
-
-//    @RequestMapping(
-//            value = "/present",
-//            method = RequestMethod.POST)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+   @RequestMapping(
+           value = "/present",
+          method = RequestMethod.POST)
     public ResponseEntity postPresentList(@RequestParam String name, String url){
         Present newPresent = new Present(1,name, url);
         pres.createPresent(newPresent);
@@ -57,13 +63,15 @@ public class PresentController {
         pres.updatePresent(pres.readPresent(id), newName,newUrl);
         return ResponseEntity.of(Optional.of( "Update present" + newName + newUrl));
     }
-
-//    @RequestMapping(
-//            value = "/present",
-//            method = RequestMethod.DELETE)
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    )
+    @RequestMapping(
+            value = "/present",
+            method = RequestMethod.DELETE)
     public ResponseEntity deletePresentList(
             @RequestParam Integer id) {
-        Present deletedPresent = pres.readPresent(1);
+        Present deletedPresent = pres.readPresent(id);
         pres.deletePresent(deletedPresent);
         return ResponseEntity.of(Optional.of(
                 "Deleted present "+ deletedPresent));

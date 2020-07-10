@@ -1,7 +1,10 @@
 package configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,11 +14,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+
+
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
+    //private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -43,10 +48,10 @@ public class JwtAuthenticationController {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
-		    logger.error(e.getMessage(),e);
+		    //logger.error(e.getMessage(),e);
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
-            logger.error(e.getMessage(),e);
+          //  logger.error(e.getMessage(),e);
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}

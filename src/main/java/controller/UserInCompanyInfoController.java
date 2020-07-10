@@ -21,9 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-@EnableSwagger2
-@RestController
-@RequestMapping(value = "/user-in-company-info")
+//@EnableSwagger2
+//@RestController
+//@RequestMapping(value = "/user-in-company-info")
 public class UserInCompanyInfoController {
 
     @ApiOperation("Information for company page")

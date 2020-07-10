@@ -97,9 +97,9 @@ public class MailController {
     }
 
     @ApiOperation("Send email to user with invitation to company")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
-    )
+//    @ApiImplicitParams(
+//            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+//    )
     @RequestMapping(
             value = "/mail-to-user",
             method = RequestMethod.GET)
@@ -172,9 +172,9 @@ public class MailController {
     }
 
     @ApiOperation("Generate user->target of user and send email with list of couple user->target")
-    @ApiImplicitParams(
-            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
-    )
+//    @ApiImplicitParams(
+//            @ApiImplicitParam(name = "Authorization", value = "Access Token", required = true, allowEmptyValue = false, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+//    )
     @RequestMapping(
             value = "/define-santas",
             method = RequestMethod.GET)
